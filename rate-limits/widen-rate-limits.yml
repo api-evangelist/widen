@@ -1,0 +1,54 @@
+name: Widen Rate Limits
+description: Rate limiting policies for the Acquia DAM (formerly Widen Collective) REST API v1 and v2.
+url: https://docs.acquia.com/blog/update-api-rate-limits
+reference: https://docs.acquia.com/acquia-dam/api-faqs
+
+limits:
+  - name: Request Rate Limit
+    description: Maximum number of API requests allowed per second across all endpoints.
+    limit: 50
+    unit: requests per second
+    scope: account
+    error_code: 429
+    error_message: Too Many Requests
+    notes: The rate limit was increased from 10 to 50 requests per second. Both API v1 and v2 share the same rate limit.
+
+  - name: Concurrent Upload Limit
+    description: Maximum number of concurrent chunked asset upload operations allowed.
+    limit: 40
+    unit: concurrent uploads
+    scope: account
+    notes: Increased from a previous limit of 10 concurrent uploads. Applies to chunked upload endpoint only.
+
+  - name: Monthly API Call Threshold
+    description: Soft threshold for monthly API call volume. Customers exceeding this are subject to overage charges.
+    limit: 500000
+    unit: API calls per month
+    scope: account
+    notes: Native integrations (Drupal Cloud, WordPress plugin, Zapier, and similar) do not count toward this threshold.
+
+headers:
+  - name: X-Ratelimit-Limit
+    description: Shows the enforced rate limit for the current request
+    example: "50/second"
+  - name: X-Ratelimit-Remaining
+    description: Displays how many requests remain in the current rate limit window
+    example: "49"
+  - name: X-Ratelimit-Reset
+    description: ISO-8601 timestamp indicating when the next successful call can be made; returned only when rate limit is exceeded
+    example: "2026-06-13T12:00:01Z"
+
+authentication:
+  - type: Bearer Token
+    description: Personal access tokens issued from Admin > Global Settings > API Setup within the Acquia DAM application. Associated with a specific account in the DAM.
+    header: Authorization
+    format: "Bearer {access_token}"
+  - type: OAuth 2.0
+    description: OAuth 2.0 flow requiring client ID and secret for token generation.
+    token_expiry: 8 hours
+    refresh_token_expiry: 6 months of non-use
+
+handling:
+  retry: true
+  strategy: Wait and retry after receiving a 429 response. The X-Ratelimit-Reset header indicates when to resume.
+  backoff: Check X-Ratelimit-Reset header for exact reset time.

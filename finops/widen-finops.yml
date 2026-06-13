@@ -1,0 +1,61 @@
+name: Widen FinOps
+description: Financial operations guidance for managing costs associated with the Acquia DAM (formerly Widen Collective) REST API. Pricing is custom and enterprise-negotiated; all cost estimates are based on industry reporting.
+url: https://www.acquia.com/products/acquia-dam
+
+cost_model:
+  type: annual subscription
+  public_pricing: false
+  billing_cycle: annual
+  notes: Acquia DAM uses custom enterprise pricing. Contact Acquia sales for a quote. Industry estimates place annual costs between $30,000 and $500,000+ depending on plan, users, storage, and add-ons.
+
+plans:
+  - name: Workgroup
+    users: up to 50
+    storage: 1 TB
+    estimated_annual_cost_usd: "30000-100000"
+    notes: Entry-level plan. Includes REST API access.
+
+  - name: Enterprise
+    users: unlimited
+    storage: 10 TB
+    estimated_annual_cost_usd: "100000-500000+"
+    notes: Full-featured plan with unlimited REST API access and advanced analytics.
+
+  - name: DAM + PIM
+    users: up to 50
+    storage: 1 TB
+    estimated_annual_cost_usd: "50000-150000"
+    notes: Combined DAM and PIM capabilities. Includes REST API access.
+
+api_cost_drivers:
+  - name: Monthly API Call Volume
+    description: Customers exceeding 500,000 API calls per month are subject to overage charges. Design integrations to stay within this threshold or budget for overages.
+    threshold: 500000
+    unit: calls per month
+    recommendation: Monitor API usage via response headers (X-Ratelimit-Remaining) and implement caching to reduce call volume.
+
+  - name: Storage
+    description: Storage costs scale with plan. Storing large video assets, high-resolution images, or raw files increases storage consumption, which may require plan upgrades.
+    recommendation: Implement asset lifecycle policies to archive or delete unused assets.
+
+  - name: Add-On Modules
+    description: Optional add-ons (Entries, Templates, Workflow, Portals, Syndicate, Video Creator) carry additional licensing costs layered on top of base plan pricing.
+    recommendation: Audit add-on usage regularly to ensure only actively used modules are licensed.
+
+  - name: User Seats (Workgroup / DAM+PIM)
+    description: Workgroup and DAM+PIM plans cap at 50 users. Exceeding this limit requires upgrading to Enterprise.
+    recommendation: Audit user accounts regularly; remove inactive users to avoid forced plan upgrades.
+
+optimization_recommendations:
+  - Implement client-side caching for frequently accessed asset metadata to reduce API call volume.
+  - Use webhooks instead of polling to detect asset changes, reducing unnecessary API calls.
+  - Prefer native integrations (Drupal Cloud, WordPress plugin, Zapier) where possible, as these do not count against the 500,000 monthly API call threshold.
+  - Batch metadata updates rather than calling the API per-asset when processing large asset collections.
+  - Use chunked upload endpoint efficiently; limit concurrency to below the 40-upload ceiling to avoid 429 errors that waste retry calls.
+  - Negotiate multi-year contracts with Acquia for discounts on enterprise plans.
+  - Monitor X-Ratelimit-Remaining headers to detect approaching limits before incurring overages.
+
+cost_visibility:
+  - Review API call volumes in the Acquia DAM admin analytics dashboard.
+  - Request monthly usage reports from Acquia account management to track trends against the 500,000 call threshold.
+  - Establish internal cost allocation by API consumer or integration to identify high-volume sources.

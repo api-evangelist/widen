@@ -1,0 +1,82 @@
+name: Widen Plans and Pricing
+description: Acquia DAM (formerly Widen Collective) subscription plans for digital asset management. Pricing is custom and not publicly listed; all figures are industry estimates. Contact Acquia for an official quote.
+url: https://www.acquia.com/products/acquia-dam
+plans:
+  - name: Workgroup
+    description: Core DAM plan for teams up to 50 users with 1 TB storage. Includes REST API access, personalized dashboards, AI-powered metadata, unlimited standard portals, and enterprise security.
+    users: 50
+    storage: 1 TB
+    features:
+      - REST API access
+      - AI-powered metadata
+      - Personalized dashboards
+      - Unlimited standard portals
+      - Enterprise security
+      - Single Sign-On (SSO)
+      - Webhooks
+      - Asset search and discovery
+      - Embed codes and asset distribution
+    pricing:
+      model: annual subscription
+      public: false
+      notes: Contact Acquia for pricing. Industry estimates range from $30,000 to $500,000+ per year depending on size and features.
+
+  - name: Enterprise
+    description: Full-featured DAM plan with unlimited users and 10 TB storage. Includes all Workgroup features plus unlimited REST API access, advanced analytics, archiving, and enhanced enterprise security.
+    users: unlimited
+    storage: 10 TB
+    features:
+      - Unlimited REST API access
+      - AI-powered metadata
+      - Advanced data metrics and analytics
+      - Archiving
+      - Enterprise security
+      - Single Sign-On (SSO)
+      - Webhooks
+      - Asset search and discovery
+      - Embed codes and asset distribution
+      - Personalized dashboards
+      - Unlimited standard portals
+    pricing:
+      model: annual subscription
+      public: false
+      notes: Contact Acquia for pricing. Industry estimates range from $30,000 to $500,000+ per year depending on size and features.
+
+  - name: DAM + PIM
+    description: Combined Digital Asset Management and Product Information Management plan for companies managing both product data and product content. Supports up to 50 users with 1 TB storage.
+    users: 50
+    storage: 1 TB
+    features:
+      - REST API access
+      - AI-powered metadata
+      - Product data modeling
+      - Channel distribution
+      - Unlimited standard portals
+      - Enterprise security
+      - Single Sign-On (SSO)
+      - Webhooks
+      - Asset search and discovery
+      - Embed codes and asset distribution
+    pricing:
+      model: annual subscription
+      public: false
+      notes: Contact Acquia for pricing. Industry estimates range from $30,000 to $500,000+ per year depending on size and features.
+
+add_ons:
+  - name: Entries
+    description: Structured content entry forms for metadata management
+  - name: Templates
+    description: Branded template creation and distribution
+  - name: Workflow
+    description: Asset review and approval workflow management
+  - name: Portals
+    description: Custom branded portals for asset distribution
+  - name: Syndicate
+    description: Automated content distribution to downstream systems
+  - name: Video Creator
+    description: In-platform video editing and creation tools
+
+api_overage:
+  threshold: 500000
+  unit: API calls per month
+  notes: Customers making more than 500,000 API calls per month will need to pay for overages. Native integrations (Drupal Cloud, WordPress plugin, Zapier, etc.) do not count toward this usage limit.
