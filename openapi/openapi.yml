@@ -1,0 +1,3900 @@
+openapi: 3.0.3
+info:
+  title: Acquia DAM (Widen) API
+  description: >
+    Acquia Digital Asset Management (formerly Widen Collective) provides REST
+    APIs for managing digital assets, metadata, collections, embed codes, and
+    asset distribution workflows. The API supports asset search and discovery,
+    metadata management, analytics, orders, products, webhooks, and workflow
+    automation across both v1 and v2 endpoints.
+  version: "2.0"
+  contact:
+    name: Acquia Support
+    url: https://acquia.my.site.com/s/
+  x-api-id: acquia-dam
+  license:
+    name: Proprietary
+servers:
+  - url: https://api.widencollective.com/v2
+    description: Acquia DAM API v2
+  - url: https://api.widencollective.com/v1
+    description: Acquia DAM API v1 (legacy)
+externalDocs:
+  description: Acquia DAM API v2 Documentation
+  url: https://docs.acquia.com/acquia-dam/api-v2
+security:
+  - bearerAuth: []
+tags:
+  - name: Analytics
+    description: Asset download, share, and view analytics endpoints.
+  - name: Assets
+    description: Create, retrieve, update, delete, and search digital assets.
+  - name: Attributes
+    description: List product attributes and controlled vocabulary values.
+  - name: Categories
+    description: Manage asset categories and category trees.
+  - name: Channels
+    description: List product channels.
+  - name: Collections
+    description: Create and list asset collections.
+  - name: File-Formats
+    description: List recognized file formats.
+  - name: Integration-Links
+    description: Register and remove integration links on assets.
+  - name: Metadata
+    description: Manage metadata fields and controlled vocabulary values.
+  - name: Orders
+    description: Create and manage asset orders and conversions.
+  - name: Products
+    description: Create, retrieve, update, and search products (Acquia Entries).
+  - name: Search-Connector
+    description: Instant Search Connector integration URL.
+  - name: Usage
+    description: API usage summary.
+  - name: Users
+    description: Retrieve user and contact information.
+  - name: Acquia-DAM-Webhooks
+    description: Create, list, retrieve, edit, ping, and delete DAM asset webhooks.
+  - name: Workflow-Webhooks
+    description: Create, list, and delete workflow webhooks.
+  - name: Workflow-App-Projects
+    description: Manage workflow projects and deliverables.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth2 Bearer token obtained from Acquia DAM.
+  schemas:
+    # ── Shared / utility ──────────────────────────────────────────
+    PaginatedList:
+      type: object
+      properties:
+        item_type:
+          type: string
+        total_count:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+
+    # ── Analytics ─────────────────────────────────────────────────
+    AnalyticsRequestBody:
+      type: object
+      required:
+        - filters
+      properties:
+        filters:
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/AssetFilter'
+              - $ref: '#/components/schemas/DateRangeFilter'
+        limit:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 100
+        pagination_token:
+          type: string
+          nullable: true
+
+    AssetFilter:
+      type: object
+      required:
+        - id
+        - type
+      properties:
+        id:
+          type: string
+          description: Asset UUID
+        type:
+          type: string
+          enum: [asset]
+
+    DateRangeFilter:
+      type: object
+      required:
+        - start
+        - end
+        - type
+      properties:
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        type:
+          type: string
+          enum: [date_range]
+
+    UserProperties:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+
+    AssetProperties:
+      type: object
+      properties:
+        id:
+          type: string
+
+    FileProperties:
+      type: object
+      properties:
+        file_type:
+          type: string
+        format:
+          type: string
+        size_in_bytes:
+          type: integer
+
+    ConversionProperties:
+      type: object
+      properties:
+        output_file_format:
+          type: string
+          nullable: true
+        output_file_type:
+          type: string
+          nullable: true
+
+    IntendedUseProperties:
+      type: object
+      properties:
+        value:
+          type: string
+          nullable: true
+
+    DownloadAssetEvent:
+      type: object
+      properties:
+        asset_properties:
+          $ref: '#/components/schemas/AssetProperties'
+        conversion_properties:
+          $ref: '#/components/schemas/ConversionProperties'
+        file_properties:
+          $ref: '#/components/schemas/FileProperties'
+        intended_use_properties:
+          $ref: '#/components/schemas/IntendedUseProperties'
+        referrer:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        user_properties:
+          $ref: '#/components/schemas/UserProperties'
+
+    ShareAssetEvent:
+      type: object
+      properties:
+        asset_properties:
+          $ref: '#/components/schemas/AssetProperties'
+        referrer:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        user_properties:
+          $ref: '#/components/schemas/UserProperties'
+
+    ViewAssetEvent:
+      type: object
+      properties:
+        asset_properties:
+          $ref: '#/components/schemas/AssetProperties'
+        file_properties:
+          $ref: '#/components/schemas/FileProperties'
+        intended_use_properties:
+          $ref: '#/components/schemas/IntendedUseProperties'
+        referrer:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        user_properties:
+          $ref: '#/components/schemas/UserProperties'
+
+    ListAssetDownloadsResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DownloadAssetEvent'
+        pagination_token:
+          type: string
+          nullable: true
+        total_count:
+          type: integer
+
+    ListAssetSharesResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShareAssetEvent'
+        pagination_token:
+          type: string
+          nullable: true
+        total_count:
+          type: integer
+
+    ListAssetViewsResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewAssetEvent'
+        pagination_token:
+          type: string
+          nullable: true
+        total_count:
+          type: integer
+
+    # ── Assets ────────────────────────────────────────────────────
+    Thumbnail:
+      type: object
+      properties:
+        url:
+          type: string
+        valid_until:
+          type: string
+          format: date-time
+
+    ThumbnailsExpand:
+      type: object
+      properties:
+        125px:
+          $ref: '#/components/schemas/Thumbnail'
+        160px:
+          $ref: '#/components/schemas/Thumbnail'
+        300px:
+          $ref: '#/components/schemas/Thumbnail'
+        600px:
+          $ref: '#/components/schemas/Thumbnail'
+        2048px:
+          $ref: '#/components/schemas/Thumbnail'
+
+    AssetPropertiesExpand:
+      type: object
+      properties:
+        cutline_caption:
+          type: string
+        favorite:
+          type: boolean
+        popularity:
+          type: integer
+
+    FilePropertiesExpand:
+      type: object
+      properties:
+        format:
+          type: string
+        format_type:
+          type: string
+        image_properties:
+          type: object
+          nullable: true
+          properties:
+            aspect_ratio:
+              type: number
+            height:
+              type: integer
+              nullable: true
+            width:
+              type: integer
+              nullable: true
+        size_in_bytes:
+          type: integer
+        size_in_kbytes:
+          type: number
+        video_properties:
+          type: object
+          nullable: true
+          properties:
+            aspect_ratio:
+              type: number
+              nullable: true
+            duration:
+              type: number
+              nullable: true
+            height:
+              type: integer
+              nullable: true
+            width:
+              type: integer
+              nullable: true
+
+    MetadataExpand:
+      type: object
+      properties:
+        fields:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+
+    SecurityExpand:
+      type: object
+      properties:
+        asset_groups:
+          type: array
+          items:
+            type: string
+        expiration_date:
+          type: string
+          format: date-time
+          nullable: true
+        release_date:
+          type: string
+          format: date-time
+          nullable: true
+
+    StatusExpand:
+      type: object
+      properties:
+        upload_progress:
+          type: string
+          enum: [pending, verifying, complete]
+
+    GetAssetResult:
+      type: object
+      properties:
+        _links:
+          type: object
+          properties:
+            download:
+              type: string
+        asset_properties:
+          $ref: '#/components/schemas/AssetPropertiesExpand'
+          nullable: true
+        created_date:
+          type: string
+          format: date-time
+        current_version:
+          type: boolean
+        deleted_date:
+          type: string
+          format: date-time
+          nullable: true
+        embeds:
+          type: object
+          nullable: true
+          additionalProperties:
+            type: object
+            properties:
+              apps:
+                type: array
+                items:
+                  type: string
+              html:
+                type: string
+              share:
+                type: string
+              url:
+                type: string
+        expanded:
+          type: object
+        external_id:
+          type: string
+        file_properties:
+          $ref: '#/components/schemas/FilePropertiesExpand'
+          nullable: true
+        file_upload_date:
+          type: string
+          format: date-time
+        filename:
+          type: string
+        id:
+          type: string
+        last_update_date:
+          type: string
+          format: date-time
+        metadata:
+          $ref: '#/components/schemas/MetadataExpand'
+          nullable: true
+        released_and_not_expired:
+          type: boolean
+        security:
+          $ref: '#/components/schemas/SecurityExpand'
+          nullable: true
+        status:
+          $ref: '#/components/schemas/StatusExpand'
+          nullable: true
+        thumbnails:
+          $ref: '#/components/schemas/ThumbnailsExpand'
+          nullable: true
+        version_id:
+          type: string
+
+    SearchAssetsResult:
+      type: object
+      properties:
+        facets:
+          type: object
+          nullable: true
+          properties:
+            categories:
+              type: array
+              items:
+                $ref: '#/components/schemas/CategoryFacet'
+            file_types:
+              type: array
+              items:
+                $ref: '#/components/schemas/FileTypeFacet'
+            metadata:
+              type: array
+              items:
+                $ref: '#/components/schemas/MetadataFacet'
+        include_archived:
+          type: boolean
+        include_deleted:
+          type: boolean
+        item_type:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetAssetResult'
+        limit:
+          type: integer
+        offset:
+          type: integer
+        query:
+          type: string
+          nullable: true
+        query_explained:
+          type: string
+        query_syntax_ok:
+          type: boolean
+        scroll_id:
+          type: string
+          nullable: true
+        scroll_timeout:
+          type: string
+          nullable: true
+        sort:
+          type: string
+        sort_explained:
+          type: string
+        total_count:
+          type: integer
+
+    CategoryFacet:
+      type: object
+      properties:
+        count:
+          type: integer
+        id:
+          type: string
+        name:
+          type: string
+        path:
+          type: string
+        search_query:
+          type: string
+
+    FileTypeFacet:
+      type: object
+      properties:
+        count:
+          type: integer
+        name:
+          type: string
+        search_query:
+          type: string
+
+    MetadataFacet:
+      type: object
+      properties:
+        display_key:
+          type: string
+        display_name:
+          type: string
+        values:
+          type: array
+          items:
+            type: object
+            properties:
+              count:
+                type: integer
+              search_query:
+                type: string
+              value:
+                type: string
+              values:
+                type: array
+                items:
+                  type: string
+
+    ListAssetGroupsResult:
+      type: object
+      properties:
+        item_type:
+          type: string
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              uuid:
+                type: string
+        total_count:
+          type: integer
+
+    StartChunkedUploadResult:
+      type: object
+      properties:
+        session_id:
+          type: string
+
+    UploadChunkResult:
+      type: object
+      properties:
+        tag:
+          type: string
+
+    CompleteChunkedUploadResult:
+      type: object
+      properties:
+        file_id:
+          type: string
+
+    CreateAssetResult:
+      type: object
+      properties:
+        _links:
+          type: object
+          properties:
+            self:
+              type: string
+        id:
+          type: string
+          nullable: true
+
+    ListUploadProfilesResult:
+      type: array
+      items:
+        type: object
+        properties:
+          asset_groups:
+            type: array
+            items:
+              type: string
+          immediate_release:
+            type: boolean
+          metadata_type:
+            type: string
+          name:
+            type: string
+          release_date:
+            type: string
+            format: date-time
+            nullable: true
+
+    ListFileFormatsResult:
+      type: object
+      properties:
+        count:
+          type: integer
+        formats:
+          type: array
+          items:
+            type: object
+            properties:
+              description:
+                type: string
+              name:
+                type: string
+
+    ListVersionsResult:
+      type: object
+      properties:
+        numResults:
+          type: integer
+        uuid:
+          type: string
+        versions:
+          type: array
+          items:
+            type: object
+            properties:
+              dateAdded:
+                type: string
+                format: date-time
+              dateLastEdited:
+                type: string
+                format: date-time
+              externalId:
+                type: string
+              fileFormat:
+                type: string
+              finalized:
+                type: boolean
+              name:
+                type: string
+              previews:
+                type: object
+              size:
+                type: string
+              type:
+                type: string
+              uuid:
+                type: string
+              versionNumber:
+                type: integer
+
+    ListIntegrationLinksResult:
+      type: object
+      properties:
+        integrationLinks:
+          type: array
+          items:
+            type: object
+            properties:
+              assetUuid:
+                type: string
+              description:
+                type: string
+              updatedDate:
+                type: string
+                format: date-time
+              url:
+                type: string
+                nullable: true
+              uuid:
+                type: string
+
+    RegisterIntegrationLinkResult:
+      type: object
+      properties:
+        assetUuid:
+          type: string
+        description:
+          type: string
+        updatedDate:
+          type: string
+          format: date-time
+        url:
+          type: string
+          nullable: true
+        uuid:
+          type: string
+
+    # ── Attributes ────────────────────────────────────────────────
+    Attribute:
+      type: object
+      properties:
+        attribute_group:
+          type: object
+          nullable: true
+          properties:
+            attribute_group_id:
+              type: string
+            name:
+              type: string
+        attribute_id:
+          type: string
+        import_only:
+          type: boolean
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+            - asset
+            - multi_controlled_vocab
+            - rich_text
+            - single_controlled_vocab
+            - text
+
+    ListAttributesResult:
+      allOf:
+        - $ref: '#/components/schemas/PaginatedList'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/Attribute'
+
+    ListAttributeVocabularyResult:
+      type: object
+      properties:
+        vocabulary:
+          type: array
+          items:
+            type: string
+
+    # ── Categories ────────────────────────────────────────────────
+    CategoryV2:
+      type: object
+      properties:
+        _links:
+          type: object
+          properties:
+            assets:
+              type: string
+            categories:
+              type: string
+        id:
+          type: string
+        name:
+          type: string
+        parts:
+          type: array
+          items:
+            type: string
+        path:
+          type: string
+
+    CategoryV1:
+      type: object
+      properties:
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryV1'
+        id:
+          type: integer
+        title:
+          type: string
+        uuid:
+          type: string
+
+    ListCategoriesResult:
+      type: object
+      properties:
+        item_type:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryV2'
+        total_count:
+          type: integer
+
+    CategoryTreeResult:
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryV1'
+        parentCategory:
+          type: string
+          nullable: true
+
+    CreateEditCategoryResult:
+      type: object
+      properties:
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryV1'
+        id:
+          type: integer
+        title:
+          type: string
+        uuid:
+          type: string
+
+    # ── Collections ───────────────────────────────────────────────
+    CreateCollectionResult:
+      type: object
+      properties:
+        assets:
+          type: array
+          items:
+            type: object
+            properties:
+              uuid:
+                type: string
+        assetsAddedCount:
+          type: integer
+        description:
+          type: string
+        name:
+          type: string
+        numResults:
+          type: integer
+        type:
+          type: string
+          enum: [local]
+        uuid:
+          type: string
+
+    ListCollectionsResult:
+      allOf:
+        - $ref: '#/components/schemas/PaginatedList'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                type: object
+                properties:
+                  _links:
+                    type: object
+                    properties:
+                      assets:
+                        type: string
+                  id:
+                    type: string
+                  title:
+                    type: string
+                  total_items:
+                    type: integer
+                  type:
+                    type: string
+                    enum: [global, private, shared]
+
+    # ── Metadata ──────────────────────────────────────────────────
+    MetadataFieldValue:
+      type: object
+      properties:
+        _links:
+          type: object
+          properties:
+            self:
+              type: string
+            vocabulary:
+              type: string
+        index:
+          type: integer
+        value:
+          type: string
+
+    ListFieldValuesResult:
+      type: object
+      properties:
+        _links:
+          type: object
+          properties:
+            self:
+              type: string
+        vocabulary:
+          type: array
+          items:
+            type: string
+
+    ListMetadataTypesResult:
+      type: object
+      properties:
+        types:
+          type: array
+          items:
+            type: object
+            properties:
+              fields:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    discriminator:
+                      type: string
+                    displayKey:
+                      type: string
+                    displayName:
+                      type: string
+                    editable:
+                      type: boolean
+                    required:
+                      type: boolean
+                    uuid:
+                      type: string
+              name:
+                type: string
+              use:
+                type: string
+              uuid:
+                type: string
+
+    ListViewableMetadataFieldsResult:
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            type: object
+            properties:
+              display_key:
+                type: string
+              display_name:
+                type: string
+              field_type:
+                type: string
+                enum:
+                  - checkboxes
+                  - date
+                  - numeric
+                  - selection_list
+                  - selection_list_multi
+                  - text
+                  - text_long
+                  - text_multi_line
+                  - text_short
+              metadata_types:
+                type: array
+                items:
+                  type: string
+
+    # ── Orders ────────────────────────────────────────────────────
+    OrderItem:
+      type: object
+      properties:
+        conversions:
+          type: object
+          additionalProperties:
+            type: string
+        filename:
+          type: string
+        previews:
+          type: object
+        uuid:
+          type: string
+
+    Contact:
+      type: object
+      properties:
+        uuid:
+          type: string
+
+    GetOrderDetailsResult:
+      type: object
+      properties:
+        assetsInOrder:
+          type: integer
+        conversionStatus:
+          type: string
+          nullable: true
+        datePlaced:
+          type: string
+          format: date-time
+        downloadCount:
+          type: integer
+        expirationDate:
+          type: string
+          format: date-time
+        externalPickupLink:
+          type: string
+        orderedItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
+        recipient:
+          $ref: '#/components/schemas/Contact'
+        sender:
+          $ref: '#/components/schemas/Contact'
+        sequenceNumber:
+          type: string
+        status:
+          type: string
+        uuid:
+          type: string
+
+    CleanAssetsResult:
+      type: object
+      properties:
+        removedItems:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              reason:
+                type: string
+
+    GetZipStatusResult:
+      type: object
+      properties:
+        archived:
+          type: integer
+        done:
+          type: boolean
+        download:
+          type: string
+          nullable: true
+        errored:
+          type: boolean
+        total:
+          type: integer
+
+    ListConversionsForOrderResult:
+      type: object
+      properties:
+        conversions:
+          type: array
+          items:
+            type: object
+            properties:
+              approvalRequired:
+                type: boolean
+              description:
+                type: string
+                nullable: true
+              displayOrder:
+                type: integer
+              mediaType:
+                type: string
+              name:
+                type: string
+              uuid:
+                type: string
+
+    ListOrderProfileResult:
+      type: object
+      properties:
+        profiles:
+          type: array
+          items:
+            type: object
+            properties:
+              internetDelivery:
+                type: boolean
+              metadataTypeUuid:
+                type: string
+              name:
+                type: string
+              sendToSelf:
+                type: boolean
+              specialInstructions:
+                type: string
+                nullable: true
+              uuid:
+                type: string
+
+    # ── Products ──────────────────────────────────────────────────
+    ProductCategory:
+      type: object
+      properties:
+        name:
+          type: string
+        product_category_id:
+          type: string
+        sub_category:
+          $ref: '#/components/schemas/ProductCategory'
+          nullable: true
+
+    ProductAttribute:
+      type: object
+      properties:
+        attribute_group:
+          type: object
+          nullable: true
+          properties:
+            attribute_group_id:
+              type: string
+            name:
+              type: string
+        attribute_id:
+          type: string
+        import_only:
+          type: boolean
+          nullable: true
+        name:
+          type: string
+        type:
+          type: string
+        values:
+          type: array
+          items:
+            type: string
+
+    GetProductResult:
+      type: object
+      properties:
+        attributes:
+          type: object
+          nullable: true
+          additionalProperties:
+            $ref: '#/components/schemas/ProductAttribute'
+        created_date:
+          type: string
+          format: date-time
+        featured_image:
+          type: object
+          nullable: true
+          properties:
+            id:
+              type: string
+            url:
+              type: string
+              nullable: true
+        last_updated_timestamp:
+          type: string
+          format: date-time
+        name:
+          type: string
+        parent_product:
+          type: object
+          nullable: true
+          properties:
+            parent_product_id:
+              type: string
+        product_categories:
+          type: object
+          properties:
+            product_categories:
+              type: array
+              items:
+                $ref: '#/components/schemas/ProductCategory'
+        product_id:
+          type: string
+        product_type:
+          type: object
+          nullable: true
+          properties:
+            name:
+              type: string
+            product_type_id:
+              type: string
+        sku:
+          type: string
+
+    CreateProductResult:
+      type: object
+      properties:
+        product_id:
+          type: string
+
+    ListChannelsResult:
+      allOf:
+        - $ref: '#/components/schemas/PaginatedList'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                type: object
+                properties:
+                  channel_id:
+                    type: string
+                  name:
+                    type: string
+
+    ListProductCategoriesResult:
+      allOf:
+        - $ref: '#/components/schemas/PaginatedList'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  product_category_id:
+                    type: string
+
+    ListProductTypesResult:
+      allOf:
+        - $ref: '#/components/schemas/PaginatedList'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  product_type_id:
+                    type: string
+
+    SearchProductsResult:
+      allOf:
+        - $ref: '#/components/schemas/PaginatedList'
+        - type: object
+          properties:
+            expanded:
+              type: object
+            filters:
+              type: array
+              items:
+                type: object
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/GetProductResult'
+            query:
+              type: string
+              nullable: true
+            sort:
+              type: object
+
+    ListProductsByChannelResult:
+      allOf:
+        - $ref: '#/components/schemas/PaginatedList'
+        - type: object
+          properties:
+            channel_id:
+              type: string
+            channel_name:
+              type: string
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/GetProductResult'
+
+    # ── Search Connector ──────────────────────────────────────────
+    GetSearchConnectorResult:
+      type: object
+      properties:
+        url:
+          type: string
+
+    # ── Usage ─────────────────────────────────────────────────────
+    GetUsageResult:
+      type: object
+      properties:
+        report_end_timestamp:
+          type: string
+          format: date-time
+        report_start_timestamp:
+          type: string
+          format: date-time
+        request_count:
+          type: integer
+
+    # ── Users ─────────────────────────────────────────────────────
+    GetUserResult:
+      type: object
+      properties:
+        city:
+          type: string
+          nullable: true
+        company:
+          type: string
+          nullable: true
+        country:
+          type: string
+          nullable: true
+        email:
+          type: string
+        first_name:
+          type: string
+        id:
+          type: string
+        last_name:
+          type: string
+        phone:
+          type: string
+          nullable: true
+        postal_code:
+          type: string
+          nullable: true
+        state_or_province:
+          type: string
+          nullable: true
+        street_address:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        username:
+          type: string
+        uuid:
+          type: string
+
+    ContactField:
+      type: object
+      properties:
+        required:
+          type: boolean
+        value:
+          type: string
+          nullable: true
+
+    GetContactResult:
+      type: object
+      properties:
+        fields:
+          type: object
+          properties:
+            city:
+              $ref: '#/components/schemas/ContactField'
+            company:
+              $ref: '#/components/schemas/ContactField'
+            country:
+              $ref: '#/components/schemas/ContactField'
+            email:
+              $ref: '#/components/schemas/ContactField'
+            firstName:
+              $ref: '#/components/schemas/ContactField'
+            lastName:
+              $ref: '#/components/schemas/ContactField'
+            phone:
+              $ref: '#/components/schemas/ContactField'
+            postalCode:
+              $ref: '#/components/schemas/ContactField'
+            stateOrProvince:
+              $ref: '#/components/schemas/ContactField'
+            streetAddress:
+              $ref: '#/components/schemas/ContactField'
+        uuid:
+          type: string
+
+    # ── Webhooks ──────────────────────────────────────────────────
+    GetAssetsWebhookResult:
+      type: object
+      properties:
+        created_by_user:
+          type: object
+          properties:
+            uuid:
+              type: string
+        created_date:
+          type: string
+          format: date-time
+        delivery_enabled:
+          type: boolean
+        event_type:
+          type: string
+        last_delivered_date:
+          type: string
+          format: date-time
+          nullable: true
+        last_pinged_date:
+          type: string
+          format: date-time
+          nullable: true
+        signing_enabled:
+          type: boolean
+        webhook_configuration_id:
+          type: string
+
+    CreateAssetsWebhookResult:
+      type: object
+      properties:
+        id:
+          type: string
+
+    ListAssetsWebhooksResult:
+      allOf:
+        - $ref: '#/components/schemas/PaginatedList'
+        - type: object
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/GetAssetsWebhookResult'
+
+    GetWorkflowWebhookResult:
+      type: object
+      properties:
+        event:
+          type: string
+          enum: [DELIVERABLE_STATUS_CHANGED, PROJECT_CREATED]
+        target:
+          type: string
+
+    ListWorkflowWebhooksResult:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetWorkflowWebhookResult'
+
+    # ── Workflow ──────────────────────────────────────────────────
+    WorkflowUser:
+      type: object
+      properties:
+        email_address:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+
+    AddDeliverableResult:
+      type: object
+      properties:
+        deliverable_id:
+          type: string
+        id:
+          type: string
+        project_id:
+          type: string
+
+    CreateProjectResult:
+      type: object
+      properties:
+        project_id:
+          type: string
+
+    GetDeliverableResult:
+      type: object
+      properties:
+        _links:
+          type: object
+          properties:
+            download:
+              type: string
+            project:
+              type: string
+            self:
+              type: string
+        deliverable_id:
+          type: string
+        deliverable_manager:
+          $ref: '#/components/schemas/WorkflowUser'
+        description:
+          type: string
+        due_date:
+          type: string
+          format: date-time
+        expanded:
+          type: object
+        file_properties:
+          type: object
+          properties:
+            file_type:
+              type: string
+            filename:
+              type: string
+            sizes_in_bytes:
+              type: integer
+        id:
+          type: string
+        name:
+          type: string
+        proof_provider:
+          $ref: '#/components/schemas/WorkflowUser'
+        proof_url:
+          type: string
+        status:
+          type: string
+        thumbnails:
+          type: object
+          properties:
+            large:
+              type: string
+            medium:
+              type: string
+            small:
+              type: string
+
+    GetProjectResult:
+      type: object
+      properties:
+        _links:
+          type: object
+          properties:
+            deliverables:
+              type: string
+            self:
+              type: string
+            support_files:
+              type: string
+        deliverables:
+          type: array
+          items:
+            type: object
+            properties:
+              due_date:
+                type: string
+                format: date-time
+              id:
+                type: string
+              name:
+                type: string
+              status:
+                type: string
+        description:
+          type: string
+        due_date:
+          type: string
+          format: date-time
+        expanded:
+          type: object
+        id:
+          type: string
+        name:
+          type: string
+        project_id:
+          type: string
+        project_manager:
+          $ref: '#/components/schemas/WorkflowUser'
+        start_date:
+          type: string
+          format: date-time
+
+    ListDeliverablesResult:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetDeliverableResult'
+
+    SupportingFile:
+      type: object
+      properties:
+        _links:
+          type: object
+          properties:
+            download:
+              type: string
+            project:
+              type: string
+            self:
+              type: string
+        format_type:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        size_in_bytes:
+          type: integer
+        upload_date:
+          type: string
+          format: date-time
+        uploader:
+          $ref: '#/components/schemas/WorkflowUser'
+
+    UploadProofResult:
+      type: object
+      properties:
+        deliverable_id:
+          type: string
+        id:
+          type: string
+        project_id:
+          type: string
+        status:
+          type: string
+        thumbnails:
+          type: object
+          properties:
+            large:
+              type: string
+            medium:
+              type: string
+            small:
+              type: string
+
+paths:
+  # ── Analytics ─────────────────────────────────────────────────
+  /analytics/assets/downloads:
+    post:
+      operationId: listAssetDownloads
+      summary: List asset download events
+      tags: [Analytics]
+      description: >
+        Retrieve a list of Asset Download events. Events may take up to
+        24 hours before appearing. Three years of analytics data is
+        available, starting from January 1, 2021.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnalyticsRequestBody'
+      responses:
+        "200":
+          description: List of download events
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAssetDownloadsResponse'
+
+  /analytics/assets/shares:
+    post:
+      operationId: listAssetShares
+      summary: List asset share events
+      tags: [Analytics]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnalyticsRequestBody'
+      responses:
+        "200":
+          description: List of share events
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAssetSharesResponse'
+
+  /analytics/assets/views:
+    post:
+      operationId: listAssetViews
+      summary: List asset view events
+      tags: [Analytics]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnalyticsRequestBody'
+      responses:
+        "200":
+          description: List of view events
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAssetViewsResponse'
+
+  # ── Assets ────────────────────────────────────────────────────
+  /assets/search:
+    get:
+      operationId: assetListBySearchQuery
+      summary: Search for assets
+      tags: [Assets]
+      parameters:
+        - name: query
+          in: query
+          schema:
+            type: string
+          description: DAM quicksearch query string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 100
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 10000
+            default: 0
+        - name: sort
+          in: query
+          schema:
+            type: string
+            default: "-created_date"
+        - name: expand
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - asset_properties
+                - embeds
+                - file_properties
+                - metadata
+                - metadata_info
+                - metadata_vocabulary
+                - security
+                - thumbnails
+          style: form
+          explode: true
+        - name: facet
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              enum: [file_types, categories, metadata]
+          style: form
+          explode: true
+        - name: include_archived
+          in: query
+          schema:
+            type: boolean
+            default: false
+        - name: include_deleted
+          in: query
+          schema:
+            type: boolean
+            default: false
+        - name: scroll
+          in: query
+          schema:
+            type: boolean
+            default: false
+        - name: search_document_text
+          in: query
+          schema:
+            type: boolean
+            default: false
+        - name: scroll_id
+          in: query
+          schema:
+            type: string
+          description: scroll_id from a previous paginated search
+      responses:
+        "200":
+          description: Matching assets
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchAssetsResult'
+
+  /assets/{id}:
+    get:
+      operationId: assetRetrieveById
+      summary: Retrieve an asset by ID
+      tags: [Assets]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: expand
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+      responses:
+        "200":
+          description: Asset details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAssetResult'
+    delete:
+      operationId: assetDelete
+      summary: Delete an asset (send to Pending Delete queue)
+      tags: [Assets]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Asset queued for deletion
+
+  /assets/{id}/versions/{version_id}:
+    get:
+      operationId: assetRetrieveByIdAndVersion
+      summary: Retrieve a specific version of an asset
+      tags: [Assets]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: version_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: expand
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: true
+      responses:
+        "200":
+          description: Asset version details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAssetResult'
+
+  /assets/{id}/metadata:
+    get:
+      operationId: assetMetadataRetrieve
+      summary: Retrieve asset metadata
+      tags: [Assets]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Asset metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetadataExpand'
+    put:
+      operationId: assetMetadataUpdate
+      summary: Update asset metadata fields
+      tags: [Assets]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: patch
+          in: query
+          schema:
+            type: string
+          description: Comma-separated list of fields to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [fields]
+              properties:
+                fields:
+                  type: object
+                  additionalProperties:
+                    type: array
+                    items:
+                      type: string
+      responses:
+        "204":
+          description: Metadata updated
+
+  /assets/{id}/security:
+    get:
+      operationId: assetRetrieveSecurity
+      summary: Retrieve asset security settings
+      tags: [Assets]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Asset security
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecurityExpand'
+    put:
+      operationId: assetUpdateSecurity
+      summary: Update asset security settings
+      tags: [Assets]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: patch
+          in: query
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                asset_groups:
+                  type: array
+                  items:
+                    type: string
+                expiration_date:
+                  type: string
+                  format: date-time
+                  nullable: true
+                release_date:
+                  type: string
+                  format: date-time
+                  nullable: true
+      responses:
+        "204":
+          description: Security updated
+
+  /assets/{id}/filename:
+    put:
+      operationId: assetRename
+      summary: Rename an asset
+      tags: [Assets]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [filename]
+              properties:
+                filename:
+                  type: string
+      responses:
+        "204":
+          description: Asset renamed
+
+  /assets/{id}/alternatepreview:
+    post:
+      operationId: alternatePreviewUpload
+      summary: Upload an alternate preview for an asset
+      tags: [Assets]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "204":
+          description: Alternate preview uploaded
+    delete:
+      operationId: alternatePreviewDelete
+      summary: Remove alternate preview from an asset
+      tags: [Assets]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Alternate preview removed
+
+  /assets/assetgroups:
+    get:
+      operationId: assetGroupsGet
+      summary: List asset groups
+      tags: [Assets]
+      responses:
+        "200":
+          description: List of asset groups
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAssetGroupsResult'
+
+  /uploads:
+    post:
+      operationId: uploadAsset
+      summary: Create a new asset
+      tags: [Assets]
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [profile, filename]
+              properties:
+                profile:
+                  type: string
+                filename:
+                  type: string
+                file:
+                  type: string
+                  format: binary
+                file_id:
+                  type: string
+                url:
+                  type: string
+                metadata:
+                  type: string
+                  description: JSON string of metadata fields
+      responses:
+        "201":
+          description: Asset created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAssetResult'
+
+  /uploads/profiles:
+    get:
+      operationId: uploadAssetProfilesList
+      summary: List upload profiles
+      tags: [Assets]
+      responses:
+        "200":
+          description: List of upload profiles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListUploadProfilesResult'
+
+  /uploads/chunks/start:
+    post:
+      operationId: uploadChunk0
+      summary: Start a chunked upload session
+      tags: [Assets]
+      responses:
+        "200":
+          description: Chunked upload session started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartChunkedUploadResult'
+
+  /uploads/chunks/upload:
+    post:
+      operationId: uploadChunk1
+      summary: Upload a file chunk
+      tags: [Assets]
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [session_id, chunk_number, file]
+              properties:
+                session_id:
+                  type: string
+                chunk_number:
+                  type: integer
+                  minimum: 1
+                  maximum: 10000
+                file:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Chunk uploaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadChunkResult'
+
+  /uploads/chunks/complete:
+    post:
+      operationId: uploadChunk3
+      summary: Complete a chunked upload session
+      tags: [Assets]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [session_id, tags]
+              properties:
+                session_id:
+                  type: string
+                tags:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        "200":
+          description: Chunked upload complete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompleteChunkedUploadResult'
+
+  # ── Attributes ────────────────────────────────────────────────
+  /attributes:
+    get:
+      operationId: listAttributes
+      summary: List product attributes
+      tags: [Attributes]
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 1000
+            default: 100
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+      responses:
+        "200":
+          description: List of attributes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAttributesResult'
+
+  /attributes/{id}/vocabulary:
+    get:
+      operationId: listVocabulary
+      summary: List controlled vocabulary for an attribute
+      tags: [Attributes]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Attribute vocabulary
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAttributeVocabularyResult'
+
+  # ── Categories (v2) ───────────────────────────────────────────
+  /categories:
+    get:
+      operationId: listAssetCategories
+      summary: List top-level asset categories
+      tags: [Categories]
+      responses:
+        "200":
+          description: Top-level categories
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCategoriesResult'
+
+  /categories/{categoryPath}:
+    get:
+      operationId: listAssetCategoriesByPath
+      summary: List child asset categories by path
+      tags: [Categories]
+      parameters:
+        - name: categoryPath
+          in: path
+          required: true
+          schema:
+            type: string
+          description: URL-encoded category path
+      responses:
+        "200":
+          description: Child categories
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCategoriesResult'
+
+  # ── Collections ───────────────────────────────────────────────
+  /collections:
+    get:
+      operationId: listCollections
+      summary: List collections
+      tags: [Collections]
+      parameters:
+        - name: type
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [global, private, shared]
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 10
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 9999
+            default: 0
+      responses:
+        "200":
+          description: List of collections
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCollectionsResult'
+
+  # ── Metadata (v2) ─────────────────────────────────────────────
+  /metadata/fields/viewable:
+    get:
+      operationId: listMetadataFields
+      summary: List viewable metadata fields
+      tags: [Metadata]
+      parameters:
+        - name: display_name_after
+          in: query
+          schema:
+            type: string
+        - name: display_name_starts_with
+          in: query
+          schema:
+            type: string
+        - name: field_types
+          in: query
+          schema:
+            type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+      responses:
+        "200":
+          description: Viewable metadata fields
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListViewableMetadataFieldsResult'
+
+  /metadata/{displayKey}/vocabulary:
+    get:
+      operationId: listControlledVocabularyValues
+      summary: List controlled vocabulary values for a metadata field
+      tags: [Metadata]
+      parameters:
+        - name: displayKey
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Vocabulary values
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListFieldValuesResult'
+    post:
+      operationId: addControlledVocabularyValue
+      summary: Add a controlled vocabulary value
+      tags: [Metadata]
+      parameters:
+        - name: displayKey
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [value]
+              properties:
+                value:
+                  type: string
+                index:
+                  type: integer
+      responses:
+        "204":
+          description: Value added
+
+  /metadata/{displayKey}/vocabulary/{value}:
+    get:
+      operationId: getControlledVocabularyValue
+      summary: Get a controlled vocabulary value
+      tags: [Metadata]
+      parameters:
+        - name: displayKey
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: value
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Metadata field value
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetadataFieldValue'
+    put:
+      operationId: updateControlledVocabularyValue
+      summary: Update a controlled vocabulary value
+      tags: [Metadata]
+      parameters:
+        - name: displayKey
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: value
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                index:
+                  type: integer
+                value:
+                  type: string
+      responses:
+        "204":
+          description: Value updated
+    delete:
+      operationId: deleteControlledVocabularyValue
+      summary: Delete a controlled vocabulary value
+      tags: [Metadata]
+      parameters:
+        - name: displayKey
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: value
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Value deleted
+
+  # ── Products ──────────────────────────────────────────────────
+  /products:
+    post:
+      operationId: createProduct
+      summary: Create a new product
+      tags: [Products]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, sku]
+              properties:
+                attributes:
+                  type: object
+                  additionalProperties:
+                    type: array
+                    items:
+                      type: string
+                name:
+                  type: string
+                parent_product_id:
+                  type: string
+                product_categories:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      product_category_id:
+                        type: string
+                product_type_id:
+                  type: string
+                sku:
+                  type: string
+      responses:
+        "201":
+          description: Product created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateProductResult'
+
+  /products/search:
+    post:
+      operationId: listProductsBySearchQuery
+      summary: Search for products
+      tags: [Products]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                expand:
+                  type: array
+                  items:
+                    type: string
+                    enum: [attributes]
+                filters:
+                  type: array
+                  items:
+                    type: object
+                limit:
+                  type: integer
+                  minimum: 1
+                  maximum: 100
+                  default: 10
+                offset:
+                  type: integer
+                  minimum: 0
+                  maximum: 9999
+                  default: 0
+                query:
+                  type: string
+                sort:
+                  type: object
+                  properties:
+                    order:
+                      type: string
+                      enum: [ascending, descending]
+                    type:
+                      type: string
+                      enum: [created, last_updated, name, product_type_name, sku]
+      responses:
+        "200":
+          description: Matching products
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchProductsResult'
+
+  /products/{id}:
+    get:
+      operationId: retrieveProductById
+      summary: Retrieve a product by ID
+      tags: [Products]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Product details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProductResult'
+    delete:
+      operationId: deleteProduct
+      summary: Delete a product
+      tags: [Products]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Product deleted
+
+  /products/{id}/rename:
+    put:
+      operationId: renameProduct
+      summary: Rename a product
+      tags: [Products]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [new_name]
+              properties:
+                new_name:
+                  type: string
+      responses:
+        "204":
+          description: Product renamed
+
+  /products/{id}/attributes:
+    put:
+      operationId: updateAttributeValues
+      summary: Update product attribute values
+      tags: [Products]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [attributes]
+              properties:
+                attributes:
+                  type: object
+                  additionalProperties:
+                    type: array
+                    items:
+                      type: string
+      responses:
+        "204":
+          description: Attributes updated
+
+  /products/{id}/product-category:
+    put:
+      operationId: updateProductCategory
+      summary: Update product categories
+      tags: [Products]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [product_categories]
+              properties:
+                product_categories:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      product_category_id:
+                        type: string
+      responses:
+        "204":
+          description: Product category updated
+
+  /products/{id}/featured-image:
+    put:
+      operationId: updateFeaturedImage
+      summary: Update product featured image
+      tags: [Products]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [asset_id]
+              properties:
+                asset_id:
+                  type: string
+      responses:
+        "204":
+          description: Featured image updated
+
+  /products/{id}/parent-product:
+    put:
+      operationId: updateParentProduct
+      summary: Update product parent
+      tags: [Products]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [parent_product_id]
+              properties:
+                parent_product_id:
+                  type: string
+      responses:
+        "204":
+          description: Parent product updated
+
+  /products/{id}/product-type:
+    put:
+      operationId: updateProductType
+      summary: Update product type
+      tags: [Products]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [product_type_id]
+              properties:
+                product_type_id:
+                  type: string
+      responses:
+        "204":
+          description: Product type updated
+
+  /products/channels/{channel_id}:
+    get:
+      operationId: listProductsForChannel
+      summary: List products for a channel
+      tags: [Products]
+      parameters:
+        - name: channel_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 1000
+            default: 100
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+      responses:
+        "200":
+          description: Channel products
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListProductsByChannelResult'
+
+  # ── Channels ──────────────────────────────────────────────────
+  /channels:
+    get:
+      operationId: listChannels
+      summary: List channels
+      tags: [Channels]
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 1000
+            default: 100
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+      responses:
+        "200":
+          description: List of channels
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListChannelsResult'
+
+  /product-categories:
+    get:
+      operationId: listProductCategories
+      summary: List product categories
+      tags: [Products]
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 50
+            default: 50
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+        - name: parent_product_category_id
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of product categories
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListProductCategoriesResult'
+
+  /product-types:
+    get:
+      operationId: listProductTypes
+      summary: List product types
+      tags: [Products]
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 1000
+            default: 100
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            default: 0
+      responses:
+        "200":
+          description: List of product types
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListProductTypesResult'
+
+  # ── Search Connector ──────────────────────────────────────────
+  /integrations/url:
+    get:
+      operationId: getSearchConnectorUrl
+      summary: Get Search Connector URL
+      tags: [Search-Connector]
+      description: >
+        Retrieve a signed URL to the Search Connector UI for embedding in
+        an iframe. Valid for 24 hours.
+      parameters:
+        - name: hideSearchBar
+          in: query
+          schema:
+            type: boolean
+        - name: query
+          in: query
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Search Connector URL
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSearchConnectorResult'
+
+  # ── Usage ─────────────────────────────────────────────────────
+  /usage/api:
+    get:
+      operationId: getApiUsageSummary
+      summary: Get API usage summary for the current month
+      tags: [Usage]
+      responses:
+        "200":
+          description: API usage summary
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUsageResult'
+
+  # ── Users (v2) ────────────────────────────────────────────────
+  /user:
+    get:
+      operationId: getCurrentUser
+      summary: Get information about the calling user
+      tags: [Users]
+      responses:
+        "200":
+          description: Current user info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUserResult'
+
+  /user/{id}:
+    get:
+      operationId: getUserById
+      summary: Get information about a specific user
+      tags: [Users]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: User info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUserResult'
+
+  # ── Webhooks ──────────────────────────────────────────────────
+  /webhooks/configurations:
+    get:
+      operationId: listWebhooks
+      summary: List Assets webhooks
+      tags: [Acquia-DAM-Webhooks]
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 10
+            default: 10
+        - name: offset
+          in: query
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+      responses:
+        "200":
+          description: List of webhook configurations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAssetsWebhooksResult'
+    post:
+      operationId: createWebhook
+      summary: Create an Assets webhook
+      tags: [Acquia-DAM-Webhooks]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [delivery_url, event_type]
+              properties:
+                delivery_url:
+                  type: string
+                event_type:
+                  type: string
+                  enum:
+                    - asset_created
+                    - asset_deleted
+                    - asset_release_date_updated
+                    - asset_expiration_date_updated
+                    - asset_asset_groups_updated
+                    - asset_categories_updated
+                    - asset_tags_updated
+                    - asset_version_added
+                secret_key:
+                  type: string
+      responses:
+        "201":
+          description: Webhook created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAssetsWebhookResult'
+
+  /webhooks/configurations/{id}:
+    get:
+      operationId: getWebhook
+      summary: Retrieve an Assets webhook
+      tags: [Acquia-DAM-Webhooks]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Webhook details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAssetsWebhookResult'
+    put:
+      operationId: editWebhook
+      summary: Edit an Assets webhook
+      tags: [Acquia-DAM-Webhooks]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: patch
+          in: query
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                delivery_enabled:
+                  type: boolean
+                delivery_url:
+                  type: string
+                event_type:
+                  type: string
+                secret_key:
+                  type: string
+      responses:
+        "204":
+          description: Webhook updated
+    delete:
+      operationId: deleteWebhook
+      summary: Delete an Assets webhook
+      tags: [Acquia-DAM-Webhooks]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Webhook deleted
+
+  /webhooks/configurations/{id}/ping:
+    get:
+      operationId: pingWebhook
+      summary: Ping an Assets webhook
+      tags: [Acquia-DAM-Webhooks]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Webhook pinged
+
+  /workflow/webhooks:
+    get:
+      operationId: workflowListWebhooks
+      summary: List Workflow webhooks
+      tags: [Workflow-Webhooks]
+      responses:
+        "200":
+          description: List of Workflow webhooks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListWorkflowWebhooksResult'
+    post:
+      operationId: workflowAddWebhook
+      summary: Create a Workflow webhook
+      tags: [Workflow-Webhooks]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [event, target]
+              properties:
+                event:
+                  type: string
+                  enum: [DELIVERABLE_STATUS_CHANGED, PROJECT_CREATED]
+                target:
+                  type: string
+      responses:
+        "201":
+          description: Workflow webhook created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetWorkflowWebhookResult'
+    delete:
+      operationId: workflowDeleteWebhook
+      summary: Delete a Workflow webhook
+      tags: [Workflow-Webhooks]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [event]
+              properties:
+                event:
+                  type: string
+                  enum: [DELIVERABLE_STATUS_CHANGED, PROJECT_CREATED]
+      responses:
+        "204":
+          description: Workflow webhook deleted
+
+  # ── Workflow ──────────────────────────────────────────────────
+  /workflow/projects:
+    post:
+      operationId: createProject
+      summary: Create a new workflow project
+      tags: [Workflow-App-Projects]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [description, end_date, name, project_manager, start_date]
+              properties:
+                description:
+                  type: string
+                end_date:
+                  type: string
+                  format: date-time
+                name:
+                  type: string
+                owner:
+                  type: string
+                project_manager:
+                  type: string
+                start_date:
+                  type: string
+                  format: date-time
+                workgroups:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        "201":
+          description: Project created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateProjectResult'
+
+  /workflow/projects/{project_id}:
+    get:
+      operationId: retrieveProjectById
+      summary: Retrieve a workflow project
+      tags: [Workflow-App-Projects]
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: expand
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              enum: [request_fields]
+          style: form
+          explode: true
+      responses:
+        "200":
+          description: Project details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProjectResult'
+    delete:
+      operationId: deleteProject
+      summary: Delete a workflow project
+      tags: [Workflow-App-Projects]
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Project deleted
+
+  /workflow/projects/{project_id}/deliverables:
+    get:
+      operationId: deliverablesRetrieveForProject
+      summary: List deliverables for a project
+      tags: [Workflow-App-Projects]
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: expand
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              enum: [download_link, file_properties, proof_url]
+          style: form
+          explode: true
+      responses:
+        "200":
+          description: List of deliverables
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListDeliverablesResult'
+    post:
+      operationId: deliverablesAddToProject
+      summary: Add a deliverable to a project
+      tags: [Workflow-App-Projects]
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [due_date, name, proof_provider, stages, start_date]
+              properties:
+                description:
+                  type: string
+                due_date:
+                  type: string
+                  format: date-time
+                name:
+                  type: string
+                proof_provider:
+                  type: string
+                stages:
+                  type: array
+                  items:
+                    type: object
+                    required: [due_date, name, reviewers]
+                    properties:
+                      commenters:
+                        type: array
+                        items:
+                          type: string
+                      due_date:
+                        type: string
+                        format: date-time
+                      name:
+                        type: string
+                      reviewers:
+                        type: array
+                        items:
+                          type: string
+                start_date:
+                  type: string
+                  format: date-time
+      responses:
+        "201":
+          description: Deliverable added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddDeliverableResult'
+
+  /workflow/projects/{project_id}/deliverables/{deliverable_id}:
+    get:
+      operationId: deliverablesRetrieveForProjectById
+      summary: Retrieve a deliverable
+      tags: [Workflow-App-Projects]
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: deliverable_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: expand
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              enum: [download_link, file_properties, proof_url]
+          style: form
+          explode: true
+      responses:
+        "200":
+          description: Deliverable details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDeliverableResult'
+    delete:
+      operationId: deliverablesDeleteForProject
+      summary: Delete a deliverable
+      tags: [Workflow-App-Projects]
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: deliverable_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Deliverable deleted
+
+  /workflow/projects/{project_id}/deliverables/{deliverable_id}/close:
+    put:
+      operationId: deliverablesCloseForProject
+      summary: Close a deliverable
+      tags: [Workflow-App-Projects]
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: deliverable_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filename:
+                  type: string
+                upload_profile:
+                  type: string
+      responses:
+        "204":
+          description: Deliverable closed
+
+  /workflow/projects/{project_id}/deliverables/{deliverable_id}/proofs:
+    post:
+      operationId: deliverablesUploadProof
+      summary: Upload proof to a deliverable
+      tags: [Workflow-App-Projects]
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: deliverable_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [content_length, filename, url]
+              properties:
+                content_length:
+                  type: integer
+                filename:
+                  type: string
+                url:
+                  type: string
+      responses:
+        "200":
+          description: Proof uploaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadProofResult'
+
+  /workflow/projects/{project_id}/support-files:
+    get:
+      operationId: retrieveProjectSupportFiles
+      summary: List supporting files for a project
+      tags: [Workflow-App-Projects]
+      parameters:
+        - name: project_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: List of supporting files
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SupportingFile'
+
+  # ── V1 paths (served at /v1 base URL) ─────────────────────────
+  # Note: the paths below map to /v1 base URL endpoints.
+  # They are documented here with x-server-override for clarity.
+
+  /category/assets:
+    post:
+      operationId: updateCategoryAssets
+      summary: Add or remove assets from categories (v1)
+      tags: [Categories]
+      x-api-version: "1"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [categories]
+              properties:
+                categories:
+                  type: object
+                  properties:
+                    uuids:
+                      type: array
+                      items:
+                        type: string
+                add:
+                  type: object
+                  properties:
+                    uuids:
+                      type: array
+                      items:
+                        type: string
+                remove:
+                  type: object
+                  properties:
+                    uuids:
+                      type: array
+                      items:
+                        type: string
+      responses:
+        "204":
+          description: Assets updated in categories
+
+  /category:
+    post:
+      operationId: createCategory
+      summary: Create a new category (v1)
+      tags: [Categories]
+      x-api-version: "1"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [parentCategory, title]
+              properties:
+                description:
+                  type: string
+                displayAlphabetically:
+                  type: boolean
+                  default: false
+                displayBeforeCategory:
+                  type: string
+                parentCategory:
+                  type: string
+                title:
+                  type: string
+      responses:
+        "201":
+          description: Category created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateEditCategoryResult'
+
+  /category/uuid/{uuid}:
+    put:
+      operationId: editCategory
+      summary: Edit a category (v1)
+      tags: [Categories]
+      x-api-version: "1"
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                displayAlphabetically:
+                  type: boolean
+                displayBeforeCategory:
+                  type: string
+                parentCategory:
+                  type: string
+                title:
+                  type: string
+      responses:
+        "200":
+          description: Category updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateEditCategoryResult'
+
+  /category/categoryTree:
+    get:
+      operationId: getCategoryTree
+      summary: Get the full category tree (v1)
+      tags: [Categories]
+      x-api-version: "1"
+      parameters:
+        - name: includeEmpty
+          in: query
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: Category tree
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryTreeResult'
+
+  /collection/assets:
+    post:
+      operationId: addOrRemoveAssetsFromCollections
+      summary: Add or remove assets from collections (v1)
+      tags: [Collections]
+      x-api-version: "1"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [collections]
+              properties:
+                collections:
+                  type: object
+                  properties:
+                    uuids:
+                      type: array
+                      items:
+                        type: string
+                add:
+                  type: object
+                  properties:
+                    uuids:
+                      type: array
+                      items:
+                        type: string
+                remove:
+                  type: object
+                  properties:
+                    uuids:
+                      type: array
+                      items:
+                        type: string
+      responses:
+        "204":
+          description: Assets updated in collections
+
+  /collection:
+    post:
+      operationId: createCollection
+      summary: Create a collection (v1)
+      tags: [Collections]
+      x-api-version: "1"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [description, title]
+              properties:
+                assets:
+                  type: object
+                  properties:
+                    uuids:
+                      type: array
+                      items:
+                        type: string
+                description:
+                  type: string
+                title:
+                  type: string
+      responses:
+        "201":
+          description: Collection created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCollectionResult'
+
+  /metadata/types:
+    get:
+      operationId: getMetadataTypes
+      summary: List all metadata types (v1)
+      tags: [Metadata]
+      x-api-version: "1"
+      responses:
+        "200":
+          description: Metadata types
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListMetadataTypesResult'
+
+  /fileformats:
+    get:
+      operationId: getFileFormats
+      summary: List recognized file formats (v1)
+      tags: [File-Formats]
+      x-api-version: "1"
+      responses:
+        "200":
+          description: Supported file formats
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListFileFormatsResult'
+
+  /integrationlink:
+    get:
+      operationId: getIntegrationLinks
+      summary: List integration links (v1)
+      tags: [Integration-Links]
+      x-api-version: "1"
+      responses:
+        "200":
+          description: Integration links
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListIntegrationLinksResult'
+    post:
+      operationId: createLink
+      summary: Register a new integration link (v1)
+      tags: [Integration-Links]
+      x-api-version: "1"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [assetUuid, description]
+              properties:
+                assetUuid:
+                  type: string
+                description:
+                  type: string
+                url:
+                  type: string
+      responses:
+        "201":
+          description: Integration link created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterIntegrationLinkResult'
+
+  /integrationlink/{uuid}:
+    delete:
+      operationId: removeLink
+      summary: Remove an integration link (v1)
+      tags: [Integration-Links]
+      x-api-version: "1"
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Link removed
+
+  /asset/uuid/{id}/assetversions:
+    get:
+      operationId: getAssetVersions
+      summary: List asset versions (v1)
+      tags: [Assets]
+      x-api-version: "1"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Asset versions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListVersionsResult'
+
+  /asset/changemetadatatype/asset/{id}/type/{metadata_type_uuid}:
+    put:
+      operationId: updateMetadataType
+      summary: Change an asset's metadata type (v1)
+      tags: [Assets]
+      x-api-version: "1"
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: metadata_type_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Metadata type updated
+
+  /order/items/removals:
+    post:
+      operationId: cleanOrderItems
+      summary: Check which items will be removed from an order (v1)
+      tags: [Orders]
+      x-api-version: "1"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [uuids]
+              properties:
+                uuids:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        "200":
+          description: Removed items
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CleanAssetsResult'
+
+  /order:
+    post:
+      operationId: createOrder
+      summary: Create an asset order (v1)
+      tags: [Orders]
+      x-api-version: "1"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [assets, conversions, profile, recipients]
+              properties:
+                assets:
+                  type: array
+                  items:
+                    type: string
+                conversions:
+                  type: array
+                  items:
+                    type: string
+                createArchive:
+                  type: boolean
+                  default: false
+                metadata:
+                  type: object
+                notes:
+                  type: string
+                profile:
+                  type: string
+                recipients:
+                  type: array
+                  items:
+                    type: string
+                subject:
+                  type: string
+      responses:
+        "201":
+          description: Order created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  orders:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/GetOrderDetailsResult'
+
+  /order/uuid/{uuid}:
+    get:
+      operationId: getOrderDetailByUUID
+      summary: Get order details by UUID (v1)
+      tags: [Orders]
+      x-api-version: "1"
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: start
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Order details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrderDetailsResult'
+
+  /order/seqNum/{seqNum}:
+    get:
+      operationId: getOrderDetailBySequenceNum
+      summary: Get order details by sequence number (v1)
+      tags: [Orders]
+      x-api-version: "1"
+      parameters:
+        - name: seqNum
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: start
+          in: query
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Order details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrderDetailsResult'
+
+  /order/uuid/{uuid}/zip:
+    post:
+      operationId: createZipForOrder
+      summary: Create a zip archive for an order (v1)
+      tags: [Orders]
+      x-api-version: "1"
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Zip archive creation started
+    get:
+      operationId: getZipStatusOrDownloadLink
+      summary: Get zip archive status or download link (v1)
+      tags: [Orders]
+      x-api-version: "1"
+      parameters:
+        - name: uuid
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Zip status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetZipStatusResult'
+
+  /order/profile/internet:
+    get:
+      operationId: getDirectorInternetProfiles
+      summary: List internet order profiles (v1)
+      tags: [Orders]
+      x-api-version: "1"
+      responses:
+        "200":
+          description: Order profiles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrderProfileResult'
+
+  /conversion/order/profile/uuid/{profileId}:
+    post:
+      operationId: getApplicableConversions
+      summary: List conversions for an order profile (v1)
+      tags: [Orders]
+      x-api-version: "1"
+      parameters:
+        - name: profileId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [uuids]
+              properties:
+                uuids:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        "200":
+          description: Applicable conversions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListConversionsForOrderResult'
+
+  /user/address:
+    get:
+      operationId: getUserAddress
+      summary: Get the calling user's contact address (v1)
+      tags: [Users]
+      x-api-version: "1"
+      responses:
+        "200":
+          description: User contact
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetContactResult'
