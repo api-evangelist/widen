@@ -57,6 +57,14 @@ apis:
         url: https://acquia.my.site.com/s/
 
 common:
+  - type: TrustCenter
+    url: security/widen-trust-center.yml
+  - type: VulnerabilityDisclosure
+    url: security/widen-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/widen-domain-security.yml
+  - type: Authentication
+    url: authentication/widen-authentication.yml
   - type: Website
     url: https://www.acquia.com/products/acquia-dam
   - type: Documentation
