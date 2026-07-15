@@ -57,6 +57,8 @@ apis:
         url: https://acquia.my.site.com/s/
 
 common:
+  - type: AgenticAccess
+    url: agentic-access/widen-agentic-access.yml
   - type: TrustCenter
     url: security/widen-trust-center.yml
   - type: VulnerabilityDisclosure
