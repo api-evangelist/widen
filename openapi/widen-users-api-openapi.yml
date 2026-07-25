@@ -1,0 +1,156 @@
+openapi: 3.0.3
+info:
+  title: Acquia DAM (Widen) Acquia-DAM-Webhooks Users API
+  description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
+
+    '
+  version: '2.0'
+  contact:
+    name: Acquia Support
+    url: https://acquia.my.site.com/s/
+  x-api-id: acquia-dam
+  license:
+    name: Proprietary
+servers:
+- url: https://api.widencollective.com/v2
+  description: Acquia DAM API v2
+- url: https://api.widencollective.com/v1
+  description: Acquia DAM API v1 (legacy)
+security:
+- bearerAuth: []
+tags:
+- name: Users
+  description: Retrieve user and contact information.
+paths:
+  /user:
+    get:
+      operationId: getCurrentUser
+      summary: Get information about the calling user
+      tags:
+      - Users
+      responses:
+        '200':
+          description: Current user info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUserResult'
+  /user/{id}:
+    get:
+      operationId: getUserById
+      summary: Get information about a specific user
+      tags:
+      - Users
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: User info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUserResult'
+  /user/address:
+    get:
+      operationId: getUserAddress
+      summary: Get the calling user's contact address (v1)
+      tags:
+      - Users
+      x-api-version: '1'
+      responses:
+        '200':
+          description: User contact
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetContactResult'
+components:
+  schemas:
+    GetContactResult:
+      type: object
+      properties:
+        fields:
+          type: object
+          properties:
+            city:
+              $ref: '#/components/schemas/ContactField'
+            company:
+              $ref: '#/components/schemas/ContactField'
+            country:
+              $ref: '#/components/schemas/ContactField'
+            email:
+              $ref: '#/components/schemas/ContactField'
+            firstName:
+              $ref: '#/components/schemas/ContactField'
+            lastName:
+              $ref: '#/components/schemas/ContactField'
+            phone:
+              $ref: '#/components/schemas/ContactField'
+            postalCode:
+              $ref: '#/components/schemas/ContactField'
+            stateOrProvince:
+              $ref: '#/components/schemas/ContactField'
+            streetAddress:
+              $ref: '#/components/schemas/ContactField'
+        uuid:
+          type: string
+    ContactField:
+      type: object
+      properties:
+        required:
+          type: boolean
+        value:
+          type: string
+          nullable: true
+    GetUserResult:
+      type: object
+      properties:
+        city:
+          type: string
+          nullable: true
+        company:
+          type: string
+          nullable: true
+        country:
+          type: string
+          nullable: true
+        email:
+          type: string
+        first_name:
+          type: string
+        id:
+          type: string
+        last_name:
+          type: string
+        phone:
+          type: string
+          nullable: true
+        postal_code:
+          type: string
+          nullable: true
+        state_or_province:
+          type: string
+          nullable: true
+        street_address:
+          type: string
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        username:
+          type: string
+        uuid:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth2 Bearer token obtained from Acquia DAM.
+externalDocs:
+  description: Acquia DAM API v2 Documentation
+  url: https://docs.acquia.com/acquia-dam/api-v2

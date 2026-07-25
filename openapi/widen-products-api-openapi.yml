@@ -1,0 +1,584 @@
+openapi: 3.0.3
+info:
+  title: Acquia DAM (Widen) Acquia-DAM-Webhooks Products API
+  description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
+
+    '
+  version: '2.0'
+  contact:
+    name: Acquia Support
+    url: https://acquia.my.site.com/s/
+  x-api-id: acquia-dam
+  license:
+    name: Proprietary
+servers:
+- url: https://api.widencollective.com/v2
+  description: Acquia DAM API v2
+- url: https://api.widencollective.com/v1
+  description: Acquia DAM API v1 (legacy)
+security:
+- bearerAuth: []
+tags:
+- name: Products
+  description: Create, retrieve, update, and search products (Acquia Entries).
+paths:
+  /products:
+    post:
+      operationId: createProduct
+      summary: Create a new product
+      tags:
+      - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              - sku
+              properties:
+                attributes:
+                  type: object
+                  additionalProperties:
+                    type: array
+                    items:
+                      type: string
+                name:
+                  type: string
+                parent_product_id:
+                  type: string
+                product_categories:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      product_category_id:
+                        type: string
+                product_type_id:
+                  type: string
+                sku:
+                  type: string
+      responses:
+        '201':
+          description: Product created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateProductResult'
+  /products/search:
+    post:
+      operationId: listProductsBySearchQuery
+      summary: Search for products
+      tags:
+      - Products
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                expand:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                    - attributes
+                filters:
+                  type: array
+                  items:
+                    type: object
+                limit:
+                  type: integer
+                  minimum: 1
+                  maximum: 100
+                  default: 10
+                offset:
+                  type: integer
+                  minimum: 0
+                  maximum: 9999
+                  default: 0
+                query:
+                  type: string
+                sort:
+                  type: object
+                  properties:
+                    order:
+                      type: string
+                      enum:
+                      - ascending
+                      - descending
+                    type:
+                      type: string
+                      enum:
+                      - created
+                      - last_updated
+                      - name
+                      - product_type_name
+                      - sku
+      responses:
+        '200':
+          description: Matching products
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchProductsResult'
+  /products/{id}:
+    get:
+      operationId: retrieveProductById
+      summary: Retrieve a product by ID
+      tags:
+      - Products
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Product details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProductResult'
+    delete:
+      operationId: deleteProduct
+      summary: Delete a product
+      tags:
+      - Products
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Product deleted
+  /products/{id}/rename:
+    put:
+      operationId: renameProduct
+      summary: Rename a product
+      tags:
+      - Products
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - new_name
+              properties:
+                new_name:
+                  type: string
+      responses:
+        '204':
+          description: Product renamed
+  /products/{id}/attributes:
+    put:
+      operationId: updateAttributeValues
+      summary: Update product attribute values
+      tags:
+      - Products
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - attributes
+              properties:
+                attributes:
+                  type: object
+                  additionalProperties:
+                    type: array
+                    items:
+                      type: string
+      responses:
+        '204':
+          description: Attributes updated
+  /products/{id}/product-category:
+    put:
+      operationId: updateProductCategory
+      summary: Update product categories
+      tags:
+      - Products
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - product_categories
+              properties:
+                product_categories:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      product_category_id:
+                        type: string
+      responses:
+        '204':
+          description: Product category updated
+  /products/{id}/featured-image:
+    put:
+      operationId: updateFeaturedImage
+      summary: Update product featured image
+      tags:
+      - Products
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - asset_id
+              properties:
+                asset_id:
+                  type: string
+      responses:
+        '204':
+          description: Featured image updated
+  /products/{id}/parent-product:
+    put:
+      operationId: updateParentProduct
+      summary: Update product parent
+      tags:
+      - Products
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - parent_product_id
+              properties:
+                parent_product_id:
+                  type: string
+      responses:
+        '204':
+          description: Parent product updated
+  /products/{id}/product-type:
+    put:
+      operationId: updateProductType
+      summary: Update product type
+      tags:
+      - Products
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - product_type_id
+              properties:
+                product_type_id:
+                  type: string
+      responses:
+        '204':
+          description: Product type updated
+  /products/channels/{channel_id}:
+    get:
+      operationId: listProductsForChannel
+      summary: List products for a channel
+      tags:
+      - Products
+      parameters:
+      - name: channel_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 1000
+          default: 100
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+      responses:
+        '200':
+          description: Channel products
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListProductsByChannelResult'
+  /product-categories:
+    get:
+      operationId: listProductCategories
+      summary: List product categories
+      tags:
+      - Products
+      parameters:
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 50
+          default: 50
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+      - name: parent_product_category_id
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of product categories
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListProductCategoriesResult'
+  /product-types:
+    get:
+      operationId: listProductTypes
+      summary: List product types
+      tags:
+      - Products
+      parameters:
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 1000
+          default: 100
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          default: 0
+      responses:
+        '200':
+          description: List of product types
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListProductTypesResult'
+components:
+  schemas:
+    PaginatedList:
+      type: object
+      properties:
+        item_type:
+          type: string
+        total_count:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+    ListProductCategoriesResult:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                product_category_id:
+                  type: string
+    ProductAttribute:
+      type: object
+      properties:
+        attribute_group:
+          type: object
+          nullable: true
+          properties:
+            attribute_group_id:
+              type: string
+            name:
+              type: string
+        attribute_id:
+          type: string
+        import_only:
+          type: boolean
+          nullable: true
+        name:
+          type: string
+        type:
+          type: string
+        values:
+          type: array
+          items:
+            type: string
+    GetProductResult:
+      type: object
+      properties:
+        attributes:
+          type: object
+          nullable: true
+          additionalProperties:
+            $ref: '#/components/schemas/ProductAttribute'
+        created_date:
+          type: string
+          format: date-time
+        featured_image:
+          type: object
+          nullable: true
+          properties:
+            id:
+              type: string
+            url:
+              type: string
+              nullable: true
+        last_updated_timestamp:
+          type: string
+          format: date-time
+        name:
+          type: string
+        parent_product:
+          type: object
+          nullable: true
+          properties:
+            parent_product_id:
+              type: string
+        product_categories:
+          type: object
+          properties:
+            product_categories:
+              type: array
+              items:
+                $ref: '#/components/schemas/ProductCategory'
+        product_id:
+          type: string
+        product_type:
+          type: object
+          nullable: true
+          properties:
+            name:
+              type: string
+            product_type_id:
+              type: string
+        sku:
+          type: string
+    ProductCategory:
+      type: object
+      properties:
+        name:
+          type: string
+        product_category_id:
+          type: string
+        sub_category:
+          $ref: '#/components/schemas/ProductCategory'
+          nullable: true
+    CreateProductResult:
+      type: object
+      properties:
+        product_id:
+          type: string
+    ListProductTypesResult:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                product_type_id:
+                  type: string
+    ListProductsByChannelResult:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          channel_id:
+            type: string
+          channel_name:
+            type: string
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/GetProductResult'
+    SearchProductsResult:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          expanded:
+            type: object
+          filters:
+            type: array
+            items:
+              type: object
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/GetProductResult'
+          query:
+            type: string
+            nullable: true
+          sort:
+            type: object
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth2 Bearer token obtained from Acquia DAM.
+externalDocs:
+  description: Acquia DAM API v2 Documentation
+  url: https://docs.acquia.com/acquia-dam/api-v2

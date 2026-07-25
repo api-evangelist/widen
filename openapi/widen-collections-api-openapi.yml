@@ -1,0 +1,209 @@
+openapi: 3.0.3
+info:
+  title: Acquia DAM (Widen) Acquia-DAM-Webhooks Collections API
+  description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
+
+    '
+  version: '2.0'
+  contact:
+    name: Acquia Support
+    url: https://acquia.my.site.com/s/
+  x-api-id: acquia-dam
+  license:
+    name: Proprietary
+servers:
+- url: https://api.widencollective.com/v2
+  description: Acquia DAM API v2
+- url: https://api.widencollective.com/v1
+  description: Acquia DAM API v1 (legacy)
+security:
+- bearerAuth: []
+tags:
+- name: Collections
+  description: Create and list asset collections.
+paths:
+  /collections:
+    get:
+      operationId: listCollections
+      summary: List collections
+      tags:
+      - Collections
+      parameters:
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - global
+          - private
+          - shared
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 10
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          minimum: 0
+          maximum: 9999
+          default: 0
+      responses:
+        '200':
+          description: List of collections
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCollectionsResult'
+  /collection/assets:
+    post:
+      operationId: addOrRemoveAssetsFromCollections
+      summary: Add or remove assets from collections (v1)
+      tags:
+      - Collections
+      x-api-version: '1'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - collections
+              properties:
+                collections:
+                  type: object
+                  properties:
+                    uuids:
+                      type: array
+                      items:
+                        type: string
+                add:
+                  type: object
+                  properties:
+                    uuids:
+                      type: array
+                      items:
+                        type: string
+                remove:
+                  type: object
+                  properties:
+                    uuids:
+                      type: array
+                      items:
+                        type: string
+      responses:
+        '204':
+          description: Assets updated in collections
+  /collection:
+    post:
+      operationId: createCollection
+      summary: Create a collection (v1)
+      tags:
+      - Collections
+      x-api-version: '1'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - description
+              - title
+              properties:
+                assets:
+                  type: object
+                  properties:
+                    uuids:
+                      type: array
+                      items:
+                        type: string
+                description:
+                  type: string
+                title:
+                  type: string
+      responses:
+        '201':
+          description: Collection created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCollectionResult'
+components:
+  schemas:
+    PaginatedList:
+      type: object
+      properties:
+        item_type:
+          type: string
+        total_count:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+    ListCollectionsResult:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              type: object
+              properties:
+                _links:
+                  type: object
+                  properties:
+                    assets:
+                      type: string
+                id:
+                  type: string
+                title:
+                  type: string
+                total_items:
+                  type: integer
+                type:
+                  type: string
+                  enum:
+                  - global
+                  - private
+                  - shared
+    CreateCollectionResult:
+      type: object
+      properties:
+        assets:
+          type: array
+          items:
+            type: object
+            properties:
+              uuid:
+                type: string
+        assetsAddedCount:
+          type: integer
+        description:
+          type: string
+        name:
+          type: string
+        numResults:
+          type: integer
+        type:
+          type: string
+          enum:
+          - local
+        uuid:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth2 Bearer token obtained from Acquia DAM.
+externalDocs:
+  description: Acquia DAM API v2 Documentation
+  url: https://docs.acquia.com/acquia-dam/api-v2

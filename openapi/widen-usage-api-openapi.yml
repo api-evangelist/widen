@@ -1,0 +1,59 @@
+openapi: 3.0.3
+info:
+  title: Acquia DAM (Widen) Acquia-DAM-Webhooks Usage API
+  description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
+
+    '
+  version: '2.0'
+  contact:
+    name: Acquia Support
+    url: https://acquia.my.site.com/s/
+  x-api-id: acquia-dam
+  license:
+    name: Proprietary
+servers:
+- url: https://api.widencollective.com/v2
+  description: Acquia DAM API v2
+- url: https://api.widencollective.com/v1
+  description: Acquia DAM API v1 (legacy)
+security:
+- bearerAuth: []
+tags:
+- name: Usage
+  description: API usage summary.
+paths:
+  /usage/api:
+    get:
+      operationId: getApiUsageSummary
+      summary: Get API usage summary for the current month
+      tags:
+      - Usage
+      responses:
+        '200':
+          description: API usage summary
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUsageResult'
+components:
+  schemas:
+    GetUsageResult:
+      type: object
+      properties:
+        report_end_timestamp:
+          type: string
+          format: date-time
+        report_start_timestamp:
+          type: string
+          format: date-time
+        request_count:
+          type: integer
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth2 Bearer token obtained from Acquia DAM.
+externalDocs:
+  description: Acquia DAM API v2 Documentation
+  url: https://docs.acquia.com/acquia-dam/api-v2

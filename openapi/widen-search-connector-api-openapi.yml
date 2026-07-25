@@ -1,0 +1,65 @@
+openapi: 3.0.3
+info:
+  title: Acquia DAM (Widen) Acquia-DAM-Webhooks Search-Connector API
+  description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
+
+    '
+  version: '2.0'
+  contact:
+    name: Acquia Support
+    url: https://acquia.my.site.com/s/
+  x-api-id: acquia-dam
+  license:
+    name: Proprietary
+servers:
+- url: https://api.widencollective.com/v2
+  description: Acquia DAM API v2
+- url: https://api.widencollective.com/v1
+  description: Acquia DAM API v1 (legacy)
+security:
+- bearerAuth: []
+tags:
+- name: Search-Connector
+  description: Instant Search Connector integration URL.
+paths:
+  /integrations/url:
+    get:
+      operationId: getSearchConnectorUrl
+      summary: Get Search Connector URL
+      tags:
+      - Search-Connector
+      description: 'Retrieve a signed URL to the Search Connector UI for embedding in an iframe. Valid for 24 hours.
+
+        '
+      parameters:
+      - name: hideSearchBar
+        in: query
+        schema:
+          type: boolean
+      - name: query
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Search Connector URL
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSearchConnectorResult'
+components:
+  schemas:
+    GetSearchConnectorResult:
+      type: object
+      properties:
+        url:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth2 Bearer token obtained from Acquia DAM.
+externalDocs:
+  description: Acquia DAM API v2 Documentation
+  url: https://docs.acquia.com/acquia-dam/api-v2

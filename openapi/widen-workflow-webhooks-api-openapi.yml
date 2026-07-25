@@ -1,0 +1,116 @@
+openapi: 3.0.3
+info:
+  title: Acquia DAM (Widen) Acquia-DAM-Webhooks Workflow-Webhooks API
+  description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
+
+    '
+  version: '2.0'
+  contact:
+    name: Acquia Support
+    url: https://acquia.my.site.com/s/
+  x-api-id: acquia-dam
+  license:
+    name: Proprietary
+servers:
+- url: https://api.widencollective.com/v2
+  description: Acquia DAM API v2
+- url: https://api.widencollective.com/v1
+  description: Acquia DAM API v1 (legacy)
+security:
+- bearerAuth: []
+tags:
+- name: Workflow-Webhooks
+  description: Create, list, and delete workflow webhooks.
+paths:
+  /workflow/webhooks:
+    get:
+      operationId: workflowListWebhooks
+      summary: List Workflow webhooks
+      tags:
+      - Workflow-Webhooks
+      responses:
+        '200':
+          description: List of Workflow webhooks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListWorkflowWebhooksResult'
+    post:
+      operationId: workflowAddWebhook
+      summary: Create a Workflow webhook
+      tags:
+      - Workflow-Webhooks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - event
+              - target
+              properties:
+                event:
+                  type: string
+                  enum:
+                  - DELIVERABLE_STATUS_CHANGED
+                  - PROJECT_CREATED
+                target:
+                  type: string
+      responses:
+        '201':
+          description: Workflow webhook created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetWorkflowWebhookResult'
+    delete:
+      operationId: workflowDeleteWebhook
+      summary: Delete a Workflow webhook
+      tags:
+      - Workflow-Webhooks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - event
+              properties:
+                event:
+                  type: string
+                  enum:
+                  - DELIVERABLE_STATUS_CHANGED
+                  - PROJECT_CREATED
+      responses:
+        '204':
+          description: Workflow webhook deleted
+components:
+  schemas:
+    GetWorkflowWebhookResult:
+      type: object
+      properties:
+        event:
+          type: string
+          enum:
+          - DELIVERABLE_STATUS_CHANGED
+          - PROJECT_CREATED
+        target:
+          type: string
+    ListWorkflowWebhooksResult:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetWorkflowWebhookResult'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth2 Bearer token obtained from Acquia DAM.
+externalDocs:
+  description: Acquia DAM API v2 Documentation
+  url: https://docs.acquia.com/acquia-dam/api-v2

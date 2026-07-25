@@ -1,0 +1,133 @@
+openapi: 3.0.3
+info:
+  title: Acquia DAM (Widen) Acquia-DAM-Webhooks Attributes API
+  description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
+
+    '
+  version: '2.0'
+  contact:
+    name: Acquia Support
+    url: https://acquia.my.site.com/s/
+  x-api-id: acquia-dam
+  license:
+    name: Proprietary
+servers:
+- url: https://api.widencollective.com/v2
+  description: Acquia DAM API v2
+- url: https://api.widencollective.com/v1
+  description: Acquia DAM API v1 (legacy)
+security:
+- bearerAuth: []
+tags:
+- name: Attributes
+  description: List product attributes and controlled vocabulary values.
+paths:
+  /attributes:
+    get:
+      operationId: listAttributes
+      summary: List product attributes
+      tags:
+      - Attributes
+      parameters:
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 1000
+          default: 100
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+      responses:
+        '200':
+          description: List of attributes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAttributesResult'
+  /attributes/{id}/vocabulary:
+    get:
+      operationId: listVocabulary
+      summary: List controlled vocabulary for an attribute
+      tags:
+      - Attributes
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Attribute vocabulary
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAttributeVocabularyResult'
+components:
+  schemas:
+    Attribute:
+      type: object
+      properties:
+        attribute_group:
+          type: object
+          nullable: true
+          properties:
+            attribute_group_id:
+              type: string
+            name:
+              type: string
+        attribute_id:
+          type: string
+        import_only:
+          type: boolean
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - asset
+          - multi_controlled_vocab
+          - rich_text
+          - single_controlled_vocab
+          - text
+    ListAttributesResult:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Attribute'
+    ListAttributeVocabularyResult:
+      type: object
+      properties:
+        vocabulary:
+          type: array
+          items:
+            type: string
+    PaginatedList:
+      type: object
+      properties:
+        item_type:
+          type: string
+        total_count:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth2 Bearer token obtained from Acquia DAM.
+externalDocs:
+  description: Acquia DAM API v2 Documentation
+  url: https://docs.acquia.com/acquia-dam/api-v2

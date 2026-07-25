@@ -1,0 +1,265 @@
+openapi: 3.0.3
+info:
+  title: Acquia DAM (Widen) Acquia-DAM-Webhooks Categories API
+  description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
+
+    '
+  version: '2.0'
+  contact:
+    name: Acquia Support
+    url: https://acquia.my.site.com/s/
+  x-api-id: acquia-dam
+  license:
+    name: Proprietary
+servers:
+- url: https://api.widencollective.com/v2
+  description: Acquia DAM API v2
+- url: https://api.widencollective.com/v1
+  description: Acquia DAM API v1 (legacy)
+security:
+- bearerAuth: []
+tags:
+- name: Categories
+  description: Manage asset categories and category trees.
+paths:
+  /categories:
+    get:
+      operationId: listAssetCategories
+      summary: List top-level asset categories
+      tags:
+      - Categories
+      responses:
+        '200':
+          description: Top-level categories
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCategoriesResult'
+  /categories/{categoryPath}:
+    get:
+      operationId: listAssetCategoriesByPath
+      summary: List child asset categories by path
+      tags:
+      - Categories
+      parameters:
+      - name: categoryPath
+        in: path
+        required: true
+        schema:
+          type: string
+        description: URL-encoded category path
+      responses:
+        '200':
+          description: Child categories
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCategoriesResult'
+  /category/assets:
+    post:
+      operationId: updateCategoryAssets
+      summary: Add or remove assets from categories (v1)
+      tags:
+      - Categories
+      x-api-version: '1'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - categories
+              properties:
+                categories:
+                  type: object
+                  properties:
+                    uuids:
+                      type: array
+                      items:
+                        type: string
+                add:
+                  type: object
+                  properties:
+                    uuids:
+                      type: array
+                      items:
+                        type: string
+                remove:
+                  type: object
+                  properties:
+                    uuids:
+                      type: array
+                      items:
+                        type: string
+      responses:
+        '204':
+          description: Assets updated in categories
+  /category:
+    post:
+      operationId: createCategory
+      summary: Create a new category (v1)
+      tags:
+      - Categories
+      x-api-version: '1'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - parentCategory
+              - title
+              properties:
+                description:
+                  type: string
+                displayAlphabetically:
+                  type: boolean
+                  default: false
+                displayBeforeCategory:
+                  type: string
+                parentCategory:
+                  type: string
+                title:
+                  type: string
+      responses:
+        '201':
+          description: Category created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateEditCategoryResult'
+  /category/uuid/{uuid}:
+    put:
+      operationId: editCategory
+      summary: Edit a category (v1)
+      tags:
+      - Categories
+      x-api-version: '1'
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                displayAlphabetically:
+                  type: boolean
+                displayBeforeCategory:
+                  type: string
+                parentCategory:
+                  type: string
+                title:
+                  type: string
+      responses:
+        '200':
+          description: Category updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateEditCategoryResult'
+  /category/categoryTree:
+    get:
+      operationId: getCategoryTree
+      summary: Get the full category tree (v1)
+      tags:
+      - Categories
+      x-api-version: '1'
+      parameters:
+      - name: includeEmpty
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Category tree
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryTreeResult'
+components:
+  schemas:
+    CategoryV1:
+      type: object
+      properties:
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryV1'
+        id:
+          type: integer
+        title:
+          type: string
+        uuid:
+          type: string
+    CategoryV2:
+      type: object
+      properties:
+        _links:
+          type: object
+          properties:
+            assets:
+              type: string
+            categories:
+              type: string
+        id:
+          type: string
+        name:
+          type: string
+        parts:
+          type: array
+          items:
+            type: string
+        path:
+          type: string
+    CategoryTreeResult:
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryV1'
+        parentCategory:
+          type: string
+          nullable: true
+    ListCategoriesResult:
+      type: object
+      properties:
+        item_type:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryV2'
+        total_count:
+          type: integer
+    CreateEditCategoryResult:
+      type: object
+      properties:
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryV1'
+        id:
+          type: integer
+        title:
+          type: string
+        uuid:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth2 Bearer token obtained from Acquia DAM.
+externalDocs:
+  description: Acquia DAM API v2 Documentation
+  url: https://docs.acquia.com/acquia-dam/api-v2

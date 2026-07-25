@@ -1,0 +1,232 @@
+openapi: 3.0.3
+info:
+  title: Acquia DAM (Widen) Acquia-DAM-Webhooks API
+  description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
+
+    '
+  version: '2.0'
+  contact:
+    name: Acquia Support
+    url: https://acquia.my.site.com/s/
+  x-api-id: acquia-dam
+  license:
+    name: Proprietary
+servers:
+- url: https://api.widencollective.com/v2
+  description: Acquia DAM API v2
+- url: https://api.widencollective.com/v1
+  description: Acquia DAM API v1 (legacy)
+security:
+- bearerAuth: []
+tags:
+- name: Acquia-DAM-Webhooks
+  description: Create, list, retrieve, edit, ping, and delete DAM asset webhooks.
+paths:
+  /webhooks/configurations:
+    get:
+      operationId: listWebhooks
+      summary: List Assets webhooks
+      tags:
+      - Acquia-DAM-Webhooks
+      parameters:
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 10
+          default: 10
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+      responses:
+        '200':
+          description: List of webhook configurations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAssetsWebhooksResult'
+    post:
+      operationId: createWebhook
+      summary: Create an Assets webhook
+      tags:
+      - Acquia-DAM-Webhooks
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - delivery_url
+              - event_type
+              properties:
+                delivery_url:
+                  type: string
+                event_type:
+                  type: string
+                  enum:
+                  - asset_created
+                  - asset_deleted
+                  - asset_release_date_updated
+                  - asset_expiration_date_updated
+                  - asset_asset_groups_updated
+                  - asset_categories_updated
+                  - asset_tags_updated
+                  - asset_version_added
+                secret_key:
+                  type: string
+      responses:
+        '201':
+          description: Webhook created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAssetsWebhookResult'
+  /webhooks/configurations/{id}:
+    get:
+      operationId: getWebhook
+      summary: Retrieve an Assets webhook
+      tags:
+      - Acquia-DAM-Webhooks
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Webhook details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAssetsWebhookResult'
+    put:
+      operationId: editWebhook
+      summary: Edit an Assets webhook
+      tags:
+      - Acquia-DAM-Webhooks
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: patch
+        in: query
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                delivery_enabled:
+                  type: boolean
+                delivery_url:
+                  type: string
+                event_type:
+                  type: string
+                secret_key:
+                  type: string
+      responses:
+        '204':
+          description: Webhook updated
+    delete:
+      operationId: deleteWebhook
+      summary: Delete an Assets webhook
+      tags:
+      - Acquia-DAM-Webhooks
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Webhook deleted
+  /webhooks/configurations/{id}/ping:
+    get:
+      operationId: pingWebhook
+      summary: Ping an Assets webhook
+      tags:
+      - Acquia-DAM-Webhooks
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Webhook pinged
+components:
+  schemas:
+    PaginatedList:
+      type: object
+      properties:
+        item_type:
+          type: string
+        total_count:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+    GetAssetsWebhookResult:
+      type: object
+      properties:
+        created_by_user:
+          type: object
+          properties:
+            uuid:
+              type: string
+        created_date:
+          type: string
+          format: date-time
+        delivery_enabled:
+          type: boolean
+        event_type:
+          type: string
+        last_delivered_date:
+          type: string
+          format: date-time
+          nullable: true
+        last_pinged_date:
+          type: string
+          format: date-time
+          nullable: true
+        signing_enabled:
+          type: boolean
+        webhook_configuration_id:
+          type: string
+    CreateAssetsWebhookResult:
+      type: object
+      properties:
+        id:
+          type: string
+    ListAssetsWebhooksResult:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/GetAssetsWebhookResult'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth2 Bearer token obtained from Acquia DAM.
+externalDocs:
+  description: Acquia DAM API v2 Documentation
+  url: https://docs.acquia.com/acquia-dam/api-v2

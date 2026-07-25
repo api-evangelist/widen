@@ -1,0 +1,917 @@
+openapi: 3.0.3
+info:
+  title: Acquia DAM (Widen) Acquia-DAM-Webhooks Assets API
+  description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
+
+    '
+  version: '2.0'
+  contact:
+    name: Acquia Support
+    url: https://acquia.my.site.com/s/
+  x-api-id: acquia-dam
+  license:
+    name: Proprietary
+servers:
+- url: https://api.widencollective.com/v2
+  description: Acquia DAM API v2
+- url: https://api.widencollective.com/v1
+  description: Acquia DAM API v1 (legacy)
+security:
+- bearerAuth: []
+tags:
+- name: Assets
+  description: Create, retrieve, update, delete, and search digital assets.
+paths:
+  /assets/search:
+    get:
+      operationId: assetListBySearchQuery
+      summary: Search for assets
+      tags:
+      - Assets
+      parameters:
+      - name: query
+        in: query
+        schema:
+          type: string
+        description: DAM quicksearch query string
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 100
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          minimum: 0
+          maximum: 10000
+          default: 0
+      - name: sort
+        in: query
+        schema:
+          type: string
+          default: -created_date
+      - name: expand
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - asset_properties
+            - embeds
+            - file_properties
+            - metadata
+            - metadata_info
+            - metadata_vocabulary
+            - security
+            - thumbnails
+        style: form
+        explode: true
+      - name: facet
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - file_types
+            - categories
+            - metadata
+        style: form
+        explode: true
+      - name: include_archived
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - name: include_deleted
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - name: scroll
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - name: search_document_text
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - name: scroll_id
+        in: query
+        schema:
+          type: string
+        description: scroll_id from a previous paginated search
+      responses:
+        '200':
+          description: Matching assets
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchAssetsResult'
+  /assets/{id}:
+    get:
+      operationId: assetRetrieveById
+      summary: Retrieve an asset by ID
+      tags:
+      - Assets
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: expand
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        style: form
+        explode: true
+      responses:
+        '200':
+          description: Asset details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAssetResult'
+    delete:
+      operationId: assetDelete
+      summary: Delete an asset (send to Pending Delete queue)
+      tags:
+      - Assets
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Asset queued for deletion
+  /assets/{id}/versions/{version_id}:
+    get:
+      operationId: assetRetrieveByIdAndVersion
+      summary: Retrieve a specific version of an asset
+      tags:
+      - Assets
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: version_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: expand
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        style: form
+        explode: true
+      responses:
+        '200':
+          description: Asset version details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAssetResult'
+  /assets/{id}/metadata:
+    get:
+      operationId: assetMetadataRetrieve
+      summary: Retrieve asset metadata
+      tags:
+      - Assets
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Asset metadata
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetadataExpand'
+    put:
+      operationId: assetMetadataUpdate
+      summary: Update asset metadata fields
+      tags:
+      - Assets
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: patch
+        in: query
+        schema:
+          type: string
+        description: Comma-separated list of fields to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - fields
+              properties:
+                fields:
+                  type: object
+                  additionalProperties:
+                    type: array
+                    items:
+                      type: string
+      responses:
+        '204':
+          description: Metadata updated
+  /assets/{id}/security:
+    get:
+      operationId: assetRetrieveSecurity
+      summary: Retrieve asset security settings
+      tags:
+      - Assets
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Asset security
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecurityExpand'
+    put:
+      operationId: assetUpdateSecurity
+      summary: Update asset security settings
+      tags:
+      - Assets
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: patch
+        in: query
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                asset_groups:
+                  type: array
+                  items:
+                    type: string
+                expiration_date:
+                  type: string
+                  format: date-time
+                  nullable: true
+                release_date:
+                  type: string
+                  format: date-time
+                  nullable: true
+      responses:
+        '204':
+          description: Security updated
+  /assets/{id}/filename:
+    put:
+      operationId: assetRename
+      summary: Rename an asset
+      tags:
+      - Assets
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - filename
+              properties:
+                filename:
+                  type: string
+      responses:
+        '204':
+          description: Asset renamed
+  /assets/{id}/alternatepreview:
+    post:
+      operationId: alternatePreviewUpload
+      summary: Upload an alternate preview for an asset
+      tags:
+      - Assets
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '204':
+          description: Alternate preview uploaded
+    delete:
+      operationId: alternatePreviewDelete
+      summary: Remove alternate preview from an asset
+      tags:
+      - Assets
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Alternate preview removed
+  /assets/assetgroups:
+    get:
+      operationId: assetGroupsGet
+      summary: List asset groups
+      tags:
+      - Assets
+      responses:
+        '200':
+          description: List of asset groups
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAssetGroupsResult'
+  /uploads:
+    post:
+      operationId: uploadAsset
+      summary: Create a new asset
+      tags:
+      - Assets
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - profile
+              - filename
+              properties:
+                profile:
+                  type: string
+                filename:
+                  type: string
+                file:
+                  type: string
+                  format: binary
+                file_id:
+                  type: string
+                url:
+                  type: string
+                metadata:
+                  type: string
+                  description: JSON string of metadata fields
+      responses:
+        '201':
+          description: Asset created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAssetResult'
+  /uploads/profiles:
+    get:
+      operationId: uploadAssetProfilesList
+      summary: List upload profiles
+      tags:
+      - Assets
+      responses:
+        '200':
+          description: List of upload profiles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListUploadProfilesResult'
+  /uploads/chunks/start:
+    post:
+      operationId: uploadChunk0
+      summary: Start a chunked upload session
+      tags:
+      - Assets
+      responses:
+        '200':
+          description: Chunked upload session started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StartChunkedUploadResult'
+  /uploads/chunks/upload:
+    post:
+      operationId: uploadChunk1
+      summary: Upload a file chunk
+      tags:
+      - Assets
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+              - session_id
+              - chunk_number
+              - file
+              properties:
+                session_id:
+                  type: string
+                chunk_number:
+                  type: integer
+                  minimum: 1
+                  maximum: 10000
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Chunk uploaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadChunkResult'
+  /uploads/chunks/complete:
+    post:
+      operationId: uploadChunk3
+      summary: Complete a chunked upload session
+      tags:
+      - Assets
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - session_id
+              - tags
+              properties:
+                session_id:
+                  type: string
+                tags:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: Chunked upload complete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompleteChunkedUploadResult'
+  /asset/uuid/{id}/assetversions:
+    get:
+      operationId: getAssetVersions
+      summary: List asset versions (v1)
+      tags:
+      - Assets
+      x-api-version: '1'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Asset versions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListVersionsResult'
+  /asset/changemetadatatype/asset/{id}/type/{metadata_type_uuid}:
+    put:
+      operationId: updateMetadataType
+      summary: Change an asset's metadata type (v1)
+      tags:
+      - Assets
+      x-api-version: '1'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: metadata_type_uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Metadata type updated
+components:
+  schemas:
+    CreateAssetResult:
+      type: object
+      properties:
+        _links:
+          type: object
+          properties:
+            self:
+              type: string
+        id:
+          type: string
+          nullable: true
+    MetadataExpand:
+      type: object
+      properties:
+        fields:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+    GetAssetResult:
+      type: object
+      properties:
+        _links:
+          type: object
+          properties:
+            download:
+              type: string
+        asset_properties:
+          $ref: '#/components/schemas/AssetPropertiesExpand'
+          nullable: true
+        created_date:
+          type: string
+          format: date-time
+        current_version:
+          type: boolean
+        deleted_date:
+          type: string
+          format: date-time
+          nullable: true
+        embeds:
+          type: object
+          nullable: true
+          additionalProperties:
+            type: object
+            properties:
+              apps:
+                type: array
+                items:
+                  type: string
+              html:
+                type: string
+              share:
+                type: string
+              url:
+                type: string
+        expanded:
+          type: object
+        external_id:
+          type: string
+        file_properties:
+          $ref: '#/components/schemas/FilePropertiesExpand'
+          nullable: true
+        file_upload_date:
+          type: string
+          format: date-time
+        filename:
+          type: string
+        id:
+          type: string
+        last_update_date:
+          type: string
+          format: date-time
+        metadata:
+          $ref: '#/components/schemas/MetadataExpand'
+          nullable: true
+        released_and_not_expired:
+          type: boolean
+        security:
+          $ref: '#/components/schemas/SecurityExpand'
+          nullable: true
+        status:
+          $ref: '#/components/schemas/StatusExpand'
+          nullable: true
+        thumbnails:
+          $ref: '#/components/schemas/ThumbnailsExpand'
+          nullable: true
+        version_id:
+          type: string
+    FileTypeFacet:
+      type: object
+      properties:
+        count:
+          type: integer
+        name:
+          type: string
+        search_query:
+          type: string
+    FilePropertiesExpand:
+      type: object
+      properties:
+        format:
+          type: string
+        format_type:
+          type: string
+        image_properties:
+          type: object
+          nullable: true
+          properties:
+            aspect_ratio:
+              type: number
+            height:
+              type: integer
+              nullable: true
+            width:
+              type: integer
+              nullable: true
+        size_in_bytes:
+          type: integer
+        size_in_kbytes:
+          type: number
+        video_properties:
+          type: object
+          nullable: true
+          properties:
+            aspect_ratio:
+              type: number
+              nullable: true
+            duration:
+              type: number
+              nullable: true
+            height:
+              type: integer
+              nullable: true
+            width:
+              type: integer
+              nullable: true
+    Thumbnail:
+      type: object
+      properties:
+        url:
+          type: string
+        valid_until:
+          type: string
+          format: date-time
+    MetadataFacet:
+      type: object
+      properties:
+        display_key:
+          type: string
+        display_name:
+          type: string
+        values:
+          type: array
+          items:
+            type: object
+            properties:
+              count:
+                type: integer
+              search_query:
+                type: string
+              value:
+                type: string
+              values:
+                type: array
+                items:
+                  type: string
+    UploadChunkResult:
+      type: object
+      properties:
+        tag:
+          type: string
+    ListAssetGroupsResult:
+      type: object
+      properties:
+        item_type:
+          type: string
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              uuid:
+                type: string
+        total_count:
+          type: integer
+    SearchAssetsResult:
+      type: object
+      properties:
+        facets:
+          type: object
+          nullable: true
+          properties:
+            categories:
+              type: array
+              items:
+                $ref: '#/components/schemas/CategoryFacet'
+            file_types:
+              type: array
+              items:
+                $ref: '#/components/schemas/FileTypeFacet'
+            metadata:
+              type: array
+              items:
+                $ref: '#/components/schemas/MetadataFacet'
+        include_archived:
+          type: boolean
+        include_deleted:
+          type: boolean
+        item_type:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetAssetResult'
+        limit:
+          type: integer
+        offset:
+          type: integer
+        query:
+          type: string
+          nullable: true
+        query_explained:
+          type: string
+        query_syntax_ok:
+          type: boolean
+        scroll_id:
+          type: string
+          nullable: true
+        scroll_timeout:
+          type: string
+          nullable: true
+        sort:
+          type: string
+        sort_explained:
+          type: string
+        total_count:
+          type: integer
+    CategoryFacet:
+      type: object
+      properties:
+        count:
+          type: integer
+        id:
+          type: string
+        name:
+          type: string
+        path:
+          type: string
+        search_query:
+          type: string
+    StatusExpand:
+      type: object
+      properties:
+        upload_progress:
+          type: string
+          enum:
+          - pending
+          - verifying
+          - complete
+    AssetPropertiesExpand:
+      type: object
+      properties:
+        cutline_caption:
+          type: string
+        favorite:
+          type: boolean
+        popularity:
+          type: integer
+    CompleteChunkedUploadResult:
+      type: object
+      properties:
+        file_id:
+          type: string
+    StartChunkedUploadResult:
+      type: object
+      properties:
+        session_id:
+          type: string
+    SecurityExpand:
+      type: object
+      properties:
+        asset_groups:
+          type: array
+          items:
+            type: string
+        expiration_date:
+          type: string
+          format: date-time
+          nullable: true
+        release_date:
+          type: string
+          format: date-time
+          nullable: true
+    ListUploadProfilesResult:
+      type: array
+      items:
+        type: object
+        properties:
+          asset_groups:
+            type: array
+            items:
+              type: string
+          immediate_release:
+            type: boolean
+          metadata_type:
+            type: string
+          name:
+            type: string
+          release_date:
+            type: string
+            format: date-time
+            nullable: true
+    ThumbnailsExpand:
+      type: object
+      properties:
+        125px:
+          $ref: '#/components/schemas/Thumbnail'
+        160px:
+          $ref: '#/components/schemas/Thumbnail'
+        300px:
+          $ref: '#/components/schemas/Thumbnail'
+        600px:
+          $ref: '#/components/schemas/Thumbnail'
+        2048px:
+          $ref: '#/components/schemas/Thumbnail'
+    ListVersionsResult:
+      type: object
+      properties:
+        numResults:
+          type: integer
+        uuid:
+          type: string
+        versions:
+          type: array
+          items:
+            type: object
+            properties:
+              dateAdded:
+                type: string
+                format: date-time
+              dateLastEdited:
+                type: string
+                format: date-time
+              externalId:
+                type: string
+              fileFormat:
+                type: string
+              finalized:
+                type: boolean
+              name:
+                type: string
+              previews:
+                type: object
+              size:
+                type: string
+              type:
+                type: string
+              uuid:
+                type: string
+              versionNumber:
+                type: integer
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth2 Bearer token obtained from Acquia DAM.
+externalDocs:
+  description: Acquia DAM API v2 Documentation
+  url: https://docs.acquia.com/acquia-dam/api-v2

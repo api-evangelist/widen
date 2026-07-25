@@ -1,0 +1,261 @@
+openapi: 3.0.3
+info:
+  title: Acquia DAM (Widen) Acquia-DAM-Webhooks Analytics API
+  description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
+
+    '
+  version: '2.0'
+  contact:
+    name: Acquia Support
+    url: https://acquia.my.site.com/s/
+  x-api-id: acquia-dam
+  license:
+    name: Proprietary
+servers:
+- url: https://api.widencollective.com/v2
+  description: Acquia DAM API v2
+- url: https://api.widencollective.com/v1
+  description: Acquia DAM API v1 (legacy)
+security:
+- bearerAuth: []
+tags:
+- name: Analytics
+  description: Asset download, share, and view analytics endpoints.
+paths:
+  /analytics/assets/downloads:
+    post:
+      operationId: listAssetDownloads
+      summary: List asset download events
+      tags:
+      - Analytics
+      description: 'Retrieve a list of Asset Download events. Events may take up to 24 hours before appearing. Three years of analytics data is available, starting from January 1, 2021.
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnalyticsRequestBody'
+      responses:
+        '200':
+          description: List of download events
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAssetDownloadsResponse'
+  /analytics/assets/shares:
+    post:
+      operationId: listAssetShares
+      summary: List asset share events
+      tags:
+      - Analytics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnalyticsRequestBody'
+      responses:
+        '200':
+          description: List of share events
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAssetSharesResponse'
+  /analytics/assets/views:
+    post:
+      operationId: listAssetViews
+      summary: List asset view events
+      tags:
+      - Analytics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnalyticsRequestBody'
+      responses:
+        '200':
+          description: List of view events
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAssetViewsResponse'
+components:
+  schemas:
+    DownloadAssetEvent:
+      type: object
+      properties:
+        asset_properties:
+          $ref: '#/components/schemas/AssetProperties'
+        conversion_properties:
+          $ref: '#/components/schemas/ConversionProperties'
+        file_properties:
+          $ref: '#/components/schemas/FileProperties'
+        intended_use_properties:
+          $ref: '#/components/schemas/IntendedUseProperties'
+        referrer:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        user_properties:
+          $ref: '#/components/schemas/UserProperties'
+    AssetFilter:
+      type: object
+      required:
+      - id
+      - type
+      properties:
+        id:
+          type: string
+          description: Asset UUID
+        type:
+          type: string
+          enum:
+          - asset
+    ListAssetViewsResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ViewAssetEvent'
+        pagination_token:
+          type: string
+          nullable: true
+        total_count:
+          type: integer
+    FileProperties:
+      type: object
+      properties:
+        file_type:
+          type: string
+        format:
+          type: string
+        size_in_bytes:
+          type: integer
+    ShareAssetEvent:
+      type: object
+      properties:
+        asset_properties:
+          $ref: '#/components/schemas/AssetProperties'
+        referrer:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        user_properties:
+          $ref: '#/components/schemas/UserProperties'
+    ListAssetSharesResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShareAssetEvent'
+        pagination_token:
+          type: string
+          nullable: true
+        total_count:
+          type: integer
+    AnalyticsRequestBody:
+      type: object
+      required:
+      - filters
+      properties:
+        filters:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/AssetFilter'
+            - $ref: '#/components/schemas/DateRangeFilter'
+        limit:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 100
+        pagination_token:
+          type: string
+          nullable: true
+    UserProperties:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+    ListAssetDownloadsResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DownloadAssetEvent'
+        pagination_token:
+          type: string
+          nullable: true
+        total_count:
+          type: integer
+    ViewAssetEvent:
+      type: object
+      properties:
+        asset_properties:
+          $ref: '#/components/schemas/AssetProperties'
+        file_properties:
+          $ref: '#/components/schemas/FileProperties'
+        intended_use_properties:
+          $ref: '#/components/schemas/IntendedUseProperties'
+        referrer:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        user_properties:
+          $ref: '#/components/schemas/UserProperties'
+    IntendedUseProperties:
+      type: object
+      properties:
+        value:
+          type: string
+          nullable: true
+    ConversionProperties:
+      type: object
+      properties:
+        output_file_format:
+          type: string
+          nullable: true
+        output_file_type:
+          type: string
+          nullable: true
+    DateRangeFilter:
+      type: object
+      required:
+      - start
+      - end
+      - type
+      properties:
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        type:
+          type: string
+          enum:
+          - date_range
+    AssetProperties:
+      type: object
+      properties:
+        id:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth2 Bearer token obtained from Acquia DAM.
+externalDocs:
+  description: Acquia DAM API v2 Documentation
+  url: https://docs.acquia.com/acquia-dam/api-v2

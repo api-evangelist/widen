@@ -1,0 +1,535 @@
+openapi: 3.0.3
+info:
+  title: Acquia DAM (Widen) Acquia-DAM-Webhooks Workflow-App-Projects API
+  description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
+
+    '
+  version: '2.0'
+  contact:
+    name: Acquia Support
+    url: https://acquia.my.site.com/s/
+  x-api-id: acquia-dam
+  license:
+    name: Proprietary
+servers:
+- url: https://api.widencollective.com/v2
+  description: Acquia DAM API v2
+- url: https://api.widencollective.com/v1
+  description: Acquia DAM API v1 (legacy)
+security:
+- bearerAuth: []
+tags:
+- name: Workflow-App-Projects
+  description: Manage workflow projects and deliverables.
+paths:
+  /workflow/projects:
+    post:
+      operationId: createProject
+      summary: Create a new workflow project
+      tags:
+      - Workflow-App-Projects
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - description
+              - end_date
+              - name
+              - project_manager
+              - start_date
+              properties:
+                description:
+                  type: string
+                end_date:
+                  type: string
+                  format: date-time
+                name:
+                  type: string
+                owner:
+                  type: string
+                project_manager:
+                  type: string
+                start_date:
+                  type: string
+                  format: date-time
+                workgroups:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '201':
+          description: Project created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateProjectResult'
+  /workflow/projects/{project_id}:
+    get:
+      operationId: retrieveProjectById
+      summary: Retrieve a workflow project
+      tags:
+      - Workflow-App-Projects
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: expand
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - request_fields
+        style: form
+        explode: true
+      responses:
+        '200':
+          description: Project details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetProjectResult'
+    delete:
+      operationId: deleteProject
+      summary: Delete a workflow project
+      tags:
+      - Workflow-App-Projects
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Project deleted
+  /workflow/projects/{project_id}/deliverables:
+    get:
+      operationId: deliverablesRetrieveForProject
+      summary: List deliverables for a project
+      tags:
+      - Workflow-App-Projects
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: expand
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - download_link
+            - file_properties
+            - proof_url
+        style: form
+        explode: true
+      responses:
+        '200':
+          description: List of deliverables
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListDeliverablesResult'
+    post:
+      operationId: deliverablesAddToProject
+      summary: Add a deliverable to a project
+      tags:
+      - Workflow-App-Projects
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - due_date
+              - name
+              - proof_provider
+              - stages
+              - start_date
+              properties:
+                description:
+                  type: string
+                due_date:
+                  type: string
+                  format: date-time
+                name:
+                  type: string
+                proof_provider:
+                  type: string
+                stages:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                    - due_date
+                    - name
+                    - reviewers
+                    properties:
+                      commenters:
+                        type: array
+                        items:
+                          type: string
+                      due_date:
+                        type: string
+                        format: date-time
+                      name:
+                        type: string
+                      reviewers:
+                        type: array
+                        items:
+                          type: string
+                start_date:
+                  type: string
+                  format: date-time
+      responses:
+        '201':
+          description: Deliverable added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddDeliverableResult'
+  /workflow/projects/{project_id}/deliverables/{deliverable_id}:
+    get:
+      operationId: deliverablesRetrieveForProjectById
+      summary: Retrieve a deliverable
+      tags:
+      - Workflow-App-Projects
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: deliverable_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: expand
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - download_link
+            - file_properties
+            - proof_url
+        style: form
+        explode: true
+      responses:
+        '200':
+          description: Deliverable details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDeliverableResult'
+    delete:
+      operationId: deliverablesDeleteForProject
+      summary: Delete a deliverable
+      tags:
+      - Workflow-App-Projects
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: deliverable_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Deliverable deleted
+  /workflow/projects/{project_id}/deliverables/{deliverable_id}/close:
+    put:
+      operationId: deliverablesCloseForProject
+      summary: Close a deliverable
+      tags:
+      - Workflow-App-Projects
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: deliverable_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filename:
+                  type: string
+                upload_profile:
+                  type: string
+      responses:
+        '204':
+          description: Deliverable closed
+  /workflow/projects/{project_id}/deliverables/{deliverable_id}/proofs:
+    post:
+      operationId: deliverablesUploadProof
+      summary: Upload proof to a deliverable
+      tags:
+      - Workflow-App-Projects
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: deliverable_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - content_length
+              - filename
+              - url
+              properties:
+                content_length:
+                  type: integer
+                filename:
+                  type: string
+                url:
+                  type: string
+      responses:
+        '200':
+          description: Proof uploaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadProofResult'
+  /workflow/projects/{project_id}/support-files:
+    get:
+      operationId: retrieveProjectSupportFiles
+      summary: List supporting files for a project
+      tags:
+      - Workflow-App-Projects
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of supporting files
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SupportingFile'
+components:
+  schemas:
+    UploadProofResult:
+      type: object
+      properties:
+        deliverable_id:
+          type: string
+        id:
+          type: string
+        project_id:
+          type: string
+        status:
+          type: string
+        thumbnails:
+          type: object
+          properties:
+            large:
+              type: string
+            medium:
+              type: string
+            small:
+              type: string
+    AddDeliverableResult:
+      type: object
+      properties:
+        deliverable_id:
+          type: string
+        id:
+          type: string
+        project_id:
+          type: string
+    SupportingFile:
+      type: object
+      properties:
+        _links:
+          type: object
+          properties:
+            download:
+              type: string
+            project:
+              type: string
+            self:
+              type: string
+        format_type:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        size_in_bytes:
+          type: integer
+        upload_date:
+          type: string
+          format: date-time
+        uploader:
+          $ref: '#/components/schemas/WorkflowUser'
+    CreateProjectResult:
+      type: object
+      properties:
+        project_id:
+          type: string
+    ListDeliverablesResult:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetDeliverableResult'
+    GetDeliverableResult:
+      type: object
+      properties:
+        _links:
+          type: object
+          properties:
+            download:
+              type: string
+            project:
+              type: string
+            self:
+              type: string
+        deliverable_id:
+          type: string
+        deliverable_manager:
+          $ref: '#/components/schemas/WorkflowUser'
+        description:
+          type: string
+        due_date:
+          type: string
+          format: date-time
+        expanded:
+          type: object
+        file_properties:
+          type: object
+          properties:
+            file_type:
+              type: string
+            filename:
+              type: string
+            sizes_in_bytes:
+              type: integer
+        id:
+          type: string
+        name:
+          type: string
+        proof_provider:
+          $ref: '#/components/schemas/WorkflowUser'
+        proof_url:
+          type: string
+        status:
+          type: string
+        thumbnails:
+          type: object
+          properties:
+            large:
+              type: string
+            medium:
+              type: string
+            small:
+              type: string
+    WorkflowUser:
+      type: object
+      properties:
+        email_address:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+    GetProjectResult:
+      type: object
+      properties:
+        _links:
+          type: object
+          properties:
+            deliverables:
+              type: string
+            self:
+              type: string
+            support_files:
+              type: string
+        deliverables:
+          type: array
+          items:
+            type: object
+            properties:
+              due_date:
+                type: string
+                format: date-time
+              id:
+                type: string
+              name:
+                type: string
+              status:
+                type: string
+        description:
+          type: string
+        due_date:
+          type: string
+          format: date-time
+        expanded:
+          type: object
+        id:
+          type: string
+        name:
+          type: string
+        project_id:
+          type: string
+        project_manager:
+          $ref: '#/components/schemas/WorkflowUser'
+        start_date:
+          type: string
+          format: date-time
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth2 Bearer token obtained from Acquia DAM.
+externalDocs:
+  description: Acquia DAM API v2 Documentation
+  url: https://docs.acquia.com/acquia-dam/api-v2

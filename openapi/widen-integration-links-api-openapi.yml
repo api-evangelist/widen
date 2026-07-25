@@ -1,0 +1,129 @@
+openapi: 3.0.3
+info:
+  title: Acquia DAM (Widen) Acquia-DAM-Webhooks Integration-Links API
+  description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
+
+    '
+  version: '2.0'
+  contact:
+    name: Acquia Support
+    url: https://acquia.my.site.com/s/
+  x-api-id: acquia-dam
+  license:
+    name: Proprietary
+servers:
+- url: https://api.widencollective.com/v2
+  description: Acquia DAM API v2
+- url: https://api.widencollective.com/v1
+  description: Acquia DAM API v1 (legacy)
+security:
+- bearerAuth: []
+tags:
+- name: Integration-Links
+  description: Register and remove integration links on assets.
+paths:
+  /integrationlink:
+    get:
+      operationId: getIntegrationLinks
+      summary: List integration links (v1)
+      tags:
+      - Integration-Links
+      x-api-version: '1'
+      responses:
+        '200':
+          description: Integration links
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListIntegrationLinksResult'
+    post:
+      operationId: createLink
+      summary: Register a new integration link (v1)
+      tags:
+      - Integration-Links
+      x-api-version: '1'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - assetUuid
+              - description
+              properties:
+                assetUuid:
+                  type: string
+                description:
+                  type: string
+                url:
+                  type: string
+      responses:
+        '201':
+          description: Integration link created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterIntegrationLinkResult'
+  /integrationlink/{uuid}:
+    delete:
+      operationId: removeLink
+      summary: Remove an integration link (v1)
+      tags:
+      - Integration-Links
+      x-api-version: '1'
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Link removed
+components:
+  schemas:
+    RegisterIntegrationLinkResult:
+      type: object
+      properties:
+        assetUuid:
+          type: string
+        description:
+          type: string
+        updatedDate:
+          type: string
+          format: date-time
+        url:
+          type: string
+          nullable: true
+        uuid:
+          type: string
+    ListIntegrationLinksResult:
+      type: object
+      properties:
+        integrationLinks:
+          type: array
+          items:
+            type: object
+            properties:
+              assetUuid:
+                type: string
+              description:
+                type: string
+              updatedDate:
+                type: string
+                format: date-time
+              url:
+                type: string
+                nullable: true
+              uuid:
+                type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth2 Bearer token obtained from Acquia DAM.
+externalDocs:
+  description: Acquia DAM API v2 Documentation
+  url: https://docs.acquia.com/acquia-dam/api-v2

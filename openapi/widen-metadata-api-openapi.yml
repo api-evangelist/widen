@@ -1,0 +1,285 @@
+openapi: 3.0.3
+info:
+  title: Acquia DAM (Widen) Acquia-DAM-Webhooks Metadata API
+  description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
+
+    '
+  version: '2.0'
+  contact:
+    name: Acquia Support
+    url: https://acquia.my.site.com/s/
+  x-api-id: acquia-dam
+  license:
+    name: Proprietary
+servers:
+- url: https://api.widencollective.com/v2
+  description: Acquia DAM API v2
+- url: https://api.widencollective.com/v1
+  description: Acquia DAM API v1 (legacy)
+security:
+- bearerAuth: []
+tags:
+- name: Metadata
+  description: Manage metadata fields and controlled vocabulary values.
+paths:
+  /metadata/fields/viewable:
+    get:
+      operationId: listMetadataFields
+      summary: List viewable metadata fields
+      tags:
+      - Metadata
+      parameters:
+      - name: display_name_after
+        in: query
+        schema:
+          type: string
+      - name: display_name_starts_with
+        in: query
+        schema:
+          type: string
+      - name: field_types
+        in: query
+        schema:
+          type: string
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+      responses:
+        '200':
+          description: Viewable metadata fields
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListViewableMetadataFieldsResult'
+  /metadata/{displayKey}/vocabulary:
+    get:
+      operationId: listControlledVocabularyValues
+      summary: List controlled vocabulary values for a metadata field
+      tags:
+      - Metadata
+      parameters:
+      - name: displayKey
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Vocabulary values
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListFieldValuesResult'
+    post:
+      operationId: addControlledVocabularyValue
+      summary: Add a controlled vocabulary value
+      tags:
+      - Metadata
+      parameters:
+      - name: displayKey
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - value
+              properties:
+                value:
+                  type: string
+                index:
+                  type: integer
+      responses:
+        '204':
+          description: Value added
+  /metadata/{displayKey}/vocabulary/{value}:
+    get:
+      operationId: getControlledVocabularyValue
+      summary: Get a controlled vocabulary value
+      tags:
+      - Metadata
+      parameters:
+      - name: displayKey
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: value
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Metadata field value
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetadataFieldValue'
+    put:
+      operationId: updateControlledVocabularyValue
+      summary: Update a controlled vocabulary value
+      tags:
+      - Metadata
+      parameters:
+      - name: displayKey
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: value
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                index:
+                  type: integer
+                value:
+                  type: string
+      responses:
+        '204':
+          description: Value updated
+    delete:
+      operationId: deleteControlledVocabularyValue
+      summary: Delete a controlled vocabulary value
+      tags:
+      - Metadata
+      parameters:
+      - name: displayKey
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: value
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Value deleted
+  /metadata/types:
+    get:
+      operationId: getMetadataTypes
+      summary: List all metadata types (v1)
+      tags:
+      - Metadata
+      x-api-version: '1'
+      responses:
+        '200':
+          description: Metadata types
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListMetadataTypesResult'
+components:
+  schemas:
+    ListViewableMetadataFieldsResult:
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            type: object
+            properties:
+              display_key:
+                type: string
+              display_name:
+                type: string
+              field_type:
+                type: string
+                enum:
+                - checkboxes
+                - date
+                - numeric
+                - selection_list
+                - selection_list_multi
+                - text
+                - text_long
+                - text_multi_line
+                - text_short
+              metadata_types:
+                type: array
+                items:
+                  type: string
+    MetadataFieldValue:
+      type: object
+      properties:
+        _links:
+          type: object
+          properties:
+            self:
+              type: string
+            vocabulary:
+              type: string
+        index:
+          type: integer
+        value:
+          type: string
+    ListMetadataTypesResult:
+      type: object
+      properties:
+        types:
+          type: array
+          items:
+            type: object
+            properties:
+              fields:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    discriminator:
+                      type: string
+                    displayKey:
+                      type: string
+                    displayName:
+                      type: string
+                    editable:
+                      type: boolean
+                    required:
+                      type: boolean
+                    uuid:
+                      type: string
+              name:
+                type: string
+              use:
+                type: string
+              uuid:
+                type: string
+    ListFieldValuesResult:
+      type: object
+      properties:
+        _links:
+          type: object
+          properties:
+            self:
+              type: string
+        vocabulary:
+          type: array
+          items:
+            type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth2 Bearer token obtained from Acquia DAM.
+externalDocs:
+  description: Acquia DAM API v2 Documentation
+  url: https://docs.acquia.com/acquia-dam/api-v2

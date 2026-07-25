@@ -1,0 +1,364 @@
+openapi: 3.0.3
+info:
+  title: Acquia DAM (Widen) Acquia-DAM-Webhooks Orders API
+  description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
+
+    '
+  version: '2.0'
+  contact:
+    name: Acquia Support
+    url: https://acquia.my.site.com/s/
+  x-api-id: acquia-dam
+  license:
+    name: Proprietary
+servers:
+- url: https://api.widencollective.com/v2
+  description: Acquia DAM API v2
+- url: https://api.widencollective.com/v1
+  description: Acquia DAM API v1 (legacy)
+security:
+- bearerAuth: []
+tags:
+- name: Orders
+  description: Create and manage asset orders and conversions.
+paths:
+  /order/items/removals:
+    post:
+      operationId: cleanOrderItems
+      summary: Check which items will be removed from an order (v1)
+      tags:
+      - Orders
+      x-api-version: '1'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - uuids
+              properties:
+                uuids:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: Removed items
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CleanAssetsResult'
+  /order:
+    post:
+      operationId: createOrder
+      summary: Create an asset order (v1)
+      tags:
+      - Orders
+      x-api-version: '1'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - assets
+              - conversions
+              - profile
+              - recipients
+              properties:
+                assets:
+                  type: array
+                  items:
+                    type: string
+                conversions:
+                  type: array
+                  items:
+                    type: string
+                createArchive:
+                  type: boolean
+                  default: false
+                metadata:
+                  type: object
+                notes:
+                  type: string
+                profile:
+                  type: string
+                recipients:
+                  type: array
+                  items:
+                    type: string
+                subject:
+                  type: string
+      responses:
+        '201':
+          description: Order created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  orders:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/GetOrderDetailsResult'
+  /order/uuid/{uuid}:
+    get:
+      operationId: getOrderDetailByUUID
+      summary: Get order details by UUID (v1)
+      tags:
+      - Orders
+      x-api-version: '1'
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: start
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Order details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrderDetailsResult'
+  /order/seqNum/{seqNum}:
+    get:
+      operationId: getOrderDetailBySequenceNum
+      summary: Get order details by sequence number (v1)
+      tags:
+      - Orders
+      x-api-version: '1'
+      parameters:
+      - name: seqNum
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: start
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Order details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetOrderDetailsResult'
+  /order/uuid/{uuid}/zip:
+    post:
+      operationId: createZipForOrder
+      summary: Create a zip archive for an order (v1)
+      tags:
+      - Orders
+      x-api-version: '1'
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Zip archive creation started
+    get:
+      operationId: getZipStatusOrDownloadLink
+      summary: Get zip archive status or download link (v1)
+      tags:
+      - Orders
+      x-api-version: '1'
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Zip status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetZipStatusResult'
+  /order/profile/internet:
+    get:
+      operationId: getDirectorInternetProfiles
+      summary: List internet order profiles (v1)
+      tags:
+      - Orders
+      x-api-version: '1'
+      responses:
+        '200':
+          description: Order profiles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOrderProfileResult'
+  /conversion/order/profile/uuid/{profileId}:
+    post:
+      operationId: getApplicableConversions
+      summary: List conversions for an order profile (v1)
+      tags:
+      - Orders
+      x-api-version: '1'
+      parameters:
+      - name: profileId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - uuids
+              properties:
+                uuids:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: Applicable conversions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListConversionsForOrderResult'
+components:
+  schemas:
+    GetZipStatusResult:
+      type: object
+      properties:
+        archived:
+          type: integer
+        done:
+          type: boolean
+        download:
+          type: string
+          nullable: true
+        errored:
+          type: boolean
+        total:
+          type: integer
+    Contact:
+      type: object
+      properties:
+        uuid:
+          type: string
+    CleanAssetsResult:
+      type: object
+      properties:
+        removedItems:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              reason:
+                type: string
+    OrderItem:
+      type: object
+      properties:
+        conversions:
+          type: object
+          additionalProperties:
+            type: string
+        filename:
+          type: string
+        previews:
+          type: object
+        uuid:
+          type: string
+    ListOrderProfileResult:
+      type: object
+      properties:
+        profiles:
+          type: array
+          items:
+            type: object
+            properties:
+              internetDelivery:
+                type: boolean
+              metadataTypeUuid:
+                type: string
+              name:
+                type: string
+              sendToSelf:
+                type: boolean
+              specialInstructions:
+                type: string
+                nullable: true
+              uuid:
+                type: string
+    GetOrderDetailsResult:
+      type: object
+      properties:
+        assetsInOrder:
+          type: integer
+        conversionStatus:
+          type: string
+          nullable: true
+        datePlaced:
+          type: string
+          format: date-time
+        downloadCount:
+          type: integer
+        expirationDate:
+          type: string
+          format: date-time
+        externalPickupLink:
+          type: string
+        orderedItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
+        recipient:
+          $ref: '#/components/schemas/Contact'
+        sender:
+          $ref: '#/components/schemas/Contact'
+        sequenceNumber:
+          type: string
+        status:
+          type: string
+        uuid:
+          type: string
+    ListConversionsForOrderResult:
+      type: object
+      properties:
+        conversions:
+          type: array
+          items:
+            type: object
+            properties:
+              approvalRequired:
+                type: boolean
+              description:
+                type: string
+                nullable: true
+              displayOrder:
+                type: integer
+              mediaType:
+                type: string
+              name:
+                type: string
+              uuid:
+                type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: OAuth2 Bearer token obtained from Acquia DAM.
+externalDocs:
+  description: Acquia DAM API v2 Documentation
+  url: https://docs.acquia.com/acquia-dam/api-v2
