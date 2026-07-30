@@ -1,7 +1,20 @@
 aid: widen
 name: Widen
 description: Acquia Digital Asset Management (formerly Widen Collective) provides a REST API for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: enterprise
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Enterprise · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/widen.png
 url: https://raw.githubusercontent.com/api-evangelist/widen/refs/heads/main/apis.yml
 created: "2026-06-13"
 modified: "2026-06-13"
@@ -16,46 +29,244 @@ tags:
   - Workflows
   - Acquia
 apis:
-  - name: Acquia DAM API v2
-    description: The primary REST API for Acquia DAM (formerly Widen Collective), providing endpoints for assets, metadata, analytics, collections, categories, attributes, orders, products, users, webhooks, and workflow management.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://docs.acquia.com/acquia-dam/api-v2
-    baseURL: https://api.widencollective.com/v2
-    tags:
-      - Digital Asset Management
-      - Assets
-      - Metadata
-      - Collections
-      - Webhooks
-      - Workflow
-    properties:
-      - type: Documentation
-        url: https://docs.acquia.com/acquia-dam/api-v2
-      - type: OpenAPI
-        url: https://widenv2.docs.apiary.io/
-    contact:
-      - FN: Acquia Support
-        url: https://acquia.my.site.com/s/
-
-  - name: Acquia DAM API v1
-    description: The legacy REST API for Acquia DAM (formerly Widen Collective). Some functionality exclusive to v1 remains available and is used by the official TypeScript SDK when v2 does not cover the feature.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://docs.acquia.com/dam-widen/api
-    baseURL: https://api.widencollective.com/v1
-    tags:
-      - Digital Asset Management
-      - Assets
-      - Metadata
-      - Legacy
-    properties:
-      - type: Documentation
-        url: https://docs.acquia.com/dam-widen/api
-      - type: OpenAPI
-        url: https://widenv1.docs.apiary.io/
-    contact:
-      - FN: Acquia Support
-        url: https://acquia.my.site.com/s/
-
+- aid: widen:widen-acquia-dam-webhooks-api
+  name: Widen Acquia-DAM-Webhooks API
+  description: Create, list, retrieve, edit, ping, and delete DAM asset webhooks.
+  humanURL: https://docs.acquia.com/acquia-dam/api-v2
+  baseURL: https://api.widencollective.com/v2
+  tags:
+  - Acquia-DAM-Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/widen-acquia-dam-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.acquia.com/acquia-dam/api-v2
+  - type: Documentation
+    url: https://docs.acquia.com/dam-widen/api
+- aid: widen:widen-analytics-api
+  name: Widen Analytics API
+  description: Asset download, share, and view analytics endpoints.
+  humanURL: https://docs.acquia.com/acquia-dam/api-v2
+  baseURL: https://api.widencollective.com/v2
+  tags:
+  - Analytics
+  properties:
+  - type: OpenAPI
+    url: openapi/widen-analytics-api-openapi.yml
+  - type: Documentation
+    url: https://docs.acquia.com/acquia-dam/api-v2
+  - type: Documentation
+    url: https://docs.acquia.com/dam-widen/api
+- aid: widen:widen-assets-api
+  name: Widen Assets API
+  description: Create, retrieve, update, delete, and search digital assets.
+  humanURL: https://docs.acquia.com/acquia-dam/api-v2
+  baseURL: https://api.widencollective.com/v2
+  tags:
+  - Assets
+  properties:
+  - type: OpenAPI
+    url: openapi/widen-assets-api-openapi.yml
+  - type: Documentation
+    url: https://docs.acquia.com/acquia-dam/api-v2
+  - type: Documentation
+    url: https://docs.acquia.com/dam-widen/api
+- aid: widen:widen-attributes-api
+  name: Widen Attributes API
+  description: List product attributes and controlled vocabulary values.
+  humanURL: https://docs.acquia.com/acquia-dam/api-v2
+  baseURL: https://api.widencollective.com/v2
+  tags:
+  - Attributes
+  properties:
+  - type: OpenAPI
+    url: openapi/widen-attributes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.acquia.com/acquia-dam/api-v2
+  - type: Documentation
+    url: https://docs.acquia.com/dam-widen/api
+- aid: widen:widen-categories-api
+  name: Widen Categories API
+  description: Manage asset categories and category trees.
+  humanURL: https://docs.acquia.com/acquia-dam/api-v2
+  baseURL: https://api.widencollective.com/v2
+  tags:
+  - Categories
+  properties:
+  - type: OpenAPI
+    url: openapi/widen-categories-api-openapi.yml
+  - type: Documentation
+    url: https://docs.acquia.com/acquia-dam/api-v2
+  - type: Documentation
+    url: https://docs.acquia.com/dam-widen/api
+- aid: widen:widen-channels-api
+  name: Widen Channels API
+  description: List product channels.
+  humanURL: https://docs.acquia.com/acquia-dam/api-v2
+  baseURL: https://api.widencollective.com/v2
+  tags:
+  - Channels
+  properties:
+  - type: OpenAPI
+    url: openapi/widen-channels-api-openapi.yml
+  - type: Documentation
+    url: https://docs.acquia.com/acquia-dam/api-v2
+  - type: Documentation
+    url: https://docs.acquia.com/dam-widen/api
+- aid: widen:widen-collections-api
+  name: Widen Collections API
+  description: Create and list asset collections.
+  humanURL: https://docs.acquia.com/acquia-dam/api-v2
+  baseURL: https://api.widencollective.com/v2
+  tags:
+  - Collections
+  properties:
+  - type: OpenAPI
+    url: openapi/widen-collections-api-openapi.yml
+  - type: Documentation
+    url: https://docs.acquia.com/acquia-dam/api-v2
+  - type: Documentation
+    url: https://docs.acquia.com/dam-widen/api
+- aid: widen:widen-file-formats-api
+  name: Widen File-Formats API
+  description: List recognized file formats.
+  humanURL: https://docs.acquia.com/acquia-dam/api-v2
+  baseURL: https://api.widencollective.com/v2
+  tags:
+  - File-Formats
+  properties:
+  - type: OpenAPI
+    url: openapi/widen-file-formats-api-openapi.yml
+  - type: Documentation
+    url: https://docs.acquia.com/acquia-dam/api-v2
+  - type: Documentation
+    url: https://docs.acquia.com/dam-widen/api
+- aid: widen:widen-integration-links-api
+  name: Widen Integration-Links API
+  description: Register and remove integration links on assets.
+  humanURL: https://docs.acquia.com/acquia-dam/api-v2
+  baseURL: https://api.widencollective.com/v2
+  tags:
+  - Integration-Links
+  properties:
+  - type: OpenAPI
+    url: openapi/widen-integration-links-api-openapi.yml
+  - type: Documentation
+    url: https://docs.acquia.com/acquia-dam/api-v2
+  - type: Documentation
+    url: https://docs.acquia.com/dam-widen/api
+- aid: widen:widen-metadata-api
+  name: Widen Metadata API
+  description: Manage metadata fields and controlled vocabulary values.
+  humanURL: https://docs.acquia.com/acquia-dam/api-v2
+  baseURL: https://api.widencollective.com/v2
+  tags:
+  - Metadata
+  properties:
+  - type: OpenAPI
+    url: openapi/widen-metadata-api-openapi.yml
+  - type: Documentation
+    url: https://docs.acquia.com/acquia-dam/api-v2
+  - type: Documentation
+    url: https://docs.acquia.com/dam-widen/api
+- aid: widen:widen-orders-api
+  name: Widen Orders API
+  description: Create and manage asset orders and conversions.
+  humanURL: https://docs.acquia.com/acquia-dam/api-v2
+  baseURL: https://api.widencollective.com/v2
+  tags:
+  - Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/widen-orders-api-openapi.yml
+  - type: Documentation
+    url: https://docs.acquia.com/acquia-dam/api-v2
+  - type: Documentation
+    url: https://docs.acquia.com/dam-widen/api
+- aid: widen:widen-products-api
+  name: Widen Products API
+  description: Create, retrieve, update, and search products (Acquia Entries).
+  humanURL: https://docs.acquia.com/acquia-dam/api-v2
+  baseURL: https://api.widencollective.com/v2
+  tags:
+  - Products
+  properties:
+  - type: OpenAPI
+    url: openapi/widen-products-api-openapi.yml
+  - type: Documentation
+    url: https://docs.acquia.com/acquia-dam/api-v2
+  - type: Documentation
+    url: https://docs.acquia.com/dam-widen/api
+- aid: widen:widen-search-connector-api
+  name: Widen Search-Connector API
+  description: Instant Search Connector integration URL.
+  humanURL: https://docs.acquia.com/acquia-dam/api-v2
+  baseURL: https://api.widencollective.com/v2
+  tags:
+  - Search-Connector
+  properties:
+  - type: OpenAPI
+    url: openapi/widen-search-connector-api-openapi.yml
+  - type: Documentation
+    url: https://docs.acquia.com/acquia-dam/api-v2
+  - type: Documentation
+    url: https://docs.acquia.com/dam-widen/api
+- aid: widen:widen-usage-api
+  name: Widen Usage API
+  description: API usage summary.
+  humanURL: https://docs.acquia.com/acquia-dam/api-v2
+  baseURL: https://api.widencollective.com/v2
+  tags:
+  - Usage
+  properties:
+  - type: OpenAPI
+    url: openapi/widen-usage-api-openapi.yml
+  - type: Documentation
+    url: https://docs.acquia.com/acquia-dam/api-v2
+  - type: Documentation
+    url: https://docs.acquia.com/dam-widen/api
+- aid: widen:widen-users-api
+  name: Widen Users API
+  description: Retrieve user and contact information.
+  humanURL: https://docs.acquia.com/acquia-dam/api-v2
+  baseURL: https://api.widencollective.com/v2
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/widen-users-api-openapi.yml
+  - type: Documentation
+    url: https://docs.acquia.com/acquia-dam/api-v2
+  - type: Documentation
+    url: https://docs.acquia.com/dam-widen/api
+- aid: widen:widen-workflow-app-projects-api
+  name: Widen Workflow-App-Projects API
+  description: Manage workflow projects and deliverables.
+  humanURL: https://docs.acquia.com/acquia-dam/api-v2
+  baseURL: https://api.widencollective.com/v2
+  tags:
+  - Workflow-App-Projects
+  properties:
+  - type: OpenAPI
+    url: openapi/widen-workflow-app-projects-api-openapi.yml
+  - type: Documentation
+    url: https://docs.acquia.com/acquia-dam/api-v2
+  - type: Documentation
+    url: https://docs.acquia.com/dam-widen/api
+- aid: widen:widen-workflow-webhooks-api
+  name: Widen Workflow-Webhooks API
+  description: Create, list, and delete workflow webhooks.
+  humanURL: https://docs.acquia.com/acquia-dam/api-v2
+  baseURL: https://api.widencollective.com/v2
+  tags:
+  - Workflow-Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/widen-workflow-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.acquia.com/acquia-dam/api-v2
+  - type: Documentation
+    url: https://docs.acquia.com/dam-widen/api
 common:
   - type: AgenticAccess
     url: agentic-access/widen-agentic-access.yml
