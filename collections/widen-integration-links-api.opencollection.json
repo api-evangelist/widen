@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Acquia DAM (Widen) Acquia-DAM-Webhooks Integration-Links API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Integration-Links",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List integration links (v1)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/integrationlink"
+          },
+          "docs": "List integration links (v1)"
+        },
+        {
+          "info": {
+            "name": "Register a new integration link (v1)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.widencollective.com/v2/integrationlink",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Register a new integration link (v1)"
+        },
+        {
+          "info": {
+            "name": "Remove an integration link (v1)",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.widencollective.com/v2/integrationlink/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Remove an integration link (v1)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

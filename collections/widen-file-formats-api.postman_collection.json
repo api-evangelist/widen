@@ -1,0 +1,116 @@
+{
+  "item": [
+    {
+      "id": "bcc0c91b-5b79-44bd-828c-08a16b493a5e",
+      "name": "File-Formats",
+      "description": {
+        "content": "List recognized file formats.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8458f1fa-29ed-4426-bb5f-b54ce884a0ca",
+          "name": "List recognized file formats (v1)",
+          "request": {
+            "name": "List recognized file formats (v1)",
+            "description": {},
+            "url": {
+              "path": [
+                "fileformats"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "315ff571-a121-40e3-9f46-f40256e7375e",
+              "name": "Supported file formats",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fileformats"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 5982,\n  \"formats\": [\n    {\n      \"description\": \"string\",\n      \"name\": \"string\"\n    },\n    {\n      \"description\": \"string\",\n      \"name\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.widencollective.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "64198393-4b29-47a3-9503-36506fb6a91b",
+    "name": "Acquia DAM (Widen) Acquia-DAM-Webhooks File-Formats API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.\n\n\nContact Support:\n Name: Acquia Support",
+      "type": "text/plain"
+    }
+  }
+}

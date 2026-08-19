@@ -1,0 +1,1171 @@
+{
+  "item": [
+    {
+      "id": "87a913a0-d7f3-4633-b5a8-b2b147881cd8",
+      "name": "Workflow-App-Projects",
+      "description": {
+        "content": "Manage workflow projects and deliverables.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "300b80f7-9333-422f-800e-2ddb68bf85e3",
+          "name": "Create a new workflow project",
+          "request": {
+            "name": "Create a new workflow project",
+            "description": {},
+            "url": {
+              "path": [
+                "workflow",
+                "projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"<string>\",\n  \"end_date\": \"<dateTime>\",\n  \"name\": \"<string>\",\n  \"project_manager\": \"<string>\",\n  \"start_date\": \"<dateTime>\",\n  \"owner\": \"<string>\",\n  \"workgroups\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3dbc0857-ad89-4402-9403-41ba28e5777e",
+              "name": "Project created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflow",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"<string>\",\n  \"end_date\": \"<dateTime>\",\n  \"name\": \"<string>\",\n  \"project_manager\": \"<string>\",\n  \"start_date\": \"<dateTime>\",\n  \"owner\": \"<string>\",\n  \"workgroups\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"project_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7a45242d-87ce-4160-b768-1e7d5cefd40b",
+          "name": "Retrieve a workflow project",
+          "request": {
+            "name": "Retrieve a workflow project",
+            "description": {},
+            "url": {
+              "path": [
+                "workflow",
+                "projects",
+                ":project_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "243905a6-a147-48a7-b8b2-159d6ed50e1f",
+              "name": "Project details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflow",
+                    "projects",
+                    ":project_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_links\": {\n    \"deliverables\": \"string\",\n    \"self\": \"string\",\n    \"support_files\": \"string\"\n  },\n  \"deliverables\": [\n    {\n      \"due_date\": \"1964-03-24T00:37:29.809Z\",\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"status\": \"string\"\n    },\n    {\n      \"due_date\": \"2007-11-24T18:44:04.025Z\",\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"status\": \"string\"\n    }\n  ],\n  \"description\": \"string\",\n  \"due_date\": \"1958-11-13T06:22:48.201Z\",\n  \"expanded\": {},\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"project_id\": \"string\",\n  \"project_manager\": {\n    \"email_address\": \"string\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\"\n  },\n  \"start_date\": \"1956-06-25T18:29:57.813Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a8078f85-8bd9-47b7-857a-9bfa95b6e3ea",
+          "name": "Delete a workflow project",
+          "request": {
+            "name": "Delete a workflow project",
+            "description": {},
+            "url": {
+              "path": [
+                "workflow",
+                "projects",
+                ":project_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ba234c3c-edf3-47f6-8fdc-c021b4c1ff77",
+              "name": "Project deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflow",
+                    "projects",
+                    ":project_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "334d4a09-022b-4201-80a2-8206d0e9b837",
+          "name": "List deliverables for a project",
+          "request": {
+            "name": "List deliverables for a project",
+            "description": {},
+            "url": {
+              "path": [
+                "workflow",
+                "projects",
+                ":project_id",
+                "deliverables"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e410434e-d82c-4ecd-8171-2442118c9cf2",
+              "name": "List of deliverables",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflow",
+                    "projects",
+                    ":project_id",
+                    "deliverables"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"_links\": {\n        \"download\": \"string\",\n        \"project\": \"string\",\n        \"self\": \"string\"\n      },\n      \"deliverable_id\": \"string\",\n      \"deliverable_manager\": {\n        \"email_address\": \"string\",\n        \"first_name\": \"string\",\n        \"last_name\": \"string\"\n      },\n      \"description\": \"string\",\n      \"due_date\": \"1966-09-27T08:05:06.150Z\",\n      \"expanded\": {},\n      \"file_properties\": {\n        \"file_type\": \"string\",\n        \"filename\": \"string\",\n        \"sizes_in_bytes\": 2111\n      },\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"proof_provider\": {\n        \"email_address\": \"string\",\n        \"first_name\": \"string\",\n        \"last_name\": \"string\"\n      },\n      \"proof_url\": \"string\",\n      \"status\": \"string\",\n      \"thumbnails\": {\n        \"large\": \"string\",\n        \"medium\": \"string\",\n        \"small\": \"string\"\n      }\n    },\n    {\n      \"_links\": {\n        \"download\": \"string\",\n        \"project\": \"string\",\n        \"self\": \"string\"\n      },\n      \"deliverable_id\": \"string\",\n      \"deliverable_manager\": {\n        \"email_address\": \"string\",\n        \"first_name\": \"string\",\n        \"last_name\": \"string\"\n      },\n      \"description\": \"string\",\n      \"due_date\": \"1967-02-10T07:22:13.094Z\",\n      \"expanded\": {},\n      \"file_properties\": {\n        \"file_type\": \"string\",\n        \"filename\": \"string\",\n        \"sizes_in_bytes\": 87\n      },\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"proof_provider\": {\n        \"email_address\": \"string\",\n        \"first_name\": \"string\",\n        \"last_name\": \"string\"\n      },\n      \"proof_url\": \"string\",\n      \"status\": \"string\",\n      \"thumbnails\": {\n        \"large\": \"string\",\n        \"medium\": \"string\",\n        \"small\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1b5a5ec1-ab48-4e6d-bdd1-bd4c2e1286c0",
+          "name": "Add a deliverable to a project",
+          "request": {
+            "name": "Add a deliverable to a project",
+            "description": {},
+            "url": {
+              "path": [
+                "workflow",
+                "projects",
+                ":project_id",
+                "deliverables"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"due_date\": \"<dateTime>\",\n  \"name\": \"<string>\",\n  \"proof_provider\": \"<string>\",\n  \"stages\": [\n    {\n      \"due_date\": \"<dateTime>\",\n      \"name\": \"<string>\",\n      \"reviewers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"commenters\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"due_date\": \"<dateTime>\",\n      \"name\": \"<string>\",\n      \"reviewers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"commenters\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"start_date\": \"<dateTime>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3c7a486f-8831-4f70-bf9e-44e9879bbc81",
+              "name": "Deliverable added",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflow",
+                    "projects",
+                    ":project_id",
+                    "deliverables"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"due_date\": \"<dateTime>\",\n  \"name\": \"<string>\",\n  \"proof_provider\": \"<string>\",\n  \"stages\": [\n    {\n      \"due_date\": \"<dateTime>\",\n      \"name\": \"<string>\",\n      \"reviewers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"commenters\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"due_date\": \"<dateTime>\",\n      \"name\": \"<string>\",\n      \"reviewers\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"commenters\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ],\n  \"start_date\": \"<dateTime>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"deliverable_id\": \"string\",\n  \"id\": \"string\",\n  \"project_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a9d3b710-bc1f-400f-996e-d4cfbf1baff7",
+          "name": "Retrieve a deliverable",
+          "request": {
+            "name": "Retrieve a deliverable",
+            "description": {},
+            "url": {
+              "path": [
+                "workflow",
+                "projects",
+                ":project_id",
+                "deliverables",
+                ":deliverable_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "expand",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deliverable_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "21251fdc-29f7-4533-bdb0-702df839f337",
+              "name": "Deliverable details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflow",
+                    "projects",
+                    ":project_id",
+                    "deliverables",
+                    ":deliverable_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "expand",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliverable_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_links\": {\n    \"download\": \"string\",\n    \"project\": \"string\",\n    \"self\": \"string\"\n  },\n  \"deliverable_id\": \"string\",\n  \"deliverable_manager\": {\n    \"email_address\": \"string\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\"\n  },\n  \"description\": \"string\",\n  \"due_date\": \"1974-01-14T21:01:00.747Z\",\n  \"expanded\": {},\n  \"file_properties\": {\n    \"file_type\": \"string\",\n    \"filename\": \"string\",\n    \"sizes_in_bytes\": 2377\n  },\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"proof_provider\": {\n    \"email_address\": \"string\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\"\n  },\n  \"proof_url\": \"string\",\n  \"status\": \"string\",\n  \"thumbnails\": {\n    \"large\": \"string\",\n    \"medium\": \"string\",\n    \"small\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5ee49ae5-caa1-4434-acca-da786eb980ff",
+          "name": "Delete a deliverable",
+          "request": {
+            "name": "Delete a deliverable",
+            "description": {},
+            "url": {
+              "path": [
+                "workflow",
+                "projects",
+                ":project_id",
+                "deliverables",
+                ":deliverable_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deliverable_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9f8f3432-16ea-47a9-bd97-eb7e54d0e7dd",
+              "name": "Deliverable deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflow",
+                    "projects",
+                    ":project_id",
+                    "deliverables",
+                    ":deliverable_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliverable_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0bf6d03d-b969-40f2-a3a4-7b43c6fc5c3c",
+          "name": "Close a deliverable",
+          "request": {
+            "name": "Close a deliverable",
+            "description": {},
+            "url": {
+              "path": [
+                "workflow",
+                "projects",
+                ":project_id",
+                "deliverables",
+                ":deliverable_id",
+                "close"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deliverable_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filename\": \"<string>\",\n  \"upload_profile\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7bda34da-7abb-4cb0-8417-1bfdc321061f",
+              "name": "Deliverable closed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflow",
+                    "projects",
+                    ":project_id",
+                    "deliverables",
+                    ":deliverable_id",
+                    "close"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliverable_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filename\": \"<string>\",\n  \"upload_profile\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a6f875e7-5fdc-4805-865f-c0ecc63ecb9f",
+          "name": "Upload proof to a deliverable",
+          "request": {
+            "name": "Upload proof to a deliverable",
+            "description": {},
+            "url": {
+              "path": [
+                "workflow",
+                "projects",
+                ":project_id",
+                "deliverables",
+                ":deliverable_id",
+                "proofs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deliverable_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content_length\": \"<integer>\",\n  \"filename\": \"<string>\",\n  \"url\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "57da0fc4-ac29-4dcd-b5f9-5e85802b082d",
+              "name": "Proof uploaded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflow",
+                    "projects",
+                    ":project_id",
+                    "deliverables",
+                    ":deliverable_id",
+                    "proofs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliverable_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content_length\": \"<integer>\",\n  \"filename\": \"<string>\",\n  \"url\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"deliverable_id\": \"string\",\n  \"id\": \"string\",\n  \"project_id\": \"string\",\n  \"status\": \"string\",\n  \"thumbnails\": {\n    \"large\": \"string\",\n    \"medium\": \"string\",\n    \"small\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f958f82a-e424-4955-9f7a-b6201d161759",
+          "name": "List supporting files for a project",
+          "request": {
+            "name": "List supporting files for a project",
+            "description": {},
+            "url": {
+              "path": [
+                "workflow",
+                "projects",
+                ":project_id",
+                "support-files"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "771a032f-4e6b-4c55-b277-cae17a9c51ca",
+              "name": "List of supporting files",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflow",
+                    "projects",
+                    ":project_id",
+                    "support-files"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"_links\": {\n      \"download\": \"string\",\n      \"project\": \"string\",\n      \"self\": \"string\"\n    },\n    \"format_type\": \"string\",\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"size_in_bytes\": 3990,\n    \"upload_date\": \"1974-04-17T08:53:38.111Z\",\n    \"uploader\": {\n      \"email_address\": \"string\",\n      \"first_name\": \"string\",\n      \"last_name\": \"string\"\n    }\n  },\n  {\n    \"_links\": {\n      \"download\": \"string\",\n      \"project\": \"string\",\n      \"self\": \"string\"\n    },\n    \"format_type\": \"string\",\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"size_in_bytes\": 8885,\n    \"upload_date\": \"2015-07-01T18:52:47.652Z\",\n    \"uploader\": {\n      \"email_address\": \"string\",\n      \"first_name\": \"string\",\n      \"last_name\": \"string\"\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.widencollective.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2ef90985-b68b-4f43-a54c-23bf58d03e0b",
+    "name": "Acquia DAM (Widen) Acquia-DAM-Webhooks Workflow-App-Projects API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.\n\n\nContact Support:\n Name: Acquia Support",
+      "type": "text/plain"
+    }
+  }
+}

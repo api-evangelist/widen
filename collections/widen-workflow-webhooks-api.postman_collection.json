@@ -1,0 +1,306 @@
+{
+  "item": [
+    {
+      "id": "17560c00-d16a-4b2a-b89e-b5dacdb12589",
+      "name": "Workflow-Webhooks",
+      "description": {
+        "content": "Create, list, and delete workflow webhooks.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "aeeefeb8-cbbf-4bc7-8560-bfec3459b01d",
+          "name": "List Workflow webhooks",
+          "request": {
+            "name": "List Workflow webhooks",
+            "description": {},
+            "url": {
+              "path": [
+                "workflow",
+                "webhooks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4a9fc2e8-182a-45e6-9c38-907fc4ae652a",
+              "name": "List of Workflow webhooks",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflow",
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"event\": \"DELIVERABLE_STATUS_CHANGED\",\n      \"target\": \"string\"\n    },\n    {\n      \"event\": \"DELIVERABLE_STATUS_CHANGED\",\n      \"target\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4e3b0bc7-7b77-4456-95ad-550897986221",
+          "name": "Create a Workflow webhook",
+          "request": {
+            "name": "Create a Workflow webhook",
+            "description": {},
+            "url": {
+              "path": [
+                "workflow",
+                "webhooks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event\": \"<string>\",\n  \"target\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "efc1071a-b112-4584-8e97-de6f7de5a1ef",
+              "name": "Workflow webhook created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflow",
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": \"<string>\",\n  \"target\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"event\": \"DELIVERABLE_STATUS_CHANGED\",\n  \"target\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e76f7059-0b7a-4892-980a-2b587593a402",
+          "name": "Delete a Workflow webhook",
+          "request": {
+            "name": "Delete a Workflow webhook",
+            "description": {},
+            "url": {
+              "path": [
+                "workflow",
+                "webhooks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"event\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "af98d390-4861-42c8-88a1-5f2a9df7197e",
+              "name": "Workflow webhook deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "workflow",
+                    "webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"event\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.widencollective.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "257535be-e614-4349-b5b9-e593905163f1",
+    "name": "Acquia DAM (Widen) Acquia-DAM-Webhooks Workflow-Webhooks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.\n\n\nContact Support:\n Name: Acquia Support",
+      "type": "text/plain"
+    }
+  }
+}

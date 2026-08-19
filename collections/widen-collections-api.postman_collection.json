@@ -1,0 +1,332 @@
+{
+  "item": [
+    {
+      "id": "dc46de91-ec65-43b1-87fc-22ca9f99759f",
+      "name": "Collections",
+      "description": {
+        "content": "Create and list asset collections.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "35a7b4e3-a764-45ed-aa80-a46bf6be9665",
+          "name": "List collections",
+          "request": {
+            "name": "List collections",
+            "description": {},
+            "url": {
+              "path": [
+                "collections"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8124e3c4-0bb8-46eb-9309-9712464c64ce",
+              "name": "List of collections",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collections"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"item_type\": \"string\",\n  \"total_count\": 3751,\n  \"limit\": 1333,\n  \"offset\": 1950,\n  \"items\": [\n    {\n      \"_links\": {\n        \"assets\": \"string\"\n      },\n      \"id\": \"string\",\n      \"title\": \"string\",\n      \"total_items\": 9448,\n      \"type\": \"shared\"\n    },\n    {\n      \"_links\": {\n        \"assets\": \"string\"\n      },\n      \"id\": \"string\",\n      \"title\": \"string\",\n      \"total_items\": 5290,\n      \"type\": \"private\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "de426337-7d4d-4fba-a8e9-374156e56a0f",
+          "name": "Add or remove assets from collections (v1)",
+          "request": {
+            "name": "Add or remove assets from collections (v1)",
+            "description": {},
+            "url": {
+              "path": [
+                "collection",
+                "assets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"collections\": {\n    \"uuids\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"add\": {\n    \"uuids\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"remove\": {\n    \"uuids\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a695ee19-6a64-4600-bad9-03b6b009f025",
+              "name": "Assets updated in collections",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collection",
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"collections\": {\n    \"uuids\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"add\": {\n    \"uuids\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"remove\": {\n    \"uuids\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "102c0caa-464a-4ee4-a225-1a4f3c5db3c6",
+          "name": "Create a collection (v1)",
+          "request": {
+            "name": "Create a collection (v1)",
+            "description": {},
+            "url": {
+              "path": [
+                "collection"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"<string>\",\n  \"title\": \"<string>\",\n  \"assets\": {\n    \"uuids\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "aa57a36e-c82e-4582-bd75-11e5b7caac57",
+              "name": "Collection created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "collection"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"<string>\",\n  \"title\": \"<string>\",\n  \"assets\": {\n    \"uuids\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"assets\": [\n    {\n      \"uuid\": \"string\"\n    },\n    {\n      \"uuid\": \"string\"\n    }\n  ],\n  \"assetsAddedCount\": 1532,\n  \"description\": \"string\",\n  \"name\": \"string\",\n  \"numResults\": 6777,\n  \"type\": \"local\",\n  \"uuid\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.widencollective.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8e364c01-39d7-4736-8d69-9f6432171418",
+    "name": "Acquia DAM (Widen) Acquia-DAM-Webhooks Collections API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.\n\n\nContact Support:\n Name: Acquia Support",
+      "type": "text/plain"
+    }
+  }
+}

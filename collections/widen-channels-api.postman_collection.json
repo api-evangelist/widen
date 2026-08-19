@@ -1,0 +1,136 @@
+{
+  "item": [
+    {
+      "id": "b7e6bfd0-ed2b-4c2a-aa59-639701cf4e7a",
+      "name": "Channels",
+      "description": {
+        "content": "List product channels.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "27fdd0e0-eece-40b3-8956-a12995354e45",
+          "name": "List channels",
+          "request": {
+            "name": "List channels",
+            "description": {},
+            "url": {
+              "path": [
+                "channels"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "02fbc104-a770-4d3a-9b20-c879918e4ad0",
+              "name": "List of channels",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "channels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"item_type\": \"string\",\n  \"total_count\": 9944,\n  \"limit\": 1349,\n  \"offset\": 1053,\n  \"items\": [\n    {\n      \"channel_id\": \"string\",\n      \"name\": \"string\"\n    },\n    {\n      \"channel_id\": \"string\",\n      \"name\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.widencollective.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a6f68eee-5cc6-4e55-a429-c37fc1e347c1",
+    "name": "Acquia DAM (Widen) Acquia-DAM-Webhooks Channels API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.\n\n\nContact Support:\n Name: Acquia Support",
+      "type": "text/plain"
+    }
+  }
+}

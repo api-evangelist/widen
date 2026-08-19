@@ -1,0 +1,344 @@
+{
+  "item": [
+    {
+      "id": "6fd436f2-dee6-4f56-93be-4371ee7a8174",
+      "name": "Analytics",
+      "description": {
+        "content": "Asset download, share, and view analytics endpoints.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "18cfc4c1-48aa-4e30-957f-61461682d1f2",
+          "name": "List asset download events",
+          "request": {
+            "name": "List asset download events",
+            "description": {
+              "content": "Retrieve a list of Asset Download events. Events may take up to 24 hours before appearing. Three years of analytics data is available, starting from January 1, 2021.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analytics",
+                "assets",
+                "downloads"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filters\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"limit\": 100,\n  \"pagination_token\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "85f33e50-23e7-4397-a67f-4833c9a418be",
+              "name": "List of download events",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "assets",
+                    "downloads"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filters\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"limit\": 100,\n  \"pagination_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"asset_properties\": {\n        \"id\": \"string\"\n      },\n      \"conversion_properties\": {\n        \"output_file_format\": \"string\",\n        \"output_file_type\": \"string\"\n      },\n      \"file_properties\": {\n        \"file_type\": \"string\",\n        \"format\": \"string\",\n        \"size_in_bytes\": 7542\n      },\n      \"intended_use_properties\": {\n        \"value\": \"string\"\n      },\n      \"referrer\": \"string\",\n      \"timestamp\": \"1949-04-07T02:34:26.578Z\",\n      \"user_properties\": {\n        \"id\": \"string\"\n      }\n    },\n    {\n      \"asset_properties\": {\n        \"id\": \"string\"\n      },\n      \"conversion_properties\": {\n        \"output_file_format\": \"string\",\n        \"output_file_type\": \"string\"\n      },\n      \"file_properties\": {\n        \"file_type\": \"string\",\n        \"format\": \"string\",\n        \"size_in_bytes\": 6395\n      },\n      \"intended_use_properties\": {\n        \"value\": \"string\"\n      },\n      \"referrer\": \"string\",\n      \"timestamp\": \"1956-04-09T01:51:25.334Z\",\n      \"user_properties\": {\n        \"id\": \"string\"\n      }\n    }\n  ],\n  \"pagination_token\": \"string\",\n  \"total_count\": 787\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4f0591ff-7655-41ce-a69c-1fceb7d9c9b9",
+          "name": "List asset share events",
+          "request": {
+            "name": "List asset share events",
+            "description": {},
+            "url": {
+              "path": [
+                "analytics",
+                "assets",
+                "shares"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filters\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"limit\": 100,\n  \"pagination_token\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "482d8207-9413-4ef8-b0be-5496b22cdf0e",
+              "name": "List of share events",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "assets",
+                    "shares"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filters\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"limit\": 100,\n  \"pagination_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"asset_properties\": {\n        \"id\": \"string\"\n      },\n      \"referrer\": \"string\",\n      \"timestamp\": \"1983-11-30T05:03:24.787Z\",\n      \"user_properties\": {\n        \"id\": \"string\"\n      }\n    },\n    {\n      \"asset_properties\": {\n        \"id\": \"string\"\n      },\n      \"referrer\": \"string\",\n      \"timestamp\": \"1987-09-17T18:17:01.675Z\",\n      \"user_properties\": {\n        \"id\": \"string\"\n      }\n    }\n  ],\n  \"pagination_token\": \"string\",\n  \"total_count\": 4687\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4d51fbc6-4d7f-48ed-8627-a131e9afc623",
+          "name": "List asset view events",
+          "request": {
+            "name": "List asset view events",
+            "description": {},
+            "url": {
+              "path": [
+                "analytics",
+                "assets",
+                "views"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filters\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"limit\": 100,\n  \"pagination_token\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "446c9353-528d-4faf-bed0-d1abda998709",
+              "name": "List of view events",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "assets",
+                    "views"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"filters\": [\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"type\": \"<string>\"\n    }\n  ],\n  \"limit\": 100,\n  \"pagination_token\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"asset_properties\": {\n        \"id\": \"string\"\n      },\n      \"file_properties\": {\n        \"file_type\": \"string\",\n        \"format\": \"string\",\n        \"size_in_bytes\": 7340\n      },\n      \"intended_use_properties\": {\n        \"value\": \"string\"\n      },\n      \"referrer\": \"string\",\n      \"timestamp\": \"2014-05-21T05:34:41.523Z\",\n      \"user_properties\": {\n        \"id\": \"string\"\n      }\n    },\n    {\n      \"asset_properties\": {\n        \"id\": \"string\"\n      },\n      \"file_properties\": {\n        \"file_type\": \"string\",\n        \"format\": \"string\",\n        \"size_in_bytes\": 1799\n      },\n      \"intended_use_properties\": {\n        \"value\": \"string\"\n      },\n      \"referrer\": \"string\",\n      \"timestamp\": \"2015-07-28T02:22:22.099Z\",\n      \"user_properties\": {\n        \"id\": \"string\"\n      }\n    }\n  ],\n  \"pagination_token\": \"string\",\n  \"total_count\": 5663\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.widencollective.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "29809acf-b1d5-4cec-9b7d-e5bbfef4e3d1",
+    "name": "Acquia DAM (Widen) Acquia-DAM-Webhooks Analytics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.\n\n\nContact Support:\n Name: Acquia Support",
+      "type": "text/plain"
+    }
+  }
+}

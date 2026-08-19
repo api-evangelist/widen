@@ -1,0 +1,774 @@
+{
+  "item": [
+    {
+      "id": "6b34f67c-7398-4de2-ac3a-aaec6bf8e06f",
+      "name": "Metadata",
+      "description": {
+        "content": "Manage metadata fields and controlled vocabulary values.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b5153b63-87fa-4dc5-9b49-0a3aa61e7caf",
+          "name": "List viewable metadata fields",
+          "request": {
+            "name": "List viewable metadata fields",
+            "description": {},
+            "url": {
+              "path": [
+                "metadata",
+                "fields",
+                "viewable"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "display_name_after",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "display_name_starts_with",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "field_types",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8e5498bb-c610-47ea-a5bd-b2836867e7fe",
+              "name": "Viewable metadata fields",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metadata",
+                    "fields",
+                    "viewable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "display_name_after",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "display_name_starts_with",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "field_types",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fields\": [\n    {\n      \"display_key\": \"string\",\n      \"display_name\": \"string\",\n      \"field_type\": \"date\",\n      \"metadata_types\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"display_key\": \"string\",\n      \"display_name\": \"string\",\n      \"field_type\": \"checkboxes\",\n      \"metadata_types\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c80db1f7-54e4-4bca-b88c-7841c0941bad",
+          "name": "List controlled vocabulary values for a metadata field",
+          "request": {
+            "name": "List controlled vocabulary values for a metadata field",
+            "description": {},
+            "url": {
+              "path": [
+                "metadata",
+                ":displayKey",
+                "vocabulary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "displayKey",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "93a0be18-e405-4bdd-a382-fd9a12f3a227",
+              "name": "Vocabulary values",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metadata",
+                    ":displayKey",
+                    "vocabulary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "displayKey",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_links\": {\n    \"self\": \"string\"\n  },\n  \"vocabulary\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "21793471-c2bc-4533-b8c9-5f4bc0acb192",
+          "name": "Add a controlled vocabulary value",
+          "request": {
+            "name": "Add a controlled vocabulary value",
+            "description": {},
+            "url": {
+              "path": [
+                "metadata",
+                ":displayKey",
+                "vocabulary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "displayKey",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"value\": \"<string>\",\n  \"index\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "11d62f19-0e2c-4364-973b-d3d3007d411c",
+              "name": "Value added",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metadata",
+                    ":displayKey",
+                    "vocabulary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "displayKey",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"value\": \"<string>\",\n  \"index\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2409e0d3-7474-4b50-b5f8-a29aa4bd8224",
+          "name": "Get a controlled vocabulary value",
+          "request": {
+            "name": "Get a controlled vocabulary value",
+            "description": {},
+            "url": {
+              "path": [
+                "metadata",
+                ":displayKey",
+                "vocabulary",
+                ":value"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "displayKey",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "value",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "baa381eb-5d8b-467f-b92c-870e7d50b8f6",
+              "name": "Metadata field value",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metadata",
+                    ":displayKey",
+                    "vocabulary",
+                    ":value"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "displayKey",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "value",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"_links\": {\n    \"self\": \"string\",\n    \"vocabulary\": \"string\"\n  },\n  \"index\": 530,\n  \"value\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "91ed5cb7-d7a2-4253-acab-031057737919",
+          "name": "Update a controlled vocabulary value",
+          "request": {
+            "name": "Update a controlled vocabulary value",
+            "description": {},
+            "url": {
+              "path": [
+                "metadata",
+                ":displayKey",
+                "vocabulary",
+                ":value"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "displayKey",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "value",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"index\": \"<integer>\",\n  \"value\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "95eb0764-8977-44b4-94a9-40a4e7a82921",
+              "name": "Value updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metadata",
+                    ":displayKey",
+                    "vocabulary",
+                    ":value"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "displayKey",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "value",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"index\": \"<integer>\",\n  \"value\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "636a8fd5-6e26-44da-81be-39ab66f7457f",
+          "name": "Delete a controlled vocabulary value",
+          "request": {
+            "name": "Delete a controlled vocabulary value",
+            "description": {},
+            "url": {
+              "path": [
+                "metadata",
+                ":displayKey",
+                "vocabulary",
+                ":value"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "displayKey",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "value",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f81ad3a1-0a88-4555-a416-706b0f2086a1",
+              "name": "Value deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metadata",
+                    ":displayKey",
+                    "vocabulary",
+                    ":value"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "displayKey",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "value",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "941beed7-5fb0-4be8-8d0e-f822b1700d58",
+          "name": "List all metadata types (v1)",
+          "request": {
+            "name": "List all metadata types (v1)",
+            "description": {},
+            "url": {
+              "path": [
+                "metadata",
+                "types"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "013d9e94-6646-4d0f-b38d-39b2cb20c4f7",
+              "name": "Metadata types",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "metadata",
+                    "types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"types\": [\n    {\n      \"fields\": [\n        {\n          \"discriminator\": \"string\",\n          \"displayKey\": \"string\",\n          \"displayName\": \"string\",\n          \"editable\": false,\n          \"required\": false,\n          \"uuid\": \"string\"\n        },\n        {\n          \"discriminator\": \"string\",\n          \"displayKey\": \"string\",\n          \"displayName\": \"string\",\n          \"editable\": true,\n          \"required\": true,\n          \"uuid\": \"string\"\n        }\n      ],\n      \"name\": \"string\",\n      \"use\": \"string\",\n      \"uuid\": \"string\"\n    },\n    {\n      \"fields\": [\n        {\n          \"discriminator\": \"string\",\n          \"displayKey\": \"string\",\n          \"displayName\": \"string\",\n          \"editable\": true,\n          \"required\": false,\n          \"uuid\": \"string\"\n        },\n        {\n          \"discriminator\": \"string\",\n          \"displayKey\": \"string\",\n          \"displayName\": \"string\",\n          \"editable\": false,\n          \"required\": false,\n          \"uuid\": \"string\"\n        }\n      ],\n      \"name\": \"string\",\n      \"use\": \"string\",\n      \"uuid\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.widencollective.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fcf6906b-a4fb-4b4b-a996-c949fceb081c",
+    "name": "Acquia DAM (Widen) Acquia-DAM-Webhooks Metadata API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.\n\n\nContact Support:\n Name: Acquia Support",
+      "type": "text/plain"
+    }
+  }
+}

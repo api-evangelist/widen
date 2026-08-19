@@ -1,0 +1,1373 @@
+{
+  "item": [
+    {
+      "id": "a4ea4684-2635-45a9-a25f-0995b178378d",
+      "name": "Products",
+      "description": {
+        "content": "Create, retrieve, update, and search products (Acquia Entries).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c072ba2e-ed1c-44db-825c-2e4b3c0671f1",
+          "name": "Create a new product",
+          "request": {
+            "name": "Create a new product",
+            "description": {},
+            "url": {
+              "path": [
+                "products"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"sku\": \"<string>\",\n  \"attributes\": {\n    \"key_0\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"parent_product_id\": \"<string>\",\n  \"product_categories\": [\n    {\n      \"product_category_id\": \"<string>\"\n    },\n    {\n      \"product_category_id\": \"<string>\"\n    }\n  ],\n  \"product_type_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "904873fa-f3ee-48de-8ca4-659e85caa834",
+              "name": "Product created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"sku\": \"<string>\",\n  \"attributes\": {\n    \"key_0\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"key_1\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"parent_product_id\": \"<string>\",\n  \"product_categories\": [\n    {\n      \"product_category_id\": \"<string>\"\n    },\n    {\n      \"product_category_id\": \"<string>\"\n    }\n  ],\n  \"product_type_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"product_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "55b08353-8a8a-4ec6-9e93-b4888dae46c6",
+          "name": "Search for products",
+          "request": {
+            "name": "Search for products",
+            "description": {},
+            "url": {
+              "path": [
+                "products",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"expand\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filters\": [\n    \"<object>\",\n    \"<object>\"\n  ],\n  \"limit\": 10,\n  \"offset\": 0,\n  \"query\": \"<string>\",\n  \"sort\": {\n    \"order\": \"<string>\",\n    \"type\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e93de6bc-942c-4e31-8a5c-133127a60925",
+              "name": "Matching products",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"expand\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filters\": [\n    \"<object>\",\n    \"<object>\"\n  ],\n  \"limit\": 10,\n  \"offset\": 0,\n  \"query\": \"<string>\",\n  \"sort\": {\n    \"order\": \"<string>\",\n    \"type\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"item_type\": \"string\",\n  \"total_count\": 6327,\n  \"limit\": 3073,\n  \"offset\": 2125,\n  \"expanded\": {},\n  \"items\": [\n    {\n      \"attributes\": {\n        \"key_0\": {\n          \"attribute_group\": {\n            \"attribute_group_id\": \"string\",\n            \"name\": \"string\"\n          },\n          \"attribute_id\": \"string\",\n          \"import_only\": false,\n          \"name\": \"string\",\n          \"type\": \"string\",\n          \"values\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"key_1\": {\n          \"attribute_group\": {\n            \"attribute_group_id\": \"string\",\n            \"name\": \"string\"\n          },\n          \"attribute_id\": \"string\",\n          \"import_only\": false,\n          \"name\": \"string\",\n          \"type\": \"string\",\n          \"values\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      },\n      \"created_date\": \"1987-10-16T16:06:31.912Z\",\n      \"featured_image\": {\n        \"id\": \"string\",\n        \"url\": \"string\"\n      },\n      \"last_updated_timestamp\": \"1965-02-25T05:35:39.896Z\",\n      \"name\": \"string\",\n      \"parent_product\": {\n        \"parent_product_id\": \"string\"\n      },\n      \"product_categories\": {\n        \"product_categories\": [\n          {\n            \"name\": \"string\",\n            \"product_category_id\": \"string\",\n            \"sub_category\": {\n              \"value\": \"<Circular reference to #/components/schemas/ProductCategory detected>\"\n            }\n          },\n          {\n            \"name\": \"string\",\n            \"product_category_id\": \"string\",\n            \"sub_category\": {\n              \"value\": \"<Circular reference to #/components/schemas/ProductCategory detected>\"\n            }\n          }\n        ]\n      },\n      \"product_id\": \"string\",\n      \"product_type\": {\n        \"name\": \"string\",\n        \"product_type_id\": \"string\"\n      },\n      \"sku\": \"string\"\n    },\n    {\n      \"attributes\": {\n        \"key_0\": {\n          \"attribute_group\": {\n            \"attribute_group_id\": \"string\",\n            \"name\": \"string\"\n          },\n          \"attribute_id\": \"string\",\n          \"import_only\": false,\n          \"name\": \"string\",\n          \"type\": \"string\",\n          \"values\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"key_1\": {\n          \"attribute_group\": {\n            \"attribute_group_id\": \"string\",\n            \"name\": \"string\"\n          },\n          \"attribute_id\": \"string\",\n          \"import_only\": true,\n          \"name\": \"string\",\n          \"type\": \"string\",\n          \"values\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      },\n      \"created_date\": \"1996-11-27T09:04:46.047Z\",\n      \"featured_image\": {\n        \"id\": \"string\",\n        \"url\": \"string\"\n      },\n      \"last_updated_timestamp\": \"1972-01-08T01:07:57.210Z\",\n      \"name\": \"string\",\n      \"parent_product\": {\n        \"parent_product_id\": \"string\"\n      },\n      \"product_categories\": {\n        \"product_categories\": [\n          {\n            \"name\": \"string\",\n            \"product_category_id\": \"string\",\n            \"sub_category\": {\n              \"value\": \"<Circular reference to #/components/schemas/ProductCategory detected>\"\n            }\n          },\n          {\n            \"name\": \"string\",\n            \"product_category_id\": \"string\",\n            \"sub_category\": {\n              \"value\": \"<Circular reference to #/components/schemas/ProductCategory detected>\"\n            }\n          }\n        ]\n      },\n      \"product_id\": \"string\",\n      \"product_type\": {\n        \"name\": \"string\",\n        \"product_type_id\": \"string\"\n      },\n      \"sku\": \"string\"\n    }\n  ],\n  \"query\": \"string\",\n  \"sort\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "34ab682f-fa0c-46d6-a834-4d9da618f702",
+          "name": "Retrieve a product by ID",
+          "request": {
+            "name": "Retrieve a product by ID",
+            "description": {},
+            "url": {
+              "path": [
+                "products",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4ca9ad5a-cd35-4d30-9b3e-445dfdab37f0",
+              "name": "Product details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attributes\": {\n    \"key_0\": {\n      \"attribute_group\": {\n        \"attribute_group_id\": \"string\",\n        \"name\": \"string\"\n      },\n      \"attribute_id\": \"string\",\n      \"import_only\": true,\n      \"name\": \"string\",\n      \"type\": \"string\",\n      \"values\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  },\n  \"created_date\": \"2013-09-26T20:43:18.312Z\",\n  \"featured_image\": {\n    \"id\": \"string\",\n    \"url\": \"string\"\n  },\n  \"last_updated_timestamp\": \"1953-01-02T10:07:13.653Z\",\n  \"name\": \"string\",\n  \"parent_product\": {\n    \"parent_product_id\": \"string\"\n  },\n  \"product_categories\": {\n    \"product_categories\": [\n      {\n        \"name\": \"string\",\n        \"product_category_id\": \"string\",\n        \"sub_category\": {\n          \"value\": \"<Circular reference to #/components/schemas/ProductCategory detected>\"\n        }\n      },\n      {\n        \"name\": \"string\",\n        \"product_category_id\": \"string\",\n        \"sub_category\": {\n          \"value\": \"<Circular reference to #/components/schemas/ProductCategory detected>\"\n        }\n      }\n    ]\n  },\n  \"product_id\": \"string\",\n  \"product_type\": {\n    \"name\": \"string\",\n    \"product_type_id\": \"string\"\n  },\n  \"sku\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5bf7c843-76e8-4e29-81e9-af1bf894426e",
+          "name": "Delete a product",
+          "request": {
+            "name": "Delete a product",
+            "description": {},
+            "url": {
+              "path": [
+                "products",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "878d6eda-e5b0-4051-9083-43668a8f86a6",
+              "name": "Product deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5f84f81f-ed70-4130-877f-c95effef4c7e",
+          "name": "Rename a product",
+          "request": {
+            "name": "Rename a product",
+            "description": {},
+            "url": {
+              "path": [
+                "products",
+                ":id",
+                "rename"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"new_name\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e1846cae-27ab-44d4-bbd1-c48ca4fce874",
+              "name": "Product renamed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":id",
+                    "rename"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"new_name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6da1119b-c1ef-44aa-87fa-4405c789badd",
+          "name": "Update product attribute values",
+          "request": {
+            "name": "Update product attribute values",
+            "description": {},
+            "url": {
+              "path": [
+                "products",
+                ":id",
+                "attributes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"attributes\": {\n    \"key_0\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "166e6d06-3ccf-4fe3-bbfb-43fd9a0abcd8",
+              "name": "Attributes updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":id",
+                    "attributes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"attributes\": {\n    \"key_0\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"key_1\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"key_2\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7afdadfd-d450-46e9-8508-d38229a3bc71",
+          "name": "Update product categories",
+          "request": {
+            "name": "Update product categories",
+            "description": {},
+            "url": {
+              "path": [
+                "products",
+                ":id",
+                "product-category"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"product_categories\": [\n    {\n      \"product_category_id\": \"<string>\"\n    },\n    {\n      \"product_category_id\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b53d1e58-2b1a-4114-9445-91ddf077da94",
+              "name": "Product category updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":id",
+                    "product-category"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"product_categories\": [\n    {\n      \"product_category_id\": \"<string>\"\n    },\n    {\n      \"product_category_id\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "11b9b6d9-d8f3-40f5-8095-23ff677cb84f",
+          "name": "Update product featured image",
+          "request": {
+            "name": "Update product featured image",
+            "description": {},
+            "url": {
+              "path": [
+                "products",
+                ":id",
+                "featured-image"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"asset_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7f8ff6d3-1c5b-4f85-bfae-f0263a5fe2cf",
+              "name": "Featured image updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":id",
+                    "featured-image"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"asset_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "316c668e-1d5d-41f3-b3ff-9f780155b920",
+          "name": "Update product parent",
+          "request": {
+            "name": "Update product parent",
+            "description": {},
+            "url": {
+              "path": [
+                "products",
+                ":id",
+                "parent-product"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"parent_product_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "58e1533b-1ac1-4bf6-b885-adf9cf75e29c",
+              "name": "Parent product updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":id",
+                    "parent-product"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parent_product_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f05a3f42-d9d3-4e2a-b1de-591667eb7e0f",
+          "name": "Update product type",
+          "request": {
+            "name": "Update product type",
+            "description": {},
+            "url": {
+              "path": [
+                "products",
+                ":id",
+                "product-type"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"product_type_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "23c1f6db-11e4-4c58-9206-e1b790c9ff3e",
+              "name": "Product type updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":id",
+                    "product-type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"product_type_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "58191a72-2358-45e1-ac95-ffc8cf00661b",
+          "name": "List products for a channel",
+          "request": {
+            "name": "List products for a channel",
+            "description": {},
+            "url": {
+              "path": [
+                "products",
+                "channels",
+                ":channel_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "channel_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1df00eb9-8b32-4eb7-b996-b845c34d8d0d",
+              "name": "Channel products",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    "channels",
+                    ":channel_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "channel_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"item_type\": \"string\",\n  \"total_count\": 5673,\n  \"limit\": 6051,\n  \"offset\": 7817,\n  \"channel_id\": \"string\",\n  \"channel_name\": \"string\",\n  \"items\": [\n    {\n      \"attributes\": {\n        \"key_0\": {\n          \"attribute_group\": {\n            \"attribute_group_id\": \"string\",\n            \"name\": \"string\"\n          },\n          \"attribute_id\": \"string\",\n          \"import_only\": true,\n          \"name\": \"string\",\n          \"type\": \"string\",\n          \"values\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"key_1\": {\n          \"attribute_group\": {\n            \"attribute_group_id\": \"string\",\n            \"name\": \"string\"\n          },\n          \"attribute_id\": \"string\",\n          \"import_only\": false,\n          \"name\": \"string\",\n          \"type\": \"string\",\n          \"values\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"key_2\": {\n          \"attribute_group\": {\n            \"attribute_group_id\": \"string\",\n            \"name\": \"string\"\n          },\n          \"attribute_id\": \"string\",\n          \"import_only\": true,\n          \"name\": \"string\",\n          \"type\": \"string\",\n          \"values\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      },\n      \"created_date\": \"1981-08-04T21:57:07.343Z\",\n      \"featured_image\": {\n        \"id\": \"string\",\n        \"url\": \"string\"\n      },\n      \"last_updated_timestamp\": \"2021-12-30T09:20:41.339Z\",\n      \"name\": \"string\",\n      \"parent_product\": {\n        \"parent_product_id\": \"string\"\n      },\n      \"product_categories\": {\n        \"product_categories\": [\n          {\n            \"name\": \"string\",\n            \"product_category_id\": \"string\",\n            \"sub_category\": {\n              \"value\": \"<Circular reference to #/components/schemas/ProductCategory detected>\"\n            }\n          },\n          {\n            \"name\": \"string\",\n            \"product_category_id\": \"string\",\n            \"sub_category\": {\n              \"value\": \"<Circular reference to #/components/schemas/ProductCategory detected>\"\n            }\n          }\n        ]\n      },\n      \"product_id\": \"string\",\n      \"product_type\": {\n        \"name\": \"string\",\n        \"product_type_id\": \"string\"\n      },\n      \"sku\": \"string\"\n    },\n    {\n      \"attributes\": {\n        \"key_0\": {\n          \"attribute_group\": {\n            \"attribute_group_id\": \"string\",\n            \"name\": \"string\"\n          },\n          \"attribute_id\": \"string\",\n          \"import_only\": false,\n          \"name\": \"string\",\n          \"type\": \"string\",\n          \"values\": [\n            \"string\",\n            \"string\"\n          ]\n        },\n        \"key_1\": {\n          \"attribute_group\": {\n            \"attribute_group_id\": \"string\",\n            \"name\": \"string\"\n          },\n          \"attribute_id\": \"string\",\n          \"import_only\": false,\n          \"name\": \"string\",\n          \"type\": \"string\",\n          \"values\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      },\n      \"created_date\": \"1975-04-15T17:47:49.638Z\",\n      \"featured_image\": {\n        \"id\": \"string\",\n        \"url\": \"string\"\n      },\n      \"last_updated_timestamp\": \"1968-12-19T21:48:39.930Z\",\n      \"name\": \"string\",\n      \"parent_product\": {\n        \"parent_product_id\": \"string\"\n      },\n      \"product_categories\": {\n        \"product_categories\": [\n          {\n            \"name\": \"string\",\n            \"product_category_id\": \"string\",\n            \"sub_category\": {\n              \"value\": \"<Circular reference to #/components/schemas/ProductCategory detected>\"\n            }\n          },\n          {\n            \"name\": \"string\",\n            \"product_category_id\": \"string\",\n            \"sub_category\": {\n              \"value\": \"<Circular reference to #/components/schemas/ProductCategory detected>\"\n            }\n          }\n        ]\n      },\n      \"product_id\": \"string\",\n      \"product_type\": {\n        \"name\": \"string\",\n        \"product_type_id\": \"string\"\n      },\n      \"sku\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9a6d0223-002f-475f-97f5-b6b11189324a",
+          "name": "List product categories",
+          "request": {
+            "name": "List product categories",
+            "description": {},
+            "url": {
+              "path": [
+                "product-categories"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "parent_product_category_id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6246a2a6-da47-47f7-a8eb-eb657ac0a87d",
+              "name": "List of product categories",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "product-categories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "parent_product_category_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"item_type\": \"string\",\n  \"total_count\": 6210,\n  \"limit\": 6545,\n  \"offset\": 6876,\n  \"items\": [\n    {\n      \"name\": \"string\",\n      \"product_category_id\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"product_category_id\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "50db68d6-8888-4a14-9d53-77c23ed0d687",
+          "name": "List product types",
+          "request": {
+            "name": "List product types",
+            "description": {},
+            "url": {
+              "path": [
+                "product-types"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "024a491a-c2a1-4901-9717-3dbed9652b37",
+              "name": "List of product types",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "product-types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"item_type\": \"string\",\n  \"total_count\": 9305,\n  \"limit\": 2613,\n  \"offset\": 9042,\n  \"items\": [\n    {\n      \"name\": \"string\",\n      \"product_type_id\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"product_type_id\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.widencollective.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5d2c50bc-94fe-4c0d-b784-c92634c7a5f4",
+    "name": "Acquia DAM (Widen) Acquia-DAM-Webhooks Products API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.\n\n\nContact Support:\n Name: Acquia Support",
+      "type": "text/plain"
+    }
+  }
+}

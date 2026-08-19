@@ -1,0 +1,118 @@
+{
+  "item": [
+    {
+      "id": "667d0a25-6f6e-4284-860f-5ba510cc8f09",
+      "name": "Usage",
+      "description": {
+        "content": "API usage summary.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e78cf0e2-e47f-4e0c-90d4-43a7e0844e5b",
+          "name": "Get API usage summary for the current month",
+          "request": {
+            "name": "Get API usage summary for the current month",
+            "description": {},
+            "url": {
+              "path": [
+                "usage",
+                "api"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0395ec0e-a84a-45fa-8198-1ecf3fa4d09c",
+              "name": "API usage summary",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "usage",
+                    "api"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"report_end_timestamp\": \"1985-07-24T01:17:17.925Z\",\n  \"report_start_timestamp\": \"2007-01-06T05:27:08.804Z\",\n  \"request_count\": 2857\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.widencollective.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "98f35483-e754-4371-8768-394bad74f3b1",
+    "name": "Acquia DAM (Widen) Acquia-DAM-Webhooks Usage API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.\n\n\nContact Support:\n Name: Acquia Support",
+      "type": "text/plain"
+    }
+  }
+}

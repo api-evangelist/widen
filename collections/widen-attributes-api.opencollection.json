@@ -1,0 +1,65 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Acquia DAM (Widen) Acquia-DAM-Webhooks Attributes API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Attributes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List product attributes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/attributes",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List product attributes"
+        },
+        {
+          "info": {
+            "name": "List controlled vocabulary for an attribute",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/attributes/:id/vocabulary",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List controlled vocabulary for an attribute"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

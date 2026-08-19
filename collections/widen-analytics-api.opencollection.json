@@ -1,0 +1,69 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Acquia DAM (Widen) Acquia-DAM-Webhooks Analytics API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List asset download events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.widencollective.com/v2/analytics/assets/downloads",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve a list of Asset Download events. Events may take up to 24 hours before appearing. Three years of analytics data is available, starting from January 1, 2021.\n"
+        },
+        {
+          "info": {
+            "name": "List asset share events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.widencollective.com/v2/analytics/assets/shares",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "List asset share events"
+        },
+        {
+          "info": {
+            "name": "List asset view events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.widencollective.com/v2/analytics/assets/views",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "List asset view events"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

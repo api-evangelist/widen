@@ -1,0 +1,599 @@
+{
+  "item": [
+    {
+      "id": "9cd566a9-5aaa-4150-a539-34d925d4556c",
+      "name": "Categories",
+      "description": {
+        "content": "Manage asset categories and category trees.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "96fa4c36-32ec-47dc-affd-3d291050ac01",
+          "name": "List top-level asset categories",
+          "request": {
+            "name": "List top-level asset categories",
+            "description": {},
+            "url": {
+              "path": [
+                "categories"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8061b00d-9d87-468e-b455-30d91dd4d711",
+              "name": "Top-level categories",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "categories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"item_type\": \"string\",\n  \"items\": [\n    {\n      \"_links\": {\n        \"assets\": \"string\",\n        \"categories\": \"string\"\n      },\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"parts\": [\n        \"string\",\n        \"string\"\n      ],\n      \"path\": \"string\"\n    },\n    {\n      \"_links\": {\n        \"assets\": \"string\",\n        \"categories\": \"string\"\n      },\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"parts\": [\n        \"string\",\n        \"string\"\n      ],\n      \"path\": \"string\"\n    }\n  ],\n  \"total_count\": 8126\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d208a983-1b39-4061-961b-2acc939ba63b",
+          "name": "List child asset categories by path",
+          "request": {
+            "name": "List child asset categories by path",
+            "description": {},
+            "url": {
+              "path": [
+                "categories",
+                ":categoryPath"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "categoryPath",
+                  "description": "(Required) URL-encoded category path"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6c3d0acb-cbc0-4e88-80e9-0d8ef6195fe2",
+              "name": "Child categories",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "categories",
+                    ":categoryPath"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "categoryPath",
+                      "description": "(Required) URL-encoded category path"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"item_type\": \"string\",\n  \"items\": [\n    {\n      \"_links\": {\n        \"assets\": \"string\",\n        \"categories\": \"string\"\n      },\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"parts\": [\n        \"string\",\n        \"string\"\n      ],\n      \"path\": \"string\"\n    },\n    {\n      \"_links\": {\n        \"assets\": \"string\",\n        \"categories\": \"string\"\n      },\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"parts\": [\n        \"string\",\n        \"string\"\n      ],\n      \"path\": \"string\"\n    }\n  ],\n  \"total_count\": 7338\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4a3127e3-c000-4dbf-b130-dcc8860272b2",
+          "name": "Add or remove assets from categories (v1)",
+          "request": {
+            "name": "Add or remove assets from categories (v1)",
+            "description": {},
+            "url": {
+              "path": [
+                "category",
+                "assets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"categories\": {\n    \"uuids\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"add\": {\n    \"uuids\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"remove\": {\n    \"uuids\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f475be8f-2180-4e4e-836e-6432a0ad5395",
+              "name": "Assets updated in categories",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "category",
+                    "assets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categories\": {\n    \"uuids\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"add\": {\n    \"uuids\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"remove\": {\n    \"uuids\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d2e7c4ab-f9ed-4e0b-9c7a-49c39440562f",
+          "name": "Create a new category (v1)",
+          "request": {
+            "name": "Create a new category (v1)",
+            "description": {},
+            "url": {
+              "path": [
+                "category"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"parentCategory\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"displayAlphabetically\": false,\n  \"displayBeforeCategory\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a53f9ef2-fcae-4efd-af29-168237e5e680",
+              "name": "Category created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "category"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"parentCategory\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"displayAlphabetically\": false,\n  \"displayBeforeCategory\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"children\": [\n    {\n      \"children\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/CategoryV1 detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/CategoryV1 detected>\"\n        }\n      ],\n      \"id\": 6470,\n      \"title\": \"string\",\n      \"uuid\": \"string\"\n    },\n    {\n      \"children\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/CategoryV1 detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/CategoryV1 detected>\"\n        }\n      ],\n      \"id\": 7847,\n      \"title\": \"string\",\n      \"uuid\": \"string\"\n    }\n  ],\n  \"id\": 2756,\n  \"title\": \"string\",\n  \"uuid\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aeb74813-bfeb-435d-a27d-2c0dade783a2",
+          "name": "Edit a category (v1)",
+          "request": {
+            "name": "Edit a category (v1)",
+            "description": {},
+            "url": {
+              "path": [
+                "category",
+                "uuid",
+                ":uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "uuid",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"<string>\",\n  \"displayAlphabetically\": \"<boolean>\",\n  \"displayBeforeCategory\": \"<string>\",\n  \"parentCategory\": \"<string>\",\n  \"title\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "30c8028e-59f9-46df-bb4b-2e95cbda0b50",
+              "name": "Category updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "category",
+                    "uuid",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"description\": \"<string>\",\n  \"displayAlphabetically\": \"<boolean>\",\n  \"displayBeforeCategory\": \"<string>\",\n  \"parentCategory\": \"<string>\",\n  \"title\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"children\": [\n    {\n      \"children\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/CategoryV1 detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/CategoryV1 detected>\"\n        }\n      ],\n      \"id\": 6716,\n      \"title\": \"string\",\n      \"uuid\": \"string\"\n    },\n    {\n      \"children\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/CategoryV1 detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/CategoryV1 detected>\"\n        }\n      ],\n      \"id\": 3389,\n      \"title\": \"string\",\n      \"uuid\": \"string\"\n    }\n  ],\n  \"id\": 2069,\n  \"title\": \"string\",\n  \"uuid\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a7c359b-7864-4df4-b6cc-4f05403067b9",
+          "name": "Get the full category tree (v1)",
+          "request": {
+            "name": "Get the full category tree (v1)",
+            "description": {},
+            "url": {
+              "path": [
+                "category",
+                "categoryTree"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "includeEmpty",
+                  "value": "<boolean>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "88866e46-7351-4d6b-a503-0171346f6e1e",
+              "name": "Category tree",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "category",
+                    "categoryTree"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "includeEmpty",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"categories\": [\n    {\n      \"children\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/CategoryV1 detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/CategoryV1 detected>\"\n        }\n      ],\n      \"id\": 6331,\n      \"title\": \"string\",\n      \"uuid\": \"string\"\n    },\n    {\n      \"children\": [\n        {\n          \"value\": \"<Circular reference to #/components/schemas/CategoryV1 detected>\"\n        },\n        {\n          \"value\": \"<Circular reference to #/components/schemas/CategoryV1 detected>\"\n        }\n      ],\n      \"id\": 2735,\n      \"title\": \"string\",\n      \"uuid\": \"string\"\n    }\n  ],\n  \"parentCategory\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.widencollective.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "33802778-b5bf-42fa-90d7-af182c0be394",
+    "name": "Acquia DAM (Widen) Acquia-DAM-Webhooks Categories API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.\n\n\nContact Support:\n Name: Acquia Support",
+      "type": "text/plain"
+    }
+  }
+}

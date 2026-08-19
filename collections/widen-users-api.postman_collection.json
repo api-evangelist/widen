@@ -1,0 +1,286 @@
+{
+  "item": [
+    {
+      "id": "e519dcd6-ea1c-4d2f-9b2d-52e0b19b1d44",
+      "name": "Users",
+      "description": {
+        "content": "Retrieve user and contact information.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5a054ef7-d9a5-42e4-a241-f4f929e2df42",
+          "name": "Get information about the calling user",
+          "request": {
+            "name": "Get information about the calling user",
+            "description": {},
+            "url": {
+              "path": [
+                "user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "25cb1b08-a85e-4a13-9ec1-87be598e7510",
+              "name": "Current user info",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"city\": \"string\",\n  \"company\": \"string\",\n  \"country\": \"string\",\n  \"email\": \"string\",\n  \"first_name\": \"string\",\n  \"id\": \"string\",\n  \"last_name\": \"string\",\n  \"phone\": \"string\",\n  \"postal_code\": \"string\",\n  \"state_or_province\": \"string\",\n  \"street_address\": \"string\",\n  \"title\": \"string\",\n  \"username\": \"string\",\n  \"uuid\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ca243741-b5f8-4161-87a9-37ea9613c0b6",
+          "name": "Get information about a specific user",
+          "request": {
+            "name": "Get information about a specific user",
+            "description": {},
+            "url": {
+              "path": [
+                "user",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ee47fe9a-6619-4643-812c-b29bcf84479c",
+              "name": "User info",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"city\": \"string\",\n  \"company\": \"string\",\n  \"country\": \"string\",\n  \"email\": \"string\",\n  \"first_name\": \"string\",\n  \"id\": \"string\",\n  \"last_name\": \"string\",\n  \"phone\": \"string\",\n  \"postal_code\": \"string\",\n  \"state_or_province\": \"string\",\n  \"street_address\": \"string\",\n  \"title\": \"string\",\n  \"username\": \"string\",\n  \"uuid\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "333c33d4-6c30-4614-bfe3-7f0e923345ec",
+          "name": "Get the calling user's contact address (v1)",
+          "request": {
+            "name": "Get the calling user's contact address (v1)",
+            "description": {},
+            "url": {
+              "path": [
+                "user",
+                "address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2a7d196d-db21-401e-bf15-ef9b1c275947",
+              "name": "User contact",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "user",
+                    "address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fields\": {\n    \"city\": {\n      \"required\": false,\n      \"value\": \"string\"\n    },\n    \"company\": {\n      \"required\": false,\n      \"value\": \"string\"\n    },\n    \"country\": {\n      \"required\": false,\n      \"value\": \"string\"\n    },\n    \"email\": {\n      \"required\": true,\n      \"value\": \"string\"\n    },\n    \"firstName\": {\n      \"required\": true,\n      \"value\": \"string\"\n    },\n    \"lastName\": {\n      \"required\": true,\n      \"value\": \"string\"\n    },\n    \"phone\": {\n      \"required\": true,\n      \"value\": \"string\"\n    },\n    \"postalCode\": {\n      \"required\": true,\n      \"value\": \"string\"\n    },\n    \"stateOrProvince\": {\n      \"required\": false,\n      \"value\": \"string\"\n    },\n    \"streetAddress\": {\n      \"required\": false,\n      \"value\": \"string\"\n    }\n  },\n  \"uuid\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.widencollective.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "993894e2-8d5c-4931-b572-6db5083c0947",
+    "name": "Acquia DAM (Widen) Acquia-DAM-Webhooks Users API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.\n\n\nContact Support:\n Name: Acquia Support",
+      "type": "text/plain"
+    }
+  }
+}

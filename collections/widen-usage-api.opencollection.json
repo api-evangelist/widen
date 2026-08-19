@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Acquia DAM (Widen) Acquia-DAM-Webhooks Usage API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Usage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get API usage summary for the current month",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/usage/api"
+          },
+          "docs": "Get API usage summary for the current month"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,231 @@
+{
+  "item": [
+    {
+      "id": "1eb68d14-df11-4b94-b8c2-d141f8b9cbd4",
+      "name": "Attributes",
+      "description": {
+        "content": "List product attributes and controlled vocabulary values.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8b74b677-110f-49ee-a8c9-743e6ededff0",
+          "name": "List product attributes",
+          "request": {
+            "name": "List product attributes",
+            "description": {},
+            "url": {
+              "path": [
+                "attributes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bff0b37a-dcfd-4809-b126-831422ee58dc",
+              "name": "List of attributes",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attributes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"item_type\": \"string\",\n  \"total_count\": 6915,\n  \"limit\": 1039,\n  \"offset\": 4754,\n  \"items\": [\n    {\n      \"attribute_group\": {\n        \"attribute_group_id\": \"string\",\n        \"name\": \"string\"\n      },\n      \"attribute_id\": \"string\",\n      \"import_only\": false,\n      \"name\": \"string\",\n      \"type\": \"text\"\n    },\n    {\n      \"attribute_group\": {\n        \"attribute_group_id\": \"string\",\n        \"name\": \"string\"\n      },\n      \"attribute_id\": \"string\",\n      \"import_only\": true,\n      \"name\": \"string\",\n      \"type\": \"rich_text\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "78269e7b-1d95-4417-a867-73cbd2dbffaf",
+          "name": "List controlled vocabulary for an attribute",
+          "request": {
+            "name": "List controlled vocabulary for an attribute",
+            "description": {},
+            "url": {
+              "path": [
+                "attributes",
+                ":id",
+                "vocabulary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "58ebef38-bc7e-4e65-98d4-42611ba77c1d",
+              "name": "Attribute vocabulary",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attributes",
+                    ":id",
+                    "vocabulary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"vocabulary\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.widencollective.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9d221b57-6bb2-4c40-b62b-c0f7c4c94f9f",
+    "name": "Acquia DAM (Widen) Acquia-DAM-Webhooks Attributes API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.\n\n\nContact Support:\n Name: Acquia Support",
+      "type": "text/plain"
+    }
+  }
+}

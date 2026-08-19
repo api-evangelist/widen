@@ -1,0 +1,622 @@
+{
+  "item": [
+    {
+      "id": "1fdb3915-dbfe-4f50-8eae-7122679cde6f",
+      "name": "Acquia-DAM-Webhooks",
+      "description": {
+        "content": "Create, list, retrieve, edit, ping, and delete DAM asset webhooks.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "79548ce2-9411-414b-8f7b-6e8111adf88e",
+          "name": "List Assets webhooks",
+          "request": {
+            "name": "List Assets webhooks",
+            "description": {},
+            "url": {
+              "path": [
+                "webhooks",
+                "configurations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "72db7c00-7084-4a9e-b313-7bf88421d2c3",
+              "name": "List of webhook configurations",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    "configurations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"item_type\": \"string\",\n  \"total_count\": 2262,\n  \"limit\": 6831,\n  \"offset\": 185,\n  \"items\": [\n    {\n      \"created_by_user\": {\n        \"uuid\": \"string\"\n      },\n      \"created_date\": \"1994-01-21T11:53:49.918Z\",\n      \"delivery_enabled\": false,\n      \"event_type\": \"string\",\n      \"last_delivered_date\": \"1994-10-20T04:31:50.838Z\",\n      \"last_pinged_date\": \"1997-11-07T07:26:23.538Z\",\n      \"signing_enabled\": false,\n      \"webhook_configuration_id\": \"string\"\n    },\n    {\n      \"created_by_user\": {\n        \"uuid\": \"string\"\n      },\n      \"created_date\": \"1979-07-09T00:37:29.731Z\",\n      \"delivery_enabled\": true,\n      \"event_type\": \"string\",\n      \"last_delivered_date\": \"1980-02-22T02:06:46.601Z\",\n      \"last_pinged_date\": \"2007-09-26T19:40:14.656Z\",\n      \"signing_enabled\": false,\n      \"webhook_configuration_id\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c9466d95-6c96-4765-b3f2-057afe5a4a7b",
+          "name": "Create an Assets webhook",
+          "request": {
+            "name": "Create an Assets webhook",
+            "description": {},
+            "url": {
+              "path": [
+                "webhooks",
+                "configurations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"delivery_url\": \"<string>\",\n  \"event_type\": \"<string>\",\n  \"secret_key\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f649931a-1e49-4a5b-ba4f-e69aee904081",
+              "name": "Webhook created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    "configurations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"delivery_url\": \"<string>\",\n  \"event_type\": \"<string>\",\n  \"secret_key\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f68f09a9-1d6d-48ea-896b-1410ed1e7624",
+          "name": "Retrieve an Assets webhook",
+          "request": {
+            "name": "Retrieve an Assets webhook",
+            "description": {},
+            "url": {
+              "path": [
+                "webhooks",
+                "configurations",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c85e5716-cd6d-4699-9761-ed03bc0b021e",
+              "name": "Webhook details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    "configurations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"created_by_user\": {\n    \"uuid\": \"string\"\n  },\n  \"created_date\": \"2011-02-26T10:24:27.382Z\",\n  \"delivery_enabled\": false,\n  \"event_type\": \"string\",\n  \"last_delivered_date\": \"1992-05-10T23:34:00.041Z\",\n  \"last_pinged_date\": \"2016-02-08T14:37:48.521Z\",\n  \"signing_enabled\": false,\n  \"webhook_configuration_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7636ec8e-1577-4b4a-b0c3-852541578853",
+          "name": "Edit an Assets webhook",
+          "request": {
+            "name": "Edit an Assets webhook",
+            "description": {},
+            "url": {
+              "path": [
+                "webhooks",
+                "configurations",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "patch",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"delivery_enabled\": \"<boolean>\",\n  \"delivery_url\": \"<string>\",\n  \"event_type\": \"<string>\",\n  \"secret_key\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2a4dae51-c9f1-4047-8b19-62e371f71c1f",
+              "name": "Webhook updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    "configurations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "patch",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"delivery_enabled\": \"<boolean>\",\n  \"delivery_url\": \"<string>\",\n  \"event_type\": \"<string>\",\n  \"secret_key\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c23fe382-dcf4-4e72-a89c-f6749277c85d",
+          "name": "Delete an Assets webhook",
+          "request": {
+            "name": "Delete an Assets webhook",
+            "description": {},
+            "url": {
+              "path": [
+                "webhooks",
+                "configurations",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ee4ffb8d-1038-4e24-88d9-bc6258058bab",
+              "name": "Webhook deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    "configurations",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c97d5d2-7cea-4330-9438-b8a135ca8853",
+          "name": "Ping an Assets webhook",
+          "request": {
+            "name": "Ping an Assets webhook",
+            "description": {},
+            "url": {
+              "path": [
+                "webhooks",
+                "configurations",
+                ":id",
+                "ping"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a1636f4c-c931-4d26-9147-cf68184a83d7",
+              "name": "Webhook pinged",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "webhooks",
+                    "configurations",
+                    ":id",
+                    "ping"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.widencollective.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "64177aad-e610-428c-a671-9df65e8bab0a",
+    "name": "Acquia DAM (Widen) Acquia-DAM-Webhooks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.\n\n\nContact Support:\n Name: Acquia Support",
+      "type": "text/plain"
+    }
+  }
+}

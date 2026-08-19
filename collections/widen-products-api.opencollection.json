@@ -1,0 +1,301 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Acquia DAM (Widen) Acquia-DAM-Webhooks Products API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Products",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a new product",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.widencollective.com/v2/products",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new product"
+        },
+        {
+          "info": {
+            "name": "Search for products",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.widencollective.com/v2/products/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Search for products"
+        },
+        {
+          "info": {
+            "name": "Retrieve a product by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/products/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a product by ID"
+        },
+        {
+          "info": {
+            "name": "Delete a product",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.widencollective.com/v2/products/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a product"
+        },
+        {
+          "info": {
+            "name": "Rename a product",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.widencollective.com/v2/products/:id/rename",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Rename a product"
+        },
+        {
+          "info": {
+            "name": "Update product attribute values",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.widencollective.com/v2/products/:id/attributes",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update product attribute values"
+        },
+        {
+          "info": {
+            "name": "Update product categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.widencollective.com/v2/products/:id/product-category",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update product categories"
+        },
+        {
+          "info": {
+            "name": "Update product featured image",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.widencollective.com/v2/products/:id/featured-image",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update product featured image"
+        },
+        {
+          "info": {
+            "name": "Update product parent",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.widencollective.com/v2/products/:id/parent-product",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update product parent"
+        },
+        {
+          "info": {
+            "name": "Update product type",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.widencollective.com/v2/products/:id/product-type",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update product type"
+        },
+        {
+          "info": {
+            "name": "List products for a channel",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/products/channels/:channel_id",
+            "params": [
+              {
+                "name": "channel_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List products for a channel"
+        },
+        {
+          "info": {
+            "name": "List product categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/product-categories",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "parent_product_category_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List product categories"
+        },
+        {
+          "info": {
+            "name": "List product types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/product-types",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List product types"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

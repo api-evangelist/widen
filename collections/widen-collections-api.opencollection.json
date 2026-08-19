@@ -1,0 +1,82 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Acquia DAM (Widen) Acquia-DAM-Webhooks Collections API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Collections",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/collections",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List collections"
+        },
+        {
+          "info": {
+            "name": "Add or remove assets from collections (v1)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.widencollective.com/v2/collection/assets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add or remove assets from collections (v1)"
+        },
+        {
+          "info": {
+            "name": "Create a collection (v1)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.widencollective.com/v2/collection",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a collection (v1)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

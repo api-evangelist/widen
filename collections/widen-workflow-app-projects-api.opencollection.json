@@ -1,0 +1,248 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Acquia DAM (Widen) Acquia-DAM-Webhooks Workflow-App-Projects API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Workflow-App-Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a new workflow project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.widencollective.com/v2/workflow/projects",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new workflow project"
+        },
+        {
+          "info": {
+            "name": "Retrieve a workflow project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/workflow/projects/:project_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve a workflow project"
+        },
+        {
+          "info": {
+            "name": "Delete a workflow project",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.widencollective.com/v2/workflow/projects/:project_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a workflow project"
+        },
+        {
+          "info": {
+            "name": "List deliverables for a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/workflow/projects/:project_id/deliverables",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List deliverables for a project"
+        },
+        {
+          "info": {
+            "name": "Add a deliverable to a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.widencollective.com/v2/workflow/projects/:project_id/deliverables",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a deliverable to a project"
+        },
+        {
+          "info": {
+            "name": "Retrieve a deliverable",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/workflow/projects/:project_id/deliverables/:deliverable_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "deliverable_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve a deliverable"
+        },
+        {
+          "info": {
+            "name": "Delete a deliverable",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.widencollective.com/v2/workflow/projects/:project_id/deliverables/:deliverable_id",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "deliverable_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a deliverable"
+        },
+        {
+          "info": {
+            "name": "Close a deliverable",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.widencollective.com/v2/workflow/projects/:project_id/deliverables/:deliverable_id/close",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "deliverable_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Close a deliverable"
+        },
+        {
+          "info": {
+            "name": "Upload proof to a deliverable",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.widencollective.com/v2/workflow/projects/:project_id/deliverables/:deliverable_id/proofs",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "deliverable_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Upload proof to a deliverable"
+        },
+        {
+          "info": {
+            "name": "List supporting files for a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/workflow/projects/:project_id/support-files",
+            "params": [
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List supporting files for a project"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

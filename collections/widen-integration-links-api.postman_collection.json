@@ -1,0 +1,295 @@
+{
+  "item": [
+    {
+      "id": "9fc74977-c0bf-4a69-8e06-9a439cc46f23",
+      "name": "Integration-Links",
+      "description": {
+        "content": "Register and remove integration links on assets.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0541d5c9-9b1a-4f01-b0f9-9aeca4084830",
+          "name": "List integration links (v1)",
+          "request": {
+            "name": "List integration links (v1)",
+            "description": {},
+            "url": {
+              "path": [
+                "integrationlink"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0e6a112e-8dd4-4e58-b602-555420c92c48",
+              "name": "Integration links",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrationlink"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"integrationLinks\": [\n    {\n      \"assetUuid\": \"string\",\n      \"description\": \"string\",\n      \"updatedDate\": \"1973-10-12T04:43:32.609Z\",\n      \"url\": \"string\",\n      \"uuid\": \"string\"\n    },\n    {\n      \"assetUuid\": \"string\",\n      \"description\": \"string\",\n      \"updatedDate\": \"1971-03-29T20:51:10.930Z\",\n      \"url\": \"string\",\n      \"uuid\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "25c5ab5f-9d9e-4b62-b9ae-93c3dcd080a8",
+          "name": "Register a new integration link (v1)",
+          "request": {
+            "name": "Register a new integration link (v1)",
+            "description": {},
+            "url": {
+              "path": [
+                "integrationlink"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"assetUuid\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f91ed521-a26f-482f-b029-dcdfdc50d3b4",
+              "name": "Integration link created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrationlink"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"assetUuid\": \"<string>\",\n  \"description\": \"<string>\",\n  \"url\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"assetUuid\": \"string\",\n  \"description\": \"string\",\n  \"updatedDate\": \"1949-02-23T13:41:30.871Z\",\n  \"url\": \"string\",\n  \"uuid\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "88985998-866c-4d56-9d43-631526657cc4",
+          "name": "Remove an integration link (v1)",
+          "request": {
+            "name": "Remove an integration link (v1)",
+            "description": {},
+            "url": {
+              "path": [
+                "integrationlink",
+                ":uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "uuid",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0543f998-0257-4909-a465-ce47c6da09f4",
+              "name": "Link removed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrationlink",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.widencollective.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c897b89b-fe3b-4fc5-abbc-347a0850c58d",
+    "name": "Acquia DAM (Widen) Acquia-DAM-Webhooks Integration-Links API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.\n\n\nContact Support:\n Name: Acquia Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "item": [
+    {
+      "id": "3bffc2ff-2c8b-453f-ab15-5b53ca680a1d",
+      "name": "Search-Connector",
+      "description": {
+        "content": "Instant Search Connector integration URL.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9fad15d4-b32b-426c-be88-fcab28da2354",
+          "name": "Get Search Connector URL",
+          "request": {
+            "name": "Get Search Connector URL",
+            "description": {
+              "content": "Retrieve a signed URL to the Search Connector UI for embedding in an iframe. Valid for 24 hours.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "integrations",
+                "url"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "hideSearchBar",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fa94899e-9674-4514-8bb6-887ec7ec2390",
+              "name": "Search Connector URL",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "integrations",
+                    "url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "hideSearchBar",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.widencollective.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "61f0d839-15d6-48ac-aa13-c578387bdabb",
+    "name": "Acquia DAM (Widen) Acquia-DAM-Webhooks Search-Connector API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.\n\n\nContact Support:\n Name: Acquia Support",
+      "type": "text/plain"
+    }
+  }
+}

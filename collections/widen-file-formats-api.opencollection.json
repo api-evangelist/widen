@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Acquia DAM (Widen) Acquia-DAM-Webhooks File-Formats API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "File-Formats",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List recognized file formats (v1)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/fileformats"
+          },
+          "docs": "List recognized file formats (v1)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,832 @@
+{
+  "item": [
+    {
+      "id": "9fabc732-533c-4eec-a8b6-b8f13e5f8ad0",
+      "name": "Orders",
+      "description": {
+        "content": "Create and manage asset orders and conversions.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f7bdba7d-68fb-4203-b411-3ad75b507afa",
+          "name": "Check which items will be removed from an order (v1)",
+          "request": {
+            "name": "Check which items will be removed from an order (v1)",
+            "description": {},
+            "url": {
+              "path": [
+                "order",
+                "items",
+                "removals"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"uuids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "24c7b8a3-9535-4eb2-85c4-9239fc412d79",
+              "name": "Removed items",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    "items",
+                    "removals"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"uuids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"removedItems\": [\n    {\n      \"name\": \"string\",\n      \"reason\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"reason\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4d67c30a-7869-4263-a051-cc71c91880d9",
+          "name": "Create an asset order (v1)",
+          "request": {
+            "name": "Create an asset order (v1)",
+            "description": {},
+            "url": {
+              "path": [
+                "order"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"assets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conversions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"profile\": \"<string>\",\n  \"recipients\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"createArchive\": false,\n  \"metadata\": \"<object>\",\n  \"notes\": \"<string>\",\n  \"subject\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "076a0237-6b68-4c10-8f0f-59ccfe1560eb",
+              "name": "Order created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"assets\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"conversions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"profile\": \"<string>\",\n  \"recipients\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"createArchive\": false,\n  \"metadata\": \"<object>\",\n  \"notes\": \"<string>\",\n  \"subject\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"orders\": [\n    {\n      \"assetsInOrder\": 8059,\n      \"conversionStatus\": \"string\",\n      \"datePlaced\": \"1984-07-29T02:27:39.050Z\",\n      \"downloadCount\": 5626,\n      \"expirationDate\": \"2016-08-21T09:05:25.283Z\",\n      \"externalPickupLink\": \"string\",\n      \"orderedItems\": [\n        {\n          \"conversions\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\",\n            \"key_2\": \"string\"\n          },\n          \"filename\": \"string\",\n          \"previews\": {},\n          \"uuid\": \"string\"\n        },\n        {\n          \"conversions\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          },\n          \"filename\": \"string\",\n          \"previews\": {},\n          \"uuid\": \"string\"\n        }\n      ],\n      \"recipient\": {\n        \"uuid\": \"string\"\n      },\n      \"sender\": {\n        \"uuid\": \"string\"\n      },\n      \"sequenceNumber\": \"string\",\n      \"status\": \"string\",\n      \"uuid\": \"string\"\n    },\n    {\n      \"assetsInOrder\": 3926,\n      \"conversionStatus\": \"string\",\n      \"datePlaced\": \"1963-09-07T12:55:44.724Z\",\n      \"downloadCount\": 8810,\n      \"expirationDate\": \"1959-12-04T11:30:36.423Z\",\n      \"externalPickupLink\": \"string\",\n      \"orderedItems\": [\n        {\n          \"conversions\": {\n            \"key_0\": \"string\"\n          },\n          \"filename\": \"string\",\n          \"previews\": {},\n          \"uuid\": \"string\"\n        },\n        {\n          \"conversions\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\"\n          },\n          \"filename\": \"string\",\n          \"previews\": {},\n          \"uuid\": \"string\"\n        }\n      ],\n      \"recipient\": {\n        \"uuid\": \"string\"\n      },\n      \"sender\": {\n        \"uuid\": \"string\"\n      },\n      \"sequenceNumber\": \"string\",\n      \"status\": \"string\",\n      \"uuid\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "efc449c2-449b-4286-8538-803a8236f38e",
+          "name": "Get order details by UUID (v1)",
+          "request": {
+            "name": "Get order details by UUID (v1)",
+            "description": {},
+            "url": {
+              "path": [
+                "order",
+                "uuid",
+                ":uuid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "uuid",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "49fe727a-3ea3-4527-90dd-7f7b8e4ec0ea",
+              "name": "Order details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    "uuid",
+                    ":uuid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"assetsInOrder\": 2967,\n  \"conversionStatus\": \"string\",\n  \"datePlaced\": \"1957-10-22T01:38:17.045Z\",\n  \"downloadCount\": 1693,\n  \"expirationDate\": \"1950-04-03T03:31:21.573Z\",\n  \"externalPickupLink\": \"string\",\n  \"orderedItems\": [\n    {\n      \"conversions\": {\n        \"key_0\": \"string\"\n      },\n      \"filename\": \"string\",\n      \"previews\": {},\n      \"uuid\": \"string\"\n    },\n    {\n      \"conversions\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"filename\": \"string\",\n      \"previews\": {},\n      \"uuid\": \"string\"\n    }\n  ],\n  \"recipient\": {\n    \"uuid\": \"string\"\n  },\n  \"sender\": {\n    \"uuid\": \"string\"\n  },\n  \"sequenceNumber\": \"string\",\n  \"status\": \"string\",\n  \"uuid\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1df1cc96-f9a7-4718-a7da-4433ebaea855",
+          "name": "Get order details by sequence number (v1)",
+          "request": {
+            "name": "Get order details by sequence number (v1)",
+            "description": {},
+            "url": {
+              "path": [
+                "order",
+                "seqNum",
+                ":seqNum"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "start",
+                  "value": "<integer>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "seqNum",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "62c83316-11be-4608-9b83-b414c57e6ef2",
+              "name": "Order details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    "seqNum",
+                    ":seqNum"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "start",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "seqNum",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"assetsInOrder\": 2967,\n  \"conversionStatus\": \"string\",\n  \"datePlaced\": \"1957-10-22T01:38:17.045Z\",\n  \"downloadCount\": 1693,\n  \"expirationDate\": \"1950-04-03T03:31:21.573Z\",\n  \"externalPickupLink\": \"string\",\n  \"orderedItems\": [\n    {\n      \"conversions\": {\n        \"key_0\": \"string\"\n      },\n      \"filename\": \"string\",\n      \"previews\": {},\n      \"uuid\": \"string\"\n    },\n    {\n      \"conversions\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"filename\": \"string\",\n      \"previews\": {},\n      \"uuid\": \"string\"\n    }\n  ],\n  \"recipient\": {\n    \"uuid\": \"string\"\n  },\n  \"sender\": {\n    \"uuid\": \"string\"\n  },\n  \"sequenceNumber\": \"string\",\n  \"status\": \"string\",\n  \"uuid\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9ba80186-d20c-4fc7-86fb-6b4adb87bee7",
+          "name": "Create a zip archive for an order (v1)",
+          "request": {
+            "name": "Create a zip archive for an order (v1)",
+            "description": {},
+            "url": {
+              "path": [
+                "order",
+                "uuid",
+                ":uuid",
+                "zip"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "uuid",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "942938c7-23b3-4731-b74a-4ca6d02cb623",
+              "name": "Zip archive creation started",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    "uuid",
+                    ":uuid",
+                    "zip"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f5b19212-af09-470f-a6d4-1d3e2f94d37f",
+          "name": "Get zip archive status or download link (v1)",
+          "request": {
+            "name": "Get zip archive status or download link (v1)",
+            "description": {},
+            "url": {
+              "path": [
+                "order",
+                "uuid",
+                ":uuid",
+                "zip"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "uuid",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9826b6c6-00c6-4547-9a25-1fe09d6c6fdd",
+              "name": "Zip status",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    "uuid",
+                    ":uuid",
+                    "zip"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "uuid",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"archived\": 4781,\n  \"done\": false,\n  \"download\": \"string\",\n  \"errored\": true,\n  \"total\": 2110\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "241dce78-4216-407d-a752-89a026cf8d5d",
+          "name": "List internet order profiles (v1)",
+          "request": {
+            "name": "List internet order profiles (v1)",
+            "description": {},
+            "url": {
+              "path": [
+                "order",
+                "profile",
+                "internet"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "407c3f55-4054-45ad-9cda-90bdd641049c",
+              "name": "Order profiles",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    "profile",
+                    "internet"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"profiles\": [\n    {\n      \"internetDelivery\": false,\n      \"metadataTypeUuid\": \"string\",\n      \"name\": \"string\",\n      \"sendToSelf\": true,\n      \"specialInstructions\": \"string\",\n      \"uuid\": \"string\"\n    },\n    {\n      \"internetDelivery\": false,\n      \"metadataTypeUuid\": \"string\",\n      \"name\": \"string\",\n      \"sendToSelf\": true,\n      \"specialInstructions\": \"string\",\n      \"uuid\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2f66d5ff-b0fc-45de-9700-d95d71032779",
+          "name": "List conversions for an order profile (v1)",
+          "request": {
+            "name": "List conversions for an order profile (v1)",
+            "description": {},
+            "url": {
+              "path": [
+                "conversion",
+                "order",
+                "profile",
+                "uuid",
+                ":profileId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "profileId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"uuids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dd7f44d7-cd2c-4791-b967-bbbdefc3de00",
+              "name": "Applicable conversions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conversion",
+                    "order",
+                    "profile",
+                    "uuid",
+                    ":profileId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "profileId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"uuids\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"conversions\": [\n    {\n      \"approvalRequired\": false,\n      \"description\": \"string\",\n      \"displayOrder\": 5267,\n      \"mediaType\": \"string\",\n      \"name\": \"string\",\n      \"uuid\": \"string\"\n    },\n    {\n      \"approvalRequired\": false,\n      \"description\": \"string\",\n      \"displayOrder\": 2157,\n      \"mediaType\": \"string\",\n      \"name\": \"string\",\n      \"uuid\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.widencollective.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "3d2011fd-89e0-49c5-9436-1fd6097d4a1e",
+    "name": "Acquia DAM (Widen) Acquia-DAM-Webhooks Orders API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.\n\n\nContact Support:\n Name: Acquia Support",
+      "type": "text/plain"
+    }
+  }
+}

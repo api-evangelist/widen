@@ -1,0 +1,181 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Acquia DAM (Widen) Acquia-DAM-Webhooks Metadata API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Metadata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List viewable metadata fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/metadata/fields/viewable",
+            "params": [
+              {
+                "name": "display_name_after",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "display_name_starts_with",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "field_types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List viewable metadata fields"
+        },
+        {
+          "info": {
+            "name": "List controlled vocabulary values for a metadata field",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/metadata/:displayKey/vocabulary",
+            "params": [
+              {
+                "name": "displayKey",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List controlled vocabulary values for a metadata field"
+        },
+        {
+          "info": {
+            "name": "Add a controlled vocabulary value",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.widencollective.com/v2/metadata/:displayKey/vocabulary",
+            "params": [
+              {
+                "name": "displayKey",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add a controlled vocabulary value"
+        },
+        {
+          "info": {
+            "name": "Get a controlled vocabulary value",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/metadata/:displayKey/vocabulary/:value",
+            "params": [
+              {
+                "name": "displayKey",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "value",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a controlled vocabulary value"
+        },
+        {
+          "info": {
+            "name": "Update a controlled vocabulary value",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.widencollective.com/v2/metadata/:displayKey/vocabulary/:value",
+            "params": [
+              {
+                "name": "displayKey",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "value",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a controlled vocabulary value"
+        },
+        {
+          "info": {
+            "name": "Delete a controlled vocabulary value",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.widencollective.com/v2/metadata/:displayKey/vocabulary/:value",
+            "params": [
+              {
+                "name": "displayKey",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "value",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a controlled vocabulary value"
+        },
+        {
+          "info": {
+            "name": "List all metadata types (v1)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/metadata/types"
+          },
+          "docs": "List all metadata types (v1)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

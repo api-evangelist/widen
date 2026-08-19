@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Acquia DAM (Widen) Acquia-DAM-Webhooks Search-Connector API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Search-Connector",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Search Connector URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/integrations/url",
+            "params": [
+              {
+                "name": "hideSearchBar",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve a signed URL to the Search Connector UI for embedding in an iframe. Valid for 24 hours.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

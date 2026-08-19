@@ -1,0 +1,488 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Acquia DAM (Widen) Acquia-DAM-Webhooks Assets API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Assets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search for assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/assets/search",
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "DAM quicksearch query string"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "facet",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_archived",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_deleted",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "scroll",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search_document_text",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "scroll_id",
+                "value": "",
+                "type": "query",
+                "description": "scroll_id from a previous paginated search"
+              }
+            ]
+          },
+          "docs": "Search for assets"
+        },
+        {
+          "info": {
+            "name": "Retrieve an asset by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/assets/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve an asset by ID"
+        },
+        {
+          "info": {
+            "name": "Delete an asset (send to Pending Delete queue)",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.widencollective.com/v2/assets/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete an asset (send to Pending Delete queue)"
+        },
+        {
+          "info": {
+            "name": "Retrieve a specific version of an asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/assets/:id/versions/:version_id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve a specific version of an asset"
+        },
+        {
+          "info": {
+            "name": "Retrieve asset metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/assets/:id/metadata",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve asset metadata"
+        },
+        {
+          "info": {
+            "name": "Update asset metadata fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.widencollective.com/v2/assets/:id/metadata",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "patch",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update asset metadata fields"
+        },
+        {
+          "info": {
+            "name": "Retrieve asset security settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/assets/:id/security",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve asset security settings"
+        },
+        {
+          "info": {
+            "name": "Update asset security settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.widencollective.com/v2/assets/:id/security",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "patch",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update asset security settings"
+        },
+        {
+          "info": {
+            "name": "Rename an asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.widencollective.com/v2/assets/:id/filename",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Rename an asset"
+        },
+        {
+          "info": {
+            "name": "Upload an alternate preview for an asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.widencollective.com/v2/assets/:id/alternatepreview",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Upload an alternate preview for an asset"
+        },
+        {
+          "info": {
+            "name": "Remove alternate preview from an asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.widencollective.com/v2/assets/:id/alternatepreview",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Remove alternate preview from an asset"
+        },
+        {
+          "info": {
+            "name": "List asset groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/assets/assetgroups"
+          },
+          "docs": "List asset groups"
+        },
+        {
+          "info": {
+            "name": "Create a new asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.widencollective.com/v2/uploads",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "profile",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "filename",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "file_id",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "url",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "metadata",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Create a new asset"
+        },
+        {
+          "info": {
+            "name": "List upload profiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/uploads/profiles"
+          },
+          "docs": "List upload profiles"
+        },
+        {
+          "info": {
+            "name": "Start a chunked upload session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.widencollective.com/v2/uploads/chunks/start"
+          },
+          "docs": "Start a chunked upload session"
+        },
+        {
+          "info": {
+            "name": "Upload a file chunk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.widencollective.com/v2/uploads/chunks/upload",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "session_id",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "chunk_number",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Upload a file chunk"
+        },
+        {
+          "info": {
+            "name": "Complete a chunked upload session",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.widencollective.com/v2/uploads/chunks/complete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Complete a chunked upload session"
+        },
+        {
+          "info": {
+            "name": "List asset versions (v1)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/asset/uuid/:id/assetversions",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List asset versions (v1)"
+        },
+        {
+          "info": {
+            "name": "Change an asset's metadata type (v1)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.widencollective.com/v2/asset/changemetadatatype/asset/:id/type/:metadata_type_uuid",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "metadata_type_uuid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Change an asset's metadata type (v1)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,124 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Acquia DAM (Widen) Acquia-DAM-Webhooks Categories API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Categories",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List top-level asset categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/categories"
+          },
+          "docs": "List top-level asset categories"
+        },
+        {
+          "info": {
+            "name": "List child asset categories by path",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/categories/:categoryPath",
+            "params": [
+              {
+                "name": "categoryPath",
+                "value": "",
+                "type": "path",
+                "description": "URL-encoded category path"
+              }
+            ]
+          },
+          "docs": "List child asset categories by path"
+        },
+        {
+          "info": {
+            "name": "Add or remove assets from categories (v1)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.widencollective.com/v2/category/assets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add or remove assets from categories (v1)"
+        },
+        {
+          "info": {
+            "name": "Create a new category (v1)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.widencollective.com/v2/category",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new category (v1)"
+        },
+        {
+          "info": {
+            "name": "Edit a category (v1)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.widencollective.com/v2/category/uuid/:uuid",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Edit a category (v1)"
+        },
+        {
+          "info": {
+            "name": "Get the full category tree (v1)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.widencollective.com/v2/category/categoryTree",
+            "params": [
+              {
+                "name": "includeEmpty",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get the full category tree (v1)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
