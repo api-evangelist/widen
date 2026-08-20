@@ -25,6 +25,15 @@ tags:
   - Media
   - Assets
   - Metadata
+  - Collection
+  - Workflows
+  - Acquia
+tags_raw:
+  - Digital Asset Management
+  - DAM
+  - Media
+  - Assets
+  - Metadata
   - Collections
   - Workflows
   - Acquia
@@ -119,6 +128,8 @@ apis:
   humanURL: https://docs.acquia.com/acquia-dam/api-v2
   baseURL: https://api.widencollective.com/v2
   tags:
+  - Collection
+  tags_raw:
   - Collections
   properties:
   - type: OpenAPI
@@ -133,6 +144,8 @@ apis:
   humanURL: https://docs.acquia.com/acquia-dam/api-v2
   baseURL: https://api.widencollective.com/v2
   tags:
+  - File Formats
+  tags_raw:
   - File-Formats
   properties:
   - type: OpenAPI
@@ -175,6 +188,8 @@ apis:
   humanURL: https://docs.acquia.com/acquia-dam/api-v2
   baseURL: https://api.widencollective.com/v2
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
@@ -189,6 +204,8 @@ apis:
   humanURL: https://docs.acquia.com/acquia-dam/api-v2
   baseURL: https://api.widencollective.com/v2
   tags:
+  - Product
+  tags_raw:
   - Products
   properties:
   - type: OpenAPI
@@ -231,6 +248,8 @@ apis:
   humanURL: https://docs.acquia.com/acquia-dam/api-v2
   baseURL: https://api.widencollective.com/v2
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
