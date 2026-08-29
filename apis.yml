@@ -299,6 +299,9 @@ apis:
   - type: Documentation
     url: https://docs.acquia.com/dam-widen/api
 common:
+  - type: CapabilityMap
+    url: capabilities/widen-capability-edges.yml
+    name: Widen Business Capability Map
   - type: AgenticAccess
     url: agentic-access/widen-agentic-access.yml
   - type: TrustCenter
