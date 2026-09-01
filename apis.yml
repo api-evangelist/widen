@@ -156,7 +156,7 @@ apis:
   humanURL: https://docs.acquia.com/acquia-dam/api-v2
   baseURL: https://api.widencollective.com/v2
   tags:
-  - File-Formats
+  - File Formats
   tags_raw:
   - File-Formats
   properties:
