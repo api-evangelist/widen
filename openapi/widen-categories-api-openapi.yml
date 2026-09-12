@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Acquia DAM (Widen) Acquia-DAM-Webhooks Categories API
   description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
@@ -187,19 +187,28 @@ paths:
                 $ref: '#/components/schemas/CategoryTreeResult'
 components:
   schemas:
-    CategoryV1:
+    ListCategoriesResult:
       type: object
       properties:
-        children:
+        item_type:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryV2'
+        total_count:
+          type: integer
+    CategoryTreeResult:
+      type: object
+      properties:
+        categories:
           type: array
           items:
             $ref: '#/components/schemas/CategoryV1'
-        id:
-          type: integer
-        title:
-          type: string
-        uuid:
-          type: string
+        parentCategory:
+          type:
+          - string
+          - 'null'
     CategoryV2:
       type: object
       properties:
@@ -220,27 +229,19 @@ components:
             type: string
         path:
           type: string
-    CategoryTreeResult:
+    CategoryV1:
       type: object
       properties:
-        categories:
+        children:
           type: array
           items:
             $ref: '#/components/schemas/CategoryV1'
-        parentCategory:
-          type: string
-          nullable: true
-    ListCategoriesResult:
-      type: object
-      properties:
-        item_type:
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CategoryV2'
-        total_count:
+        id:
           type: integer
+        title:
+          type: string
+        uuid:
+          type: string
     CreateEditCategoryResult:
       type: object
       properties:

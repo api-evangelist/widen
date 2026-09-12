@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Acquia DAM (Widen) Acquia-DAM-Webhooks Workflow-App-Projects API
+  title: Acquia DAM (Widen) Acquia-DAM-Webhooks Workflow App Projects API
   description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
 
     '
@@ -383,6 +383,22 @@ components:
           type: string
         project_id:
           type: string
+    WorkflowUser:
+      type: object
+      properties:
+        email_address:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+    ListDeliverablesResult:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetDeliverableResult'
     SupportingFile:
       type: object
       properties:
@@ -408,18 +424,50 @@ components:
           format: date-time
         uploader:
           $ref: '#/components/schemas/WorkflowUser'
-    CreateProjectResult:
+    GetProjectResult:
       type: object
       properties:
-        project_id:
-          type: string
-    ListDeliverablesResult:
-      type: object
-      properties:
-        items:
+        _links:
+          type: object
+          properties:
+            deliverables:
+              type: string
+            self:
+              type: string
+            support_files:
+              type: string
+        deliverables:
           type: array
           items:
-            $ref: '#/components/schemas/GetDeliverableResult'
+            type: object
+            properties:
+              due_date:
+                type: string
+                format: date-time
+              id:
+                type: string
+              name:
+                type: string
+              status:
+                type: string
+        description:
+          type: string
+        due_date:
+          type: string
+          format: date-time
+        expanded:
+          type: object
+        id:
+          type: string
+        name:
+          type: string
+        project_id:
+          type: string
+        project_manager:
+          $ref: '#/components/schemas/WorkflowUser'
+        start_date:
+          type: string
+          format: date-time
     GetDeliverableResult:
       type: object
       properties:
@@ -471,59 +519,11 @@ components:
               type: string
             small:
               type: string
-    WorkflowUser:
+    CreateProjectResult:
       type: object
       properties:
-        email_address:
-          type: string
-        first_name:
-          type: string
-        last_name:
-          type: string
-    GetProjectResult:
-      type: object
-      properties:
-        _links:
-          type: object
-          properties:
-            deliverables:
-              type: string
-            self:
-              type: string
-            support_files:
-              type: string
-        deliverables:
-          type: array
-          items:
-            type: object
-            properties:
-              due_date:
-                type: string
-                format: date-time
-              id:
-                type: string
-              name:
-                type: string
-              status:
-                type: string
-        description:
-          type: string
-        due_date:
-          type: string
-          format: date-time
-        expanded:
-          type: object
-        id:
-          type: string
-        name:
-          type: string
         project_id:
           type: string
-        project_manager:
-          $ref: '#/components/schemas/WorkflowUser'
-        start_date:
-          type: string
-          format: date-time
   securitySchemes:
     bearerAuth:
       type: http

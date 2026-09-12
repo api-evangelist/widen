@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Acquia DAM (Widen) Acquia-DAM-Webhooks Metadata API
   description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
@@ -189,6 +189,20 @@ paths:
                 $ref: '#/components/schemas/ListMetadataTypesResult'
 components:
   schemas:
+    MetadataFieldValue:
+      type: object
+      properties:
+        _links:
+          type: object
+          properties:
+            self:
+              type: string
+            vocabulary:
+              type: string
+        index:
+          type: integer
+        value:
+          type: string
     ListViewableMetadataFieldsResult:
       type: object
       properties:
@@ -217,7 +231,7 @@ components:
                 type: array
                 items:
                   type: string
-    MetadataFieldValue:
+    ListFieldValuesResult:
       type: object
       properties:
         _links:
@@ -225,12 +239,10 @@ components:
           properties:
             self:
               type: string
-            vocabulary:
-              type: string
-        index:
-          type: integer
-        value:
-          type: string
+        vocabulary:
+          type: array
+          items:
+            type: string
     ListMetadataTypesResult:
       type: object
       properties:
@@ -262,18 +274,6 @@ components:
                 type: string
               uuid:
                 type: string
-    ListFieldValuesResult:
-      type: object
-      properties:
-        _links:
-          type: object
-          properties:
-            self:
-              type: string
-        vocabulary:
-          type: array
-          items:
-            type: string
   securitySchemes:
     bearerAuth:
       type: http

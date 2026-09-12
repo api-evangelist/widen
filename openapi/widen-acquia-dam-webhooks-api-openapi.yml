@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Acquia DAM (Widen) Acquia-DAM-Webhooks API
+  title: Acquia DAM (Widen) Acquia DAM Webhooks API
   description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
 
     '
@@ -169,17 +169,20 @@ paths:
           description: Webhook pinged
 components:
   schemas:
-    PaginatedList:
+    ListAssetsWebhooksResult:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/GetAssetsWebhookResult'
+    CreateAssetsWebhookResult:
       type: object
       properties:
-        item_type:
+        id:
           type: string
-        total_count:
-          type: integer
-        limit:
-          type: integer
-        offset:
-          type: integer
     GetAssetsWebhookResult:
       type: object
       properties:
@@ -196,31 +199,30 @@ components:
         event_type:
           type: string
         last_delivered_date:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         last_pinged_date:
-          type: string
+          type:
+          - string
+          - 'null'
           format: date-time
-          nullable: true
         signing_enabled:
           type: boolean
         webhook_configuration_id:
           type: string
-    CreateAssetsWebhookResult:
+    PaginatedList:
       type: object
       properties:
-        id:
+        item_type:
           type: string
-    ListAssetsWebhooksResult:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/GetAssetsWebhookResult'
+        total_count:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
   securitySchemes:
     bearerAuth:
       type: http

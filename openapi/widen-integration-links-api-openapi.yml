@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Acquia DAM (Widen) Acquia-DAM-Webhooks Integration-Links API
+  title: Acquia DAM (Widen) Acquia-DAM-Webhooks Integration Links API
   description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
 
     '
@@ -83,21 +83,6 @@ paths:
           description: Link removed
 components:
   schemas:
-    RegisterIntegrationLinkResult:
-      type: object
-      properties:
-        assetUuid:
-          type: string
-        description:
-          type: string
-        updatedDate:
-          type: string
-          format: date-time
-        url:
-          type: string
-          nullable: true
-        uuid:
-          type: string
     ListIntegrationLinksResult:
       type: object
       properties:
@@ -114,10 +99,27 @@ components:
                 type: string
                 format: date-time
               url:
-                type: string
-                nullable: true
+                type:
+                - string
+                - 'null'
               uuid:
                 type: string
+    RegisterIntegrationLinkResult:
+      type: object
+      properties:
+        assetUuid:
+          type: string
+        description:
+          type: string
+        updatedDate:
+          type: string
+          format: date-time
+        url:
+          type:
+          - string
+          - 'null'
+        uuid:
+          type: string
   securitySchemes:
     bearerAuth:
       type: http

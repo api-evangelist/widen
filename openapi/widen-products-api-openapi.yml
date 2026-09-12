@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Acquia DAM (Widen) Acquia-DAM-Webhooks Products API
   description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
@@ -412,17 +412,96 @@ paths:
                 $ref: '#/components/schemas/ListProductTypesResult'
 components:
   schemas:
-    PaginatedList:
+    ProductCategory:
       type: object
       properties:
-        item_type:
+        name:
           type: string
-        total_count:
-          type: integer
-        limit:
-          type: integer
-        offset:
-          type: integer
+        product_category_id:
+          type: string
+        sub_category:
+          $ref: '#/components/schemas/ProductCategory'
+    CreateProductResult:
+      type: object
+      properties:
+        product_id:
+          type: string
+    GetProductResult:
+      type: object
+      properties:
+        attributes:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            $ref: '#/components/schemas/ProductAttribute'
+        created_date:
+          type: string
+          format: date-time
+        featured_image:
+          type:
+          - object
+          - 'null'
+          properties:
+            id:
+              type: string
+            url:
+              type:
+              - string
+              - 'null'
+        last_updated_timestamp:
+          type: string
+          format: date-time
+        name:
+          type: string
+        parent_product:
+          type:
+          - object
+          - 'null'
+          properties:
+            parent_product_id:
+              type: string
+        product_categories:
+          type: object
+          properties:
+            product_categories:
+              type: array
+              items:
+                $ref: '#/components/schemas/ProductCategory'
+        product_id:
+          type: string
+        product_type:
+          type:
+          - object
+          - 'null'
+          properties:
+            name:
+              type: string
+            product_type_id:
+              type: string
+        sku:
+          type: string
+    SearchProductsResult:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          expanded:
+            type: object
+          filters:
+            type: array
+            items:
+              type: object
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/GetProductResult'
+          query:
+            type:
+            - string
+            - 'null'
+          sort:
+            type: object
     ListProductCategoriesResult:
       allOf:
       - $ref: '#/components/schemas/PaginatedList'
@@ -441,8 +520,9 @@ components:
       type: object
       properties:
         attribute_group:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
           properties:
             attribute_group_id:
               type: string
@@ -451,8 +531,9 @@ components:
         attribute_id:
           type: string
         import_only:
-          type: boolean
-          nullable: true
+          type:
+          - boolean
+          - 'null'
         name:
           type: string
         type:
@@ -461,71 +542,19 @@ components:
           type: array
           items:
             type: string
-    GetProductResult:
-      type: object
-      properties:
-        attributes:
-          type: object
-          nullable: true
-          additionalProperties:
-            $ref: '#/components/schemas/ProductAttribute'
-        created_date:
-          type: string
-          format: date-time
-        featured_image:
-          type: object
-          nullable: true
-          properties:
-            id:
-              type: string
-            url:
-              type: string
-              nullable: true
-        last_updated_timestamp:
-          type: string
-          format: date-time
-        name:
-          type: string
-        parent_product:
-          type: object
-          nullable: true
-          properties:
-            parent_product_id:
-              type: string
-        product_categories:
-          type: object
-          properties:
-            product_categories:
-              type: array
-              items:
-                $ref: '#/components/schemas/ProductCategory'
-        product_id:
-          type: string
-        product_type:
-          type: object
-          nullable: true
-          properties:
-            name:
-              type: string
-            product_type_id:
-              type: string
-        sku:
-          type: string
-    ProductCategory:
-      type: object
-      properties:
-        name:
-          type: string
-        product_category_id:
-          type: string
-        sub_category:
-          $ref: '#/components/schemas/ProductCategory'
-          nullable: true
-    CreateProductResult:
-      type: object
-      properties:
-        product_id:
-          type: string
+    ListProductsByChannelResult:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          channel_id:
+            type: string
+          channel_name:
+            type: string
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/GetProductResult'
     ListProductTypesResult:
       allOf:
       - $ref: '#/components/schemas/PaginatedList'
@@ -540,39 +569,17 @@ components:
                   type: string
                 product_type_id:
                   type: string
-    ListProductsByChannelResult:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          channel_id:
-            type: string
-          channel_name:
-            type: string
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/GetProductResult'
-    SearchProductsResult:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          expanded:
-            type: object
-          filters:
-            type: array
-            items:
-              type: object
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/GetProductResult'
-          query:
-            type: string
-            nullable: true
-          sort:
-            type: object
+    PaginatedList:
+      type: object
+      properties:
+        item_type:
+          type: string
+        total_count:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
   securitySchemes:
     bearerAuth:
       type: http

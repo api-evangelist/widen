@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Acquia DAM (Widen) Acquia-DAM-Webhooks Users API
   description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
@@ -70,6 +70,62 @@ paths:
                 $ref: '#/components/schemas/GetContactResult'
 components:
   schemas:
+    GetUserResult:
+      type: object
+      properties:
+        city:
+          type:
+          - string
+          - 'null'
+        company:
+          type:
+          - string
+          - 'null'
+        country:
+          type:
+          - string
+          - 'null'
+        email:
+          type: string
+        first_name:
+          type: string
+        id:
+          type: string
+        last_name:
+          type: string
+        phone:
+          type:
+          - string
+          - 'null'
+        postal_code:
+          type:
+          - string
+          - 'null'
+        state_or_province:
+          type:
+          - string
+          - 'null'
+        street_address:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        username:
+          type: string
+        uuid:
+          type: string
+    ContactField:
+      type: object
+      properties:
+        required:
+          type: boolean
+        value:
+          type:
+          - string
+          - 'null'
     GetContactResult:
       type: object
       properties:
@@ -96,53 +152,6 @@ components:
               $ref: '#/components/schemas/ContactField'
             streetAddress:
               $ref: '#/components/schemas/ContactField'
-        uuid:
-          type: string
-    ContactField:
-      type: object
-      properties:
-        required:
-          type: boolean
-        value:
-          type: string
-          nullable: true
-    GetUserResult:
-      type: object
-      properties:
-        city:
-          type: string
-          nullable: true
-        company:
-          type: string
-          nullable: true
-        country:
-          type: string
-          nullable: true
-        email:
-          type: string
-        first_name:
-          type: string
-        id:
-          type: string
-        last_name:
-          type: string
-        phone:
-          type: string
-          nullable: true
-        postal_code:
-          type: string
-          nullable: true
-        state_or_province:
-          type: string
-          nullable: true
-        street_address:
-          type: string
-          nullable: true
-        title:
-          type: string
-          nullable: true
-        username:
-          type: string
         uuid:
           type: string
   securitySchemes:

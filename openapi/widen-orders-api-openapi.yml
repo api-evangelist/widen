@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Acquia DAM (Widen) Acquia-DAM-Webhooks Orders API
   description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
@@ -235,25 +235,6 @@ paths:
                 $ref: '#/components/schemas/ListConversionsForOrderResult'
 components:
   schemas:
-    GetZipStatusResult:
-      type: object
-      properties:
-        archived:
-          type: integer
-        done:
-          type: boolean
-        download:
-          type: string
-          nullable: true
-        errored:
-          type: boolean
-        total:
-          type: integer
-    Contact:
-      type: object
-      properties:
-        uuid:
-          type: string
     CleanAssetsResult:
       type: object
       properties:
@@ -279,35 +260,35 @@ components:
           type: object
         uuid:
           type: string
-    ListOrderProfileResult:
+    Contact:
       type: object
       properties:
-        profiles:
-          type: array
-          items:
-            type: object
-            properties:
-              internetDelivery:
-                type: boolean
-              metadataTypeUuid:
-                type: string
-              name:
-                type: string
-              sendToSelf:
-                type: boolean
-              specialInstructions:
-                type: string
-                nullable: true
-              uuid:
-                type: string
+        uuid:
+          type: string
+    GetZipStatusResult:
+      type: object
+      properties:
+        archived:
+          type: integer
+        done:
+          type: boolean
+        download:
+          type:
+          - string
+          - 'null'
+        errored:
+          type: boolean
+        total:
+          type: integer
     GetOrderDetailsResult:
       type: object
       properties:
         assetsInOrder:
           type: integer
         conversionStatus:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         datePlaced:
           type: string
           format: date-time
@@ -332,6 +313,28 @@ components:
           type: string
         uuid:
           type: string
+    ListOrderProfileResult:
+      type: object
+      properties:
+        profiles:
+          type: array
+          items:
+            type: object
+            properties:
+              internetDelivery:
+                type: boolean
+              metadataTypeUuid:
+                type: string
+              name:
+                type: string
+              sendToSelf:
+                type: boolean
+              specialInstructions:
+                type:
+                - string
+                - 'null'
+              uuid:
+                type: string
     ListConversionsForOrderResult:
       type: object
       properties:
@@ -343,8 +346,9 @@ components:
               approvalRequired:
                 type: boolean
               description:
-                type: string
-                nullable: true
+                type:
+                - string
+                - 'null'
               displayOrder:
                 type: integer
               mediaType:

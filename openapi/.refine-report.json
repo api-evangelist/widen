@@ -41,6 +41,25 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "widen-acquia-dam-webhooks-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "widen-analytics-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "widen-assets-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "widen-attributes-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "widen-categories-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "widen-channels-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "widen-collections-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "widen-file-formats-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "widen-integration-links-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "widen-metadata-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "widen-orders-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "widen-products-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "widen-search-connector-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "widen-usage-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "widen-users-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "widen-workflow-app-projects-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "widen-workflow-webhooks-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }

@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Acquia DAM (Widen) Acquia-DAM-Webhooks Analytics API
   description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
@@ -84,6 +84,50 @@ paths:
                 $ref: '#/components/schemas/ListAssetViewsResponse'
 components:
   schemas:
+    IntendedUseProperties:
+      type: object
+      properties:
+        value:
+          type:
+          - string
+          - 'null'
+    DateRangeFilter:
+      type: object
+      required:
+      - start
+      - end
+      - type
+      properties:
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        type:
+          type: string
+          enum:
+          - date_range
+    AssetFilter:
+      type: object
+      required:
+      - id
+      - type
+      properties:
+        id:
+          type: string
+          description: Asset UUID
+        type:
+          type: string
+          enum:
+          - asset
+    UserProperties:
+      type: object
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
     DownloadAssetEvent:
       type: object
       properties:
@@ -102,19 +146,6 @@ components:
           format: date-time
         user_properties:
           $ref: '#/components/schemas/UserProperties'
-    AssetFilter:
-      type: object
-      required:
-      - id
-      - type
-      properties:
-        id:
-          type: string
-          description: Asset UUID
-        type:
-          type: string
-          enum:
-          - asset
     ListAssetViewsResponse:
       type: object
       properties:
@@ -123,18 +154,36 @@ components:
           items:
             $ref: '#/components/schemas/ViewAssetEvent'
         pagination_token:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         total_count:
           type: integer
-    FileProperties:
+    ListAssetDownloadsResponse:
       type: object
       properties:
-        file_type:
-          type: string
-        format:
-          type: string
-        size_in_bytes:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DownloadAssetEvent'
+        pagination_token:
+          type:
+          - string
+          - 'null'
+        total_count:
+          type: integer
+    ListAssetSharesResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShareAssetEvent'
+        pagination_token:
+          type:
+          - string
+          - 'null'
+        total_count:
           type: integer
     ShareAssetEvent:
       type: object
@@ -148,18 +197,6 @@ components:
           format: date-time
         user_properties:
           $ref: '#/components/schemas/UserProperties'
-    ListAssetSharesResponse:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShareAssetEvent'
-        pagination_token:
-          type: string
-          nullable: true
-        total_count:
-          type: integer
     AnalyticsRequestBody:
       type: object
       required:
@@ -177,26 +214,29 @@ components:
           maximum: 100
           default: 100
         pagination_token:
-          type: string
-          nullable: true
-    UserProperties:
+          type:
+          - string
+          - 'null'
+    FileProperties:
       type: object
       properties:
-        id:
+        file_type:
           type: string
-          nullable: true
-    ListAssetDownloadsResponse:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DownloadAssetEvent'
-        pagination_token:
+        format:
           type: string
-          nullable: true
-        total_count:
+        size_in_bytes:
           type: integer
+    ConversionProperties:
+      type: object
+      properties:
+        output_file_format:
+          type:
+          - string
+          - 'null'
+        output_file_type:
+          type:
+          - string
+          - 'null'
     ViewAssetEvent:
       type: object
       properties:
@@ -213,38 +253,6 @@ components:
           format: date-time
         user_properties:
           $ref: '#/components/schemas/UserProperties'
-    IntendedUseProperties:
-      type: object
-      properties:
-        value:
-          type: string
-          nullable: true
-    ConversionProperties:
-      type: object
-      properties:
-        output_file_format:
-          type: string
-          nullable: true
-        output_file_type:
-          type: string
-          nullable: true
-    DateRangeFilter:
-      type: object
-      required:
-      - start
-      - end
-      - type
-      properties:
-        start:
-          type: string
-          format: date-time
-        end:
-          type: string
-          format: date-time
-        type:
-          type: string
-          enum:
-          - date_range
     AssetProperties:
       type: object
       properties:
