@@ -1,0 +1,64 @@
+slug: widen
+provider: Widen
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Media, Entertainment & Telecom Content
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 5
+edges:
+- tag: Assets
+  spec_file: widen-assets-api-openapi.yml
+  capability_id: BC-3710
+  capability_id_l1: BC-3710
+  capability_name: Media Asset Management
+  confidence: 0.85
+  evidence: GET /assets/search  assetListBySearchQuery; PUT /assets/{id}/metadata  assetMetadataUpdate  Update
+    asset metadata fields; GET /assets/{id}/versions/{version_id}  assetRetrieveByIdAndVersion; StartChunkedUploadResult
+  reason: Operations ingest (chunked upload), catalogue and update metadata, manage versions and renditions/previews
+    of digital media assets — squarely media/digital asset management. Multiple sub-capabilities (ingest,
+    metadata cataloguing, versioning) are touched, so L1 only.
+- tag: Metadata
+  spec_file: widen-metadata-api-openapi.yml
+  capability_id: BC-3710.20
+  capability_id_l1: BC-3710
+  capability_name: Metadata Cataloguing
+  confidence: 0.8
+  evidence: GET /metadata/fields/viewable  listMetadataFields  List viewable metadata fields; GET /metadata/{displayKey}/vocabulary  listControlledVocabularyValues
+  reason: Authoring and curating descriptive metadata fields and controlled vocabularies for digital assets
+    in a DAM matches Metadata Cataloguing; could also be read as data governance/taxonomy, hence some
+    ambiguity.
+- tag: Categories
+  spec_file: widen-categories-api-openapi.yml
+  capability_id: BC-3710.20
+  capability_id_l1: BC-3710
+  capability_name: Metadata Cataloguing
+  confidence: 0.7
+  evidence: GET /categories  listAssetCategories  List top-level asset categories; POST /category/assets  updateCategoryAssets  Add
+    or remove assets from categories (v1); GET /category/categoryTree
+  reason: Maintains the asset category taxonomy and assigns assets to it — curation of the classification
+    metadata that makes assets discoverable, i.e. metadata cataloguing within media asset management.
+- tag: Usage
+  spec_file: widen-usage-api-openapi.yml
+  capability_id: BC-4270.50
+  capability_id_l1: BC-4270
+  capability_name: API Consumption Governance
+  confidence: 0.7
+  evidence: GET /usage/api  getApiUsageSummary  Get API usage summary for the current month
+  reason: Reports API call consumption for the account, which maps to API consumption governance/usage
+    analytics rather than any media capability.
+- tag: Workflow-Webhooks
+  spec_file: widen-workflow-webhooks-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.7
+  evidence: POST /workflow/webhooks  workflowAddWebhook  Create a Workflow webhook
+  reason: Lifecycle of outbound webhook subscriptions — explicitly the webhook/event subscription management
+    capability; otherwise pure plumbing.
