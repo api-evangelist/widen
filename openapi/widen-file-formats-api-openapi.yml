@@ -1,9 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Acquia DAM (Widen) Acquia-DAM-Webhooks File Formats API
-  description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
-
-    '
+  title: Acquia DAM (Widen) File Formats API
+  description: Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
   version: '2.0'
   contact:
     name: Acquia Support

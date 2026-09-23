@@ -1,9 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Acquia DAM (Widen) Acquia-DAM-Webhooks Attributes API
-  description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
-
-    '
+  title: Acquia DAM (Widen) Attributes API
+  description: Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
   version: '2.0'
   contact:
     name: Acquia Support
@@ -70,15 +68,6 @@ paths:
                 $ref: '#/components/schemas/ListAttributeVocabularyResult'
 components:
   schemas:
-    ListAttributesResult:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Attribute'
     Attribute:
       type: object
       properties:
@@ -105,6 +94,15 @@ components:
           - rich_text
           - single_controlled_vocab
           - text
+    ListAttributesResult:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Attribute'
     PaginatedList:
       type: object
       properties:

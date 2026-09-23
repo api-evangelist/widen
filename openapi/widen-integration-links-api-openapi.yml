@@ -1,9 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Acquia DAM (Widen) Acquia-DAM-Webhooks Integration Links API
-  description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
-
-    '
+  title: Acquia DAM (Widen) Integration Links API
+  description: Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
   version: '2.0'
   contact:
     name: Acquia Support
@@ -19,7 +17,7 @@ servers:
 security:
 - bearerAuth: []
 tags:
-- name: Integration-Links
+- name: Integration Links
   description: Register and remove integration links on assets.
 paths:
   /integrationlink:
@@ -27,7 +25,7 @@ paths:
       operationId: getIntegrationLinks
       summary: List integration links (v1)
       tags:
-      - Integration-Links
+      - Integration Links
       x-api-version: '1'
       responses:
         '200':
@@ -40,7 +38,7 @@ paths:
       operationId: createLink
       summary: Register a new integration link (v1)
       tags:
-      - Integration-Links
+      - Integration Links
       x-api-version: '1'
       requestBody:
         required: true
@@ -70,7 +68,7 @@ paths:
       operationId: removeLink
       summary: Remove an integration link (v1)
       tags:
-      - Integration-Links
+      - Integration Links
       x-api-version: '1'
       parameters:
       - name: uuid
@@ -83,6 +81,22 @@ paths:
           description: Link removed
 components:
   schemas:
+    RegisterIntegrationLinkResult:
+      type: object
+      properties:
+        assetUuid:
+          type: string
+        description:
+          type: string
+        updatedDate:
+          type: string
+          format: date-time
+        url:
+          type:
+          - string
+          - 'null'
+        uuid:
+          type: string
     ListIntegrationLinksResult:
       type: object
       properties:
@@ -104,22 +118,6 @@ components:
                 - 'null'
               uuid:
                 type: string
-    RegisterIntegrationLinkResult:
-      type: object
-      properties:
-        assetUuid:
-          type: string
-        description:
-          type: string
-        updatedDate:
-          type: string
-          format: date-time
-        url:
-          type:
-          - string
-          - 'null'
-        uuid:
-          type: string
   securitySchemes:
     bearerAuth:
       type: http

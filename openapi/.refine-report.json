@@ -1,23 +1,7 @@
 {
   "provider": "widen",
   "sources": [
-    "widen-acquia-dam-webhooks-api-openapi.yml",
-    "widen-analytics-api-openapi.yml",
-    "widen-assets-api-openapi.yml",
-    "widen-attributes-api-openapi.yml",
-    "widen-categories-api-openapi.yml",
-    "widen-channels-api-openapi.yml",
-    "widen-collections-api-openapi.yml",
-    "widen-file-formats-api-openapi.yml",
-    "widen-integration-links-api-openapi.yml",
-    "widen-metadata-api-openapi.yml",
-    "widen-orders-api-openapi.yml",
-    "widen-products-api-openapi.yml",
-    "widen-search-connector-api-openapi.yml",
-    "widen-usage-api-openapi.yml",
-    "widen-users-api-openapi.yml",
-    "widen-workflow-app-projects-api-openapi.yml",
-    "widen-workflow-webhooks-api-openapi.yml"
+    "_original/openapi.yml"
   ],
   "outputs": [
     "widen-acquia-dam-webhooks-api-openapi.yml",
@@ -42,24 +26,27 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "widen-acquia-dam-webhooks-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "widen-analytics-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "widen-assets-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "widen-attributes-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "widen-categories-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "widen-channels-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "widen-collections-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "widen-file-formats-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "widen-integration-links-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "widen-metadata-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "widen-orders-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "widen-products-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "widen-search-connector-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "widen-usage-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "widen-users-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "widen-workflow-app-projects-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "widen-workflow-webhooks-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "widen-acquia-dam-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "widen-analytics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "widen-assets-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "widen-attributes-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "widen-categories-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "widen-channels-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "widen-collections-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "widen-file-formats-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "widen-integration-links-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "widen-metadata-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "widen-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "widen-products-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "widen-search-connector-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "widen-usage-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "widen-users-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "widen-workflow-app-projects-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "widen-workflow-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

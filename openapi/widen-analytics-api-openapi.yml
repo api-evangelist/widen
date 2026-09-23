@@ -1,9 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Acquia DAM (Widen) Acquia-DAM-Webhooks Analytics API
-  description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
-
-    '
+  title: Acquia DAM (Widen) Analytics API
+  description: Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
   version: '2.0'
   contact:
     name: Acquia Support
@@ -28,9 +26,7 @@ paths:
       summary: List asset download events
       tags:
       - Analytics
-      description: 'Retrieve a list of Asset Download events. Events may take up to 24 hours before appearing. Three years of analytics data is available, starting from January 1, 2021.
-
-        '
+      description: Retrieve a list of Asset Download events. Events may take up to 24 hours before appearing. Three years of analytics data is available, starting from January 1, 2021.
       requestBody:
         required: true
         content:
@@ -84,10 +80,30 @@ paths:
                 $ref: '#/components/schemas/ListAssetViewsResponse'
 components:
   schemas:
-    IntendedUseProperties:
+    AnalyticsRequestBody:
+      type: object
+      required:
+      - filters
+      properties:
+        filters:
+          type: array
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/AssetFilter'
+            - $ref: '#/components/schemas/DateRangeFilter'
+        limit:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 100
+        pagination_token:
+          type:
+          - string
+          - 'null'
+    UserProperties:
       type: object
       properties:
-        value:
+        id:
           type:
           - string
           - 'null'
@@ -108,26 +124,6 @@ components:
           type: string
           enum:
           - date_range
-    AssetFilter:
-      type: object
-      required:
-      - id
-      - type
-      properties:
-        id:
-          type: string
-          description: Asset UUID
-        type:
-          type: string
-          enum:
-          - asset
-    UserProperties:
-      type: object
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
     DownloadAssetEvent:
       type: object
       properties:
@@ -135,6 +131,27 @@ components:
           $ref: '#/components/schemas/AssetProperties'
         conversion_properties:
           $ref: '#/components/schemas/ConversionProperties'
+        file_properties:
+          $ref: '#/components/schemas/FileProperties'
+        intended_use_properties:
+          $ref: '#/components/schemas/IntendedUseProperties'
+        referrer:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        user_properties:
+          $ref: '#/components/schemas/UserProperties'
+    AssetProperties:
+      type: object
+      properties:
+        id:
+          type: string
+    ViewAssetEvent:
+      type: object
+      properties:
+        asset_properties:
+          $ref: '#/components/schemas/AssetProperties'
         file_properties:
           $ref: '#/components/schemas/FileProperties'
         intended_use_properties:
@@ -159,6 +176,17 @@ components:
           - 'null'
         total_count:
           type: integer
+    ConversionProperties:
+      type: object
+      properties:
+        output_file_format:
+          type:
+          - string
+          - 'null'
+        output_file_type:
+          type:
+          - string
+          - 'null'
     ListAssetDownloadsResponse:
       type: object
       properties:
@@ -171,6 +199,15 @@ components:
           - string
           - 'null'
         total_count:
+          type: integer
+    FileProperties:
+      type: object
+      properties:
+        file_type:
+          type: string
+        format:
+          type: string
+        size_in_bytes:
           type: integer
     ListAssetSharesResponse:
       type: object
@@ -185,6 +222,13 @@ components:
           - 'null'
         total_count:
           type: integer
+    IntendedUseProperties:
+      type: object
+      properties:
+        value:
+          type:
+          - string
+          - 'null'
     ShareAssetEvent:
       type: object
       properties:
@@ -197,67 +241,19 @@ components:
           format: date-time
         user_properties:
           $ref: '#/components/schemas/UserProperties'
-    AnalyticsRequestBody:
+    AssetFilter:
       type: object
       required:
-      - filters
-      properties:
-        filters:
-          type: array
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/AssetFilter'
-            - $ref: '#/components/schemas/DateRangeFilter'
-        limit:
-          type: integer
-          minimum: 1
-          maximum: 100
-          default: 100
-        pagination_token:
-          type:
-          - string
-          - 'null'
-    FileProperties:
-      type: object
-      properties:
-        file_type:
-          type: string
-        format:
-          type: string
-        size_in_bytes:
-          type: integer
-    ConversionProperties:
-      type: object
-      properties:
-        output_file_format:
-          type:
-          - string
-          - 'null'
-        output_file_type:
-          type:
-          - string
-          - 'null'
-    ViewAssetEvent:
-      type: object
-      properties:
-        asset_properties:
-          $ref: '#/components/schemas/AssetProperties'
-        file_properties:
-          $ref: '#/components/schemas/FileProperties'
-        intended_use_properties:
-          $ref: '#/components/schemas/IntendedUseProperties'
-        referrer:
-          type: string
-        timestamp:
-          type: string
-          format: date-time
-        user_properties:
-          $ref: '#/components/schemas/UserProperties'
-    AssetProperties:
-      type: object
+      - id
+      - type
       properties:
         id:
           type: string
+          description: Asset UUID
+        type:
+          type: string
+          enum:
+          - asset
   securitySchemes:
     bearerAuth:
       type: http

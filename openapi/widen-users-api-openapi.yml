@@ -1,9 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Acquia DAM (Widen) Acquia-DAM-Webhooks Users API
-  description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
-
-    '
+  title: Acquia DAM (Widen) Users API
+  description: Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
   version: '2.0'
   contact:
     name: Acquia Support
@@ -70,6 +68,43 @@ paths:
                 $ref: '#/components/schemas/GetContactResult'
 components:
   schemas:
+    ContactField:
+      type: object
+      properties:
+        required:
+          type: boolean
+        value:
+          type:
+          - string
+          - 'null'
+    GetContactResult:
+      type: object
+      properties:
+        fields:
+          type: object
+          properties:
+            city:
+              $ref: '#/components/schemas/ContactField'
+            company:
+              $ref: '#/components/schemas/ContactField'
+            country:
+              $ref: '#/components/schemas/ContactField'
+            email:
+              $ref: '#/components/schemas/ContactField'
+            firstName:
+              $ref: '#/components/schemas/ContactField'
+            lastName:
+              $ref: '#/components/schemas/ContactField'
+            phone:
+              $ref: '#/components/schemas/ContactField'
+            postalCode:
+              $ref: '#/components/schemas/ContactField'
+            stateOrProvince:
+              $ref: '#/components/schemas/ContactField'
+            streetAddress:
+              $ref: '#/components/schemas/ContactField'
+        uuid:
+          type: string
     GetUserResult:
       type: object
       properties:
@@ -115,43 +150,6 @@ components:
           - 'null'
         username:
           type: string
-        uuid:
-          type: string
-    ContactField:
-      type: object
-      properties:
-        required:
-          type: boolean
-        value:
-          type:
-          - string
-          - 'null'
-    GetContactResult:
-      type: object
-      properties:
-        fields:
-          type: object
-          properties:
-            city:
-              $ref: '#/components/schemas/ContactField'
-            company:
-              $ref: '#/components/schemas/ContactField'
-            country:
-              $ref: '#/components/schemas/ContactField'
-            email:
-              $ref: '#/components/schemas/ContactField'
-            firstName:
-              $ref: '#/components/schemas/ContactField'
-            lastName:
-              $ref: '#/components/schemas/ContactField'
-            phone:
-              $ref: '#/components/schemas/ContactField'
-            postalCode:
-              $ref: '#/components/schemas/ContactField'
-            stateOrProvince:
-              $ref: '#/components/schemas/ContactField'
-            streetAddress:
-              $ref: '#/components/schemas/ContactField'
         uuid:
           type: string
   securitySchemes:

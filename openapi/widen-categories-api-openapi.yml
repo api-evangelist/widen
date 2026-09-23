@@ -1,9 +1,7 @@
 openapi: 3.2.0
 info:
-  title: Acquia DAM (Widen) Acquia-DAM-Webhooks Categories API
-  description: 'Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
-
-    '
+  title: Acquia DAM (Widen) Categories API
+  description: Acquia Digital Asset Management (formerly Widen Collective) provides REST APIs for managing digital assets, metadata, collections, embed codes, and asset distribution workflows. The API supports asset search and discovery, metadata management, analytics, orders, products, webhooks, and workflow automation across both v1 and v2 endpoints.
   version: '2.0'
   contact:
     name: Acquia Support
@@ -198,6 +196,32 @@ components:
             $ref: '#/components/schemas/CategoryV2'
         total_count:
           type: integer
+    CreateEditCategoryResult:
+      type: object
+      properties:
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryV1'
+        id:
+          type: integer
+        title:
+          type: string
+        uuid:
+          type: string
+    CategoryV1:
+      type: object
+      properties:
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryV1'
+        id:
+          type: integer
+        title:
+          type: string
+        uuid:
+          type: string
     CategoryTreeResult:
       type: object
       properties:
@@ -228,32 +252,6 @@ components:
           items:
             type: string
         path:
-          type: string
-    CategoryV1:
-      type: object
-      properties:
-        children:
-          type: array
-          items:
-            $ref: '#/components/schemas/CategoryV1'
-        id:
-          type: integer
-        title:
-          type: string
-        uuid:
-          type: string
-    CreateEditCategoryResult:
-      type: object
-      properties:
-        children:
-          type: array
-          items:
-            $ref: '#/components/schemas/CategoryV1'
-        id:
-          type: integer
-        title:
-          type: string
-        uuid:
           type: string
   securitySchemes:
     bearerAuth:
