@@ -178,11 +178,6 @@ components:
           type: integer
         offset:
           type: integer
-    CreateAssetsWebhookResult:
-      type: object
-      properties:
-        id:
-          type: string
     GetAssetsWebhookResult:
       type: object
       properties:
@@ -211,6 +206,11 @@ components:
         signing_enabled:
           type: boolean
         webhook_configuration_id:
+          type: string
+    CreateAssetsWebhookResult:
+      type: object
+      properties:
+        id:
           type: string
     ListAssetsWebhooksResult:
       allOf:

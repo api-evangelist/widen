@@ -145,6 +145,30 @@ components:
           type: integer
         offset:
           type: integer
+    CreateCollectionResult:
+      type: object
+      properties:
+        assets:
+          type: array
+          items:
+            type: object
+            properties:
+              uuid:
+                type: string
+        assetsAddedCount:
+          type: integer
+        description:
+          type: string
+        name:
+          type: string
+        numResults:
+          type: integer
+        type:
+          type: string
+          enum:
+          - local
+        uuid:
+          type: string
     ListCollectionsResult:
       allOf:
       - $ref: '#/components/schemas/PaginatedList'
@@ -172,30 +196,6 @@ components:
                   - global
                   - private
                   - shared
-    CreateCollectionResult:
-      type: object
-      properties:
-        assets:
-          type: array
-          items:
-            type: object
-            properties:
-              uuid:
-                type: string
-        assetsAddedCount:
-          type: integer
-        description:
-          type: string
-        name:
-          type: string
-        numResults:
-          type: integer
-        type:
-          type: string
-          enum:
-          - local
-        uuid:
-          type: string
   securitySchemes:
     bearerAuth:
       type: http

@@ -410,6 +410,80 @@ paths:
                 $ref: '#/components/schemas/ListProductTypesResult'
 components:
   schemas:
+    PaginatedList:
+      type: object
+      properties:
+        item_type:
+          type: string
+        total_count:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+    ProductCategory:
+      type: object
+      properties:
+        name:
+          type: string
+        product_category_id:
+          type: string
+        sub_category:
+          $ref: '#/components/schemas/ProductCategory'
+    ListProductTypesResult:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                product_type_id:
+                  type: string
+    ListProductCategoriesResult:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                product_category_id:
+                  type: string
+    CreateProductResult:
+      type: object
+      properties:
+        product_id:
+          type: string
+    SearchProductsResult:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          expanded:
+            type: object
+          filters:
+            type: array
+            items:
+              type: object
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/GetProductResult'
+          query:
+            type:
+            - string
+            - 'null'
+          sort:
+            type: object
     ProductAttribute:
       type: object
       properties:
@@ -449,50 +523,6 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/GetProductResult'
-    CreateProductResult:
-      type: object
-      properties:
-        product_id:
-          type: string
-    PaginatedList:
-      type: object
-      properties:
-        item_type:
-          type: string
-        total_count:
-          type: integer
-        limit:
-          type: integer
-        offset:
-          type: integer
-    ListProductCategoriesResult:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              type: object
-              properties:
-                name:
-                  type: string
-                product_category_id:
-                  type: string
-    ListProductTypesResult:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              type: object
-              properties:
-                name:
-                  type: string
-                product_type_id:
-                  type: string
     GetProductResult:
       type: object
       properties:
@@ -548,36 +578,6 @@ components:
               type: string
         sku:
           type: string
-    ProductCategory:
-      type: object
-      properties:
-        name:
-          type: string
-        product_category_id:
-          type: string
-        sub_category:
-          $ref: '#/components/schemas/ProductCategory'
-    SearchProductsResult:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          expanded:
-            type: object
-          filters:
-            type: array
-            items:
-              type: object
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/GetProductResult'
-          query:
-            type:
-            - string
-            - 'null'
-          sort:
-            type: object
   securitySchemes:
     bearerAuth:
       type: http

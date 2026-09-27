@@ -185,6 +185,26 @@ paths:
                 $ref: '#/components/schemas/CategoryTreeResult'
 components:
   schemas:
+    CategoryV2:
+      type: object
+      properties:
+        _links:
+          type: object
+          properties:
+            assets:
+              type: string
+            categories:
+              type: string
+        id:
+          type: string
+        name:
+          type: string
+        parts:
+          type: array
+          items:
+            type: string
+        path:
+          type: string
     ListCategoriesResult:
       type: object
       properties:
@@ -209,6 +229,17 @@ components:
           type: string
         uuid:
           type: string
+    CategoryTreeResult:
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryV1'
+        parentCategory:
+          type:
+          - string
+          - 'null'
     CategoryV1:
       type: object
       properties:
@@ -221,37 +252,6 @@ components:
         title:
           type: string
         uuid:
-          type: string
-    CategoryTreeResult:
-      type: object
-      properties:
-        categories:
-          type: array
-          items:
-            $ref: '#/components/schemas/CategoryV1'
-        parentCategory:
-          type:
-          - string
-          - 'null'
-    CategoryV2:
-      type: object
-      properties:
-        _links:
-          type: object
-          properties:
-            assets:
-              type: string
-            categories:
-              type: string
-        id:
-          type: string
-        name:
-          type: string
-        parts:
-          type: array
-          items:
-            type: string
-        path:
           type: string
   securitySchemes:
     bearerAuth:

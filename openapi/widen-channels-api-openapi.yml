@@ -49,6 +49,17 @@ paths:
                 $ref: '#/components/schemas/ListChannelsResult'
 components:
   schemas:
+    PaginatedList:
+      type: object
+      properties:
+        item_type:
+          type: string
+        total_count:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
     ListChannelsResult:
       allOf:
       - $ref: '#/components/schemas/PaginatedList'
@@ -63,17 +74,6 @@ components:
                   type: string
                 name:
                   type: string
-    PaginatedList:
-      type: object
-      properties:
-        item_type:
-          type: string
-        total_count:
-          type: integer
-        limit:
-          type: integer
-        offset:
-          type: integer
   securitySchemes:
     bearerAuth:
       type: http

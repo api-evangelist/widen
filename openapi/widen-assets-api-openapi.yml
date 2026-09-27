@@ -542,95 +542,24 @@ paths:
           description: Metadata type updated
 components:
   schemas:
-    CreateAssetResult:
+    StartChunkedUploadResult:
       type: object
       properties:
-        _links:
-          type: object
-          properties:
-            self:
-              type: string
-        id:
-          type:
-          - string
-          - 'null'
-    FilePropertiesExpand:
+        session_id:
+          type: string
+    CategoryFacet:
       type: object
       properties:
-        format:
-          type: string
-        format_type:
-          type: string
-        image_properties:
-          type:
-          - object
-          - 'null'
-          properties:
-            aspect_ratio:
-              type: number
-            height:
-              type:
-              - integer
-              - 'null'
-            width:
-              type:
-              - integer
-              - 'null'
-        size_in_bytes:
+        count:
           type: integer
-        size_in_kbytes:
-          type: number
-        video_properties:
-          type:
-          - object
-          - 'null'
-          properties:
-            aspect_ratio:
-              type:
-              - number
-              - 'null'
-            duration:
-              type:
-              - number
-              - 'null'
-            height:
-              type:
-              - integer
-              - 'null'
-            width:
-              type:
-              - integer
-              - 'null'
-    SecurityExpand:
-      type: object
-      properties:
-        asset_groups:
-          type: array
-          items:
-            type: string
-        expiration_date:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        release_date:
-          type:
-          - string
-          - 'null'
-          format: date-time
-    ThumbnailsExpand:
-      type: object
-      properties:
-        125px:
-          $ref: '#/components/schemas/Thumbnail'
-        160px:
-          $ref: '#/components/schemas/Thumbnail'
-        300px:
-          $ref: '#/components/schemas/Thumbnail'
-        600px:
-          $ref: '#/components/schemas/Thumbnail'
-        2048px:
-          $ref: '#/components/schemas/Thumbnail'
+        id:
+          type: string
+        name:
+          type: string
+        path:
+          type: string
+        search_query:
+          type: string
     ListUploadProfilesResult:
       type: array
       items:
@@ -651,64 +580,20 @@ components:
             - string
             - 'null'
             format: date-time
+    StatusExpand:
+      type: object
+      properties:
+        upload_progress:
+          type: string
+          enum:
+          - pending
+          - verifying
+          - complete
     UploadChunkResult:
       type: object
       properties:
         tag:
           type: string
-    MetadataFacet:
-      type: object
-      properties:
-        display_key:
-          type: string
-        display_name:
-          type: string
-        values:
-          type: array
-          items:
-            type: object
-            properties:
-              count:
-                type: integer
-              search_query:
-                type: string
-              value:
-                type: string
-              values:
-                type: array
-                items:
-                  type: string
-    Thumbnail:
-      type: object
-      properties:
-        url:
-          type: string
-        valid_until:
-          type: string
-          format: date-time
-    FileTypeFacet:
-      type: object
-      properties:
-        count:
-          type: integer
-        name:
-          type: string
-        search_query:
-          type: string
-    CompleteChunkedUploadResult:
-      type: object
-      properties:
-        file_id:
-          type: string
-    AssetPropertiesExpand:
-      type: object
-      properties:
-        cutline_caption:
-          type: string
-        favorite:
-          type: boolean
-        popularity:
-          type: integer
     GetAssetResult:
       type: object
       properties:
@@ -774,6 +659,53 @@ components:
           $ref: '#/components/schemas/ThumbnailsExpand'
         version_id:
           type: string
+    FilePropertiesExpand:
+      type: object
+      properties:
+        format:
+          type: string
+        format_type:
+          type: string
+        image_properties:
+          type:
+          - object
+          - 'null'
+          properties:
+            aspect_ratio:
+              type: number
+            height:
+              type:
+              - integer
+              - 'null'
+            width:
+              type:
+              - integer
+              - 'null'
+        size_in_bytes:
+          type: integer
+        size_in_kbytes:
+          type: number
+        video_properties:
+          type:
+          - object
+          - 'null'
+          properties:
+            aspect_ratio:
+              type:
+              - number
+              - 'null'
+            duration:
+              type:
+              - number
+              - 'null'
+            height:
+              type:
+              - integer
+              - 'null'
+            width:
+              type:
+              - integer
+              - 'null'
     MetadataExpand:
       type: object
       properties:
@@ -783,27 +715,37 @@ components:
             type: array
             items:
               type: string
-    ListAssetGroupsResult:
+    MetadataFacet:
       type: object
       properties:
-        item_type:
+        display_key:
           type: string
-        items:
+        display_name:
+          type: string
+        values:
           type: array
           items:
             type: object
             properties:
-              name:
+              count:
+                type: integer
+              search_query:
                 type: string
-              uuid:
+              value:
                 type: string
-        total_count:
-          type: integer
-    StartChunkedUploadResult:
+              values:
+                type: array
+                items:
+                  type: string
+    AssetPropertiesExpand:
       type: object
       properties:
-        session_id:
+        cutline_caption:
           type: string
+        favorite:
+          type: boolean
+        popularity:
+          type: integer
     SearchAssetsResult:
       type: object
       properties:
@@ -860,6 +802,15 @@ components:
           type: string
         total_count:
           type: integer
+    FileTypeFacet:
+      type: object
+      properties:
+        count:
+          type: integer
+        name:
+          type: string
+        search_query:
+          type: string
     ListVersionsResult:
       type: object
       properties:
@@ -896,28 +847,77 @@ components:
                 type: string
               versionNumber:
                 type: integer
-    CategoryFacet:
+    SecurityExpand:
       type: object
       properties:
-        count:
-          type: integer
+        asset_groups:
+          type: array
+          items:
+            type: string
+        expiration_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        release_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
+    CompleteChunkedUploadResult:
+      type: object
+      properties:
+        file_id:
+          type: string
+    Thumbnail:
+      type: object
+      properties:
+        url:
+          type: string
+        valid_until:
+          type: string
+          format: date-time
+    ThumbnailsExpand:
+      type: object
+      properties:
+        125px:
+          $ref: '#/components/schemas/Thumbnail'
+        160px:
+          $ref: '#/components/schemas/Thumbnail'
+        300px:
+          $ref: '#/components/schemas/Thumbnail'
+        600px:
+          $ref: '#/components/schemas/Thumbnail'
+        2048px:
+          $ref: '#/components/schemas/Thumbnail'
+    CreateAssetResult:
+      type: object
+      properties:
+        _links:
+          type: object
+          properties:
+            self:
+              type: string
         id:
-          type: string
-        name:
-          type: string
-        path:
-          type: string
-        search_query:
-          type: string
-    StatusExpand:
+          type:
+          - string
+          - 'null'
+    ListAssetGroupsResult:
       type: object
       properties:
-        upload_progress:
+        item_type:
           type: string
-          enum:
-          - pending
-          - verifying
-          - complete
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              uuid:
+                type: string
+        total_count:
+          type: integer
   securitySchemes:
     bearerAuth:
       type: http

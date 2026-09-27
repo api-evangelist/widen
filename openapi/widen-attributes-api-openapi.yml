@@ -68,6 +68,24 @@ paths:
                 $ref: '#/components/schemas/ListAttributeVocabularyResult'
 components:
   schemas:
+    PaginatedList:
+      type: object
+      properties:
+        item_type:
+          type: string
+        total_count:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
+    ListAttributeVocabularyResult:
+      type: object
+      properties:
+        vocabulary:
+          type: array
+          items:
+            type: string
     Attribute:
       type: object
       properties:
@@ -103,24 +121,6 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/Attribute'
-    PaginatedList:
-      type: object
-      properties:
-        item_type:
-          type: string
-        total_count:
-          type: integer
-        limit:
-          type: integer
-        offset:
-          type: integer
-    ListAttributeVocabularyResult:
-      type: object
-      properties:
-        vocabulary:
-          type: array
-          items:
-            type: string
   securitySchemes:
     bearerAuth:
       type: http

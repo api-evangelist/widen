@@ -233,6 +233,51 @@ paths:
                 $ref: '#/components/schemas/ListConversionsForOrderResult'
 components:
   schemas:
+    OrderItem:
+      type: object
+      properties:
+        conversions:
+          type: object
+          additionalProperties:
+            type: string
+        filename:
+          type: string
+        previews:
+          type: object
+        uuid:
+          type: string
+    Contact:
+      type: object
+      properties:
+        uuid:
+          type: string
+    CleanAssetsResult:
+      type: object
+      properties:
+        removedItems:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              reason:
+                type: string
+    GetZipStatusResult:
+      type: object
+      properties:
+        archived:
+          type: integer
+        done:
+          type: boolean
+        download:
+          type:
+          - string
+          - 'null'
+        errored:
+          type: boolean
+        total:
+          type: integer
     ListConversionsForOrderResult:
       type: object
       properties:
@@ -253,56 +298,6 @@ components:
                 type: string
               name:
                 type: string
-              uuid:
-                type: string
-    OrderItem:
-      type: object
-      properties:
-        conversions:
-          type: object
-          additionalProperties:
-            type: string
-        filename:
-          type: string
-        previews:
-          type: object
-        uuid:
-          type: string
-    GetZipStatusResult:
-      type: object
-      properties:
-        archived:
-          type: integer
-        done:
-          type: boolean
-        download:
-          type:
-          - string
-          - 'null'
-        errored:
-          type: boolean
-        total:
-          type: integer
-    ListOrderProfileResult:
-      type: object
-      properties:
-        profiles:
-          type: array
-          items:
-            type: object
-            properties:
-              internetDelivery:
-                type: boolean
-              metadataTypeUuid:
-                type: string
-              name:
-                type: string
-              sendToSelf:
-                type: boolean
-              specialInstructions:
-                type:
-                - string
-                - 'null'
               uuid:
                 type: string
     GetOrderDetailsResult:
@@ -338,23 +333,28 @@ components:
           type: string
         uuid:
           type: string
-    CleanAssetsResult:
+    ListOrderProfileResult:
       type: object
       properties:
-        removedItems:
+        profiles:
           type: array
           items:
             type: object
             properties:
+              internetDelivery:
+                type: boolean
+              metadataTypeUuid:
+                type: string
               name:
                 type: string
-              reason:
+              sendToSelf:
+                type: boolean
+              specialInstructions:
+                type:
+                - string
+                - 'null'
+              uuid:
                 type: string
-    Contact:
-      type: object
-      properties:
-        uuid:
-          type: string
   securitySchemes:
     bearerAuth:
       type: http

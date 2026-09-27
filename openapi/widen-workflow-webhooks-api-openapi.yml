@@ -86,13 +86,6 @@ paths:
           description: Workflow webhook deleted
 components:
   schemas:
-    ListWorkflowWebhooksResult:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/GetWorkflowWebhookResult'
     GetWorkflowWebhookResult:
       type: object
       properties:
@@ -103,6 +96,13 @@ components:
           - PROJECT_CREATED
         target:
           type: string
+    ListWorkflowWebhooksResult:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetWorkflowWebhookResult'
   securitySchemes:
     bearerAuth:
       type: http
