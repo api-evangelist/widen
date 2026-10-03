@@ -410,6 +410,15 @@ paths:
                 $ref: '#/components/schemas/ListProductTypesResult'
 components:
   schemas:
+    ProductCategory:
+      type: object
+      properties:
+        name:
+          type: string
+        product_category_id:
+          type: string
+        sub_category:
+          $ref: '#/components/schemas/ProductCategory'
     PaginatedList:
       type: object
       properties:
@@ -421,29 +430,6 @@ components:
           type: integer
         offset:
           type: integer
-    ProductCategory:
-      type: object
-      properties:
-        name:
-          type: string
-        product_category_id:
-          type: string
-        sub_category:
-          $ref: '#/components/schemas/ProductCategory'
-    ListProductTypesResult:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              type: object
-              properties:
-                name:
-                  type: string
-                product_type_id:
-                  type: string
     ListProductCategoriesResult:
       allOf:
       - $ref: '#/components/schemas/PaginatedList'
@@ -458,11 +444,19 @@ components:
                   type: string
                 product_category_id:
                   type: string
-    CreateProductResult:
-      type: object
-      properties:
-        product_id:
-          type: string
+    ListProductsByChannelResult:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          channel_id:
+            type: string
+          channel_name:
+            type: string
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/GetProductResult'
     SearchProductsResult:
       allOf:
       - $ref: '#/components/schemas/PaginatedList'
@@ -484,45 +478,6 @@ components:
             - 'null'
           sort:
             type: object
-    ProductAttribute:
-      type: object
-      properties:
-        attribute_group:
-          type:
-          - object
-          - 'null'
-          properties:
-            attribute_group_id:
-              type: string
-            name:
-              type: string
-        attribute_id:
-          type: string
-        import_only:
-          type:
-          - boolean
-          - 'null'
-        name:
-          type: string
-        type:
-          type: string
-        values:
-          type: array
-          items:
-            type: string
-    ListProductsByChannelResult:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          channel_id:
-            type: string
-          channel_name:
-            type: string
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/GetProductResult'
     GetProductResult:
       type: object
       properties:
@@ -578,6 +533,51 @@ components:
               type: string
         sku:
           type: string
+    ProductAttribute:
+      type: object
+      properties:
+        attribute_group:
+          type:
+          - object
+          - 'null'
+          properties:
+            attribute_group_id:
+              type: string
+            name:
+              type: string
+        attribute_id:
+          type: string
+        import_only:
+          type:
+          - boolean
+          - 'null'
+        name:
+          type: string
+        type:
+          type: string
+        values:
+          type: array
+          items:
+            type: string
+    CreateProductResult:
+      type: object
+      properties:
+        product_id:
+          type: string
+    ListProductTypesResult:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                product_type_id:
+                  type: string
   securitySchemes:
     bearerAuth:
       type: http

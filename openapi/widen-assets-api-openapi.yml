@@ -542,58 +542,6 @@ paths:
           description: Metadata type updated
 components:
   schemas:
-    StartChunkedUploadResult:
-      type: object
-      properties:
-        session_id:
-          type: string
-    CategoryFacet:
-      type: object
-      properties:
-        count:
-          type: integer
-        id:
-          type: string
-        name:
-          type: string
-        path:
-          type: string
-        search_query:
-          type: string
-    ListUploadProfilesResult:
-      type: array
-      items:
-        type: object
-        properties:
-          asset_groups:
-            type: array
-            items:
-              type: string
-          immediate_release:
-            type: boolean
-          metadata_type:
-            type: string
-          name:
-            type: string
-          release_date:
-            type:
-            - string
-            - 'null'
-            format: date-time
-    StatusExpand:
-      type: object
-      properties:
-        upload_progress:
-          type: string
-          enum:
-          - pending
-          - verifying
-          - complete
-    UploadChunkResult:
-      type: object
-      properties:
-        tag:
-          type: string
     GetAssetResult:
       type: object
       properties:
@@ -659,93 +607,45 @@ components:
           $ref: '#/components/schemas/ThumbnailsExpand'
         version_id:
           type: string
-    FilePropertiesExpand:
+    UploadChunkResult:
       type: object
       properties:
-        format:
+        tag:
           type: string
-        format_type:
-          type: string
-        image_properties:
-          type:
-          - object
-          - 'null'
-          properties:
-            aspect_ratio:
-              type: number
-            height:
-              type:
-              - integer
-              - 'null'
-            width:
-              type:
-              - integer
-              - 'null'
-        size_in_bytes:
-          type: integer
-        size_in_kbytes:
-          type: number
-        video_properties:
-          type:
-          - object
-          - 'null'
-          properties:
-            aspect_ratio:
-              type:
-              - number
-              - 'null'
-            duration:
-              type:
-              - number
-              - 'null'
-            height:
-              type:
-              - integer
-              - 'null'
-            width:
-              type:
-              - integer
-              - 'null'
-    MetadataExpand:
+    StatusExpand:
       type: object
       properties:
-        fields:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-    MetadataFacet:
+        upload_progress:
+          type: string
+          enum:
+          - pending
+          - verifying
+          - complete
+    ListAssetGroupsResult:
       type: object
       properties:
-        display_key:
+        item_type:
           type: string
-        display_name:
-          type: string
-        values:
+        items:
           type: array
           items:
             type: object
             properties:
-              count:
-                type: integer
-              search_query:
+              name:
                 type: string
-              value:
+              uuid:
                 type: string
-              values:
-                type: array
-                items:
-                  type: string
-    AssetPropertiesExpand:
+        total_count:
+          type: integer
+    FileTypeFacet:
       type: object
       properties:
-        cutline_caption:
-          type: string
-        favorite:
-          type: boolean
-        popularity:
+        count:
           type: integer
+        name:
+          type: string
+        search_query:
+          type: string
     SearchAssetsResult:
       type: object
       properties:
@@ -802,15 +702,6 @@ components:
           type: string
         total_count:
           type: integer
-    FileTypeFacet:
-      type: object
-      properties:
-        count:
-          type: integer
-        name:
-          type: string
-        search_query:
-          type: string
     ListVersionsResult:
       type: object
       properties:
@@ -864,11 +755,6 @@ components:
           - string
           - 'null'
           format: date-time
-    CompleteChunkedUploadResult:
-      type: object
-      properties:
-        file_id:
-          type: string
     Thumbnail:
       type: object
       properties:
@@ -877,6 +763,15 @@ components:
         valid_until:
           type: string
           format: date-time
+    AssetPropertiesExpand:
+      type: object
+      properties:
+        cutline_caption:
+          type: string
+        favorite:
+          type: boolean
+        popularity:
+          type: integer
     ThumbnailsExpand:
       type: object
       properties:
@@ -890,6 +785,114 @@ components:
           $ref: '#/components/schemas/Thumbnail'
         2048px:
           $ref: '#/components/schemas/Thumbnail'
+    MetadataFacet:
+      type: object
+      properties:
+        display_key:
+          type: string
+        display_name:
+          type: string
+        values:
+          type: array
+          items:
+            type: object
+            properties:
+              count:
+                type: integer
+              search_query:
+                type: string
+              value:
+                type: string
+              values:
+                type: array
+                items:
+                  type: string
+    StartChunkedUploadResult:
+      type: object
+      properties:
+        session_id:
+          type: string
+    FilePropertiesExpand:
+      type: object
+      properties:
+        format:
+          type: string
+        format_type:
+          type: string
+        image_properties:
+          type:
+          - object
+          - 'null'
+          properties:
+            aspect_ratio:
+              type: number
+            height:
+              type:
+              - integer
+              - 'null'
+            width:
+              type:
+              - integer
+              - 'null'
+        size_in_bytes:
+          type: integer
+        size_in_kbytes:
+          type: number
+        video_properties:
+          type:
+          - object
+          - 'null'
+          properties:
+            aspect_ratio:
+              type:
+              - number
+              - 'null'
+            duration:
+              type:
+              - number
+              - 'null'
+            height:
+              type:
+              - integer
+              - 'null'
+            width:
+              type:
+              - integer
+              - 'null'
+    CompleteChunkedUploadResult:
+      type: object
+      properties:
+        file_id:
+          type: string
+    MetadataExpand:
+      type: object
+      properties:
+        fields:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+    ListUploadProfilesResult:
+      type: array
+      items:
+        type: object
+        properties:
+          asset_groups:
+            type: array
+            items:
+              type: string
+          immediate_release:
+            type: boolean
+          metadata_type:
+            type: string
+          name:
+            type: string
+          release_date:
+            type:
+            - string
+            - 'null'
+            format: date-time
     CreateAssetResult:
       type: object
       properties:
@@ -902,22 +905,19 @@ components:
           type:
           - string
           - 'null'
-    ListAssetGroupsResult:
+    CategoryFacet:
       type: object
       properties:
-        item_type:
-          type: string
-        items:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              uuid:
-                type: string
-        total_count:
+        count:
           type: integer
+        id:
+          type: string
+        name:
+          type: string
+        path:
+          type: string
+        search_query:
+          type: string
   securitySchemes:
     bearerAuth:
       type: http

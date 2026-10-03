@@ -233,73 +233,6 @@ paths:
                 $ref: '#/components/schemas/ListConversionsForOrderResult'
 components:
   schemas:
-    OrderItem:
-      type: object
-      properties:
-        conversions:
-          type: object
-          additionalProperties:
-            type: string
-        filename:
-          type: string
-        previews:
-          type: object
-        uuid:
-          type: string
-    Contact:
-      type: object
-      properties:
-        uuid:
-          type: string
-    CleanAssetsResult:
-      type: object
-      properties:
-        removedItems:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              reason:
-                type: string
-    GetZipStatusResult:
-      type: object
-      properties:
-        archived:
-          type: integer
-        done:
-          type: boolean
-        download:
-          type:
-          - string
-          - 'null'
-        errored:
-          type: boolean
-        total:
-          type: integer
-    ListConversionsForOrderResult:
-      type: object
-      properties:
-        conversions:
-          type: array
-          items:
-            type: object
-            properties:
-              approvalRequired:
-                type: boolean
-              description:
-                type:
-                - string
-                - 'null'
-              displayOrder:
-                type: integer
-              mediaType:
-                type: string
-              name:
-                type: string
-              uuid:
-                type: string
     GetOrderDetailsResult:
       type: object
       properties:
@@ -331,6 +264,73 @@ components:
           type: string
         status:
           type: string
+        uuid:
+          type: string
+    CleanAssetsResult:
+      type: object
+      properties:
+        removedItems:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              reason:
+                type: string
+    ListConversionsForOrderResult:
+      type: object
+      properties:
+        conversions:
+          type: array
+          items:
+            type: object
+            properties:
+              approvalRequired:
+                type: boolean
+              description:
+                type:
+                - string
+                - 'null'
+              displayOrder:
+                type: integer
+              mediaType:
+                type: string
+              name:
+                type: string
+              uuid:
+                type: string
+    GetZipStatusResult:
+      type: object
+      properties:
+        archived:
+          type: integer
+        done:
+          type: boolean
+        download:
+          type:
+          - string
+          - 'null'
+        errored:
+          type: boolean
+        total:
+          type: integer
+    OrderItem:
+      type: object
+      properties:
+        conversions:
+          type: object
+          additionalProperties:
+            type: string
+        filename:
+          type: string
+        previews:
+          type: object
+        uuid:
+          type: string
+    Contact:
+      type: object
+      properties:
         uuid:
           type: string
     ListOrderProfileResult:

@@ -178,6 +178,20 @@ components:
           type: integer
         offset:
           type: integer
+    CreateAssetsWebhookResult:
+      type: object
+      properties:
+        id:
+          type: string
+    ListAssetsWebhooksResult:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/GetAssetsWebhookResult'
     GetAssetsWebhookResult:
       type: object
       properties:
@@ -207,20 +221,6 @@ components:
           type: boolean
         webhook_configuration_id:
           type: string
-    CreateAssetsWebhookResult:
-      type: object
-      properties:
-        id:
-          type: string
-    ListAssetsWebhooksResult:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/GetAssetsWebhookResult'
   securitySchemes:
     bearerAuth:
       type: http

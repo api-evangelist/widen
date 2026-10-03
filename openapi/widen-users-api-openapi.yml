@@ -68,34 +68,15 @@ paths:
                 $ref: '#/components/schemas/GetContactResult'
 components:
   schemas:
-    GetContactResult:
+    ContactField:
       type: object
       properties:
-        fields:
-          type: object
-          properties:
-            city:
-              $ref: '#/components/schemas/ContactField'
-            company:
-              $ref: '#/components/schemas/ContactField'
-            country:
-              $ref: '#/components/schemas/ContactField'
-            email:
-              $ref: '#/components/schemas/ContactField'
-            firstName:
-              $ref: '#/components/schemas/ContactField'
-            lastName:
-              $ref: '#/components/schemas/ContactField'
-            phone:
-              $ref: '#/components/schemas/ContactField'
-            postalCode:
-              $ref: '#/components/schemas/ContactField'
-            stateOrProvince:
-              $ref: '#/components/schemas/ContactField'
-            streetAddress:
-              $ref: '#/components/schemas/ContactField'
-        uuid:
-          type: string
+        required:
+          type: boolean
+        value:
+          type:
+          - string
+          - 'null'
     GetUserResult:
       type: object
       properties:
@@ -143,15 +124,34 @@ components:
           type: string
         uuid:
           type: string
-    ContactField:
+    GetContactResult:
       type: object
       properties:
-        required:
-          type: boolean
-        value:
-          type:
-          - string
-          - 'null'
+        fields:
+          type: object
+          properties:
+            city:
+              $ref: '#/components/schemas/ContactField'
+            company:
+              $ref: '#/components/schemas/ContactField'
+            country:
+              $ref: '#/components/schemas/ContactField'
+            email:
+              $ref: '#/components/schemas/ContactField'
+            firstName:
+              $ref: '#/components/schemas/ContactField'
+            lastName:
+              $ref: '#/components/schemas/ContactField'
+            phone:
+              $ref: '#/components/schemas/ContactField'
+            postalCode:
+              $ref: '#/components/schemas/ContactField'
+            stateOrProvince:
+              $ref: '#/components/schemas/ContactField'
+            streetAddress:
+              $ref: '#/components/schemas/ContactField'
+        uuid:
+          type: string
   securitySchemes:
     bearerAuth:
       type: http

@@ -185,6 +185,28 @@ paths:
                 $ref: '#/components/schemas/CategoryTreeResult'
 components:
   schemas:
+    CategoryTreeResult:
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryV1'
+        parentCategory:
+          type:
+          - string
+          - 'null'
+    ListCategoriesResult:
+      type: object
+      properties:
+        item_type:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryV2'
+        total_count:
+          type: integer
     CategoryV2:
       type: object
       properties:
@@ -205,17 +227,6 @@ components:
             type: string
         path:
           type: string
-    ListCategoriesResult:
-      type: object
-      properties:
-        item_type:
-          type: string
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/CategoryV2'
-        total_count:
-          type: integer
     CreateEditCategoryResult:
       type: object
       properties:
@@ -229,17 +240,6 @@ components:
           type: string
         uuid:
           type: string
-    CategoryTreeResult:
-      type: object
-      properties:
-        categories:
-          type: array
-          items:
-            $ref: '#/components/schemas/CategoryV1'
-        parentCategory:
-          type:
-          - string
-          - 'null'
     CategoryV1:
       type: object
       properties:
