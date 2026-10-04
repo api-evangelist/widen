@@ -134,17 +134,6 @@ paths:
                 $ref: '#/components/schemas/CreateCollectionResult'
 components:
   schemas:
-    PaginatedList:
-      type: object
-      properties:
-        item_type:
-          type: string
-        total_count:
-          type: integer
-        limit:
-          type: integer
-        offset:
-          type: integer
     CreateCollectionResult:
       type: object
       properties:
@@ -196,6 +185,17 @@ components:
                   - global
                   - private
                   - shared
+    PaginatedList:
+      type: object
+      properties:
+        item_type:
+          type: string
+        total_count:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
   securitySchemes:
     bearerAuth:
       type: http

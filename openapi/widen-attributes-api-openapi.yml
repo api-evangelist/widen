@@ -68,6 +68,33 @@ paths:
                 $ref: '#/components/schemas/ListAttributeVocabularyResult'
 components:
   schemas:
+    ListAttributeVocabularyResult:
+      type: object
+      properties:
+        vocabulary:
+          type: array
+          items:
+            type: string
+    ListAttributesResult:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Attribute'
+    PaginatedList:
+      type: object
+      properties:
+        item_type:
+          type: string
+        total_count:
+          type: integer
+        limit:
+          type: integer
+        offset:
+          type: integer
     Attribute:
       type: object
       properties:
@@ -94,33 +121,6 @@ components:
           - rich_text
           - single_controlled_vocab
           - text
-    PaginatedList:
-      type: object
-      properties:
-        item_type:
-          type: string
-        total_count:
-          type: integer
-        limit:
-          type: integer
-        offset:
-          type: integer
-    ListAttributesResult:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/Attribute'
-    ListAttributeVocabularyResult:
-      type: object
-      properties:
-        vocabulary:
-          type: array
-          items:
-            type: string
   securitySchemes:
     bearerAuth:
       type: http

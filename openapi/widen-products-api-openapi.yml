@@ -410,15 +410,6 @@ paths:
                 $ref: '#/components/schemas/ListProductTypesResult'
 components:
   schemas:
-    ProductCategory:
-      type: object
-      properties:
-        name:
-          type: string
-        product_category_id:
-          type: string
-        sub_category:
-          $ref: '#/components/schemas/ProductCategory'
     PaginatedList:
       type: object
       properties:
@@ -430,54 +421,11 @@ components:
           type: integer
         offset:
           type: integer
-    ListProductCategoriesResult:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              type: object
-              properties:
-                name:
-                  type: string
-                product_category_id:
-                  type: string
-    ListProductsByChannelResult:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          channel_id:
-            type: string
-          channel_name:
-            type: string
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/GetProductResult'
-    SearchProductsResult:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          expanded:
-            type: object
-          filters:
-            type: array
-            items:
-              type: object
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/GetProductResult'
-          query:
-            type:
-            - string
-            - 'null'
-          sort:
-            type: object
+    CreateProductResult:
+      type: object
+      properties:
+        product_id:
+          type: string
     GetProductResult:
       type: object
       properties:
@@ -533,6 +481,20 @@ components:
               type: string
         sku:
           type: string
+    ListProductCategoriesResult:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                product_category_id:
+                  type: string
     ProductAttribute:
       type: object
       properties:
@@ -559,11 +521,6 @@ components:
           type: array
           items:
             type: string
-    CreateProductResult:
-      type: object
-      properties:
-        product_id:
-          type: string
     ListProductTypesResult:
       allOf:
       - $ref: '#/components/schemas/PaginatedList'
@@ -578,6 +535,49 @@ components:
                   type: string
                 product_type_id:
                   type: string
+    SearchProductsResult:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          expanded:
+            type: object
+          filters:
+            type: array
+            items:
+              type: object
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/GetProductResult'
+          query:
+            type:
+            - string
+            - 'null'
+          sort:
+            type: object
+    ProductCategory:
+      type: object
+      properties:
+        name:
+          type: string
+        product_category_id:
+          type: string
+        sub_category:
+          $ref: '#/components/schemas/ProductCategory'
+    ListProductsByChannelResult:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          channel_id:
+            type: string
+          channel_name:
+            type: string
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/GetProductResult'
   securitySchemes:
     bearerAuth:
       type: http

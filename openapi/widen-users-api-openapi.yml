@@ -68,6 +68,34 @@ paths:
                 $ref: '#/components/schemas/GetContactResult'
 components:
   schemas:
+    GetContactResult:
+      type: object
+      properties:
+        fields:
+          type: object
+          properties:
+            city:
+              $ref: '#/components/schemas/ContactField'
+            company:
+              $ref: '#/components/schemas/ContactField'
+            country:
+              $ref: '#/components/schemas/ContactField'
+            email:
+              $ref: '#/components/schemas/ContactField'
+            firstName:
+              $ref: '#/components/schemas/ContactField'
+            lastName:
+              $ref: '#/components/schemas/ContactField'
+            phone:
+              $ref: '#/components/schemas/ContactField'
+            postalCode:
+              $ref: '#/components/schemas/ContactField'
+            stateOrProvince:
+              $ref: '#/components/schemas/ContactField'
+            streetAddress:
+              $ref: '#/components/schemas/ContactField'
+        uuid:
+          type: string
     ContactField:
       type: object
       properties:
@@ -122,34 +150,6 @@ components:
           - 'null'
         username:
           type: string
-        uuid:
-          type: string
-    GetContactResult:
-      type: object
-      properties:
-        fields:
-          type: object
-          properties:
-            city:
-              $ref: '#/components/schemas/ContactField'
-            company:
-              $ref: '#/components/schemas/ContactField'
-            country:
-              $ref: '#/components/schemas/ContactField'
-            email:
-              $ref: '#/components/schemas/ContactField'
-            firstName:
-              $ref: '#/components/schemas/ContactField'
-            lastName:
-              $ref: '#/components/schemas/ContactField'
-            phone:
-              $ref: '#/components/schemas/ContactField'
-            postalCode:
-              $ref: '#/components/schemas/ContactField'
-            stateOrProvince:
-              $ref: '#/components/schemas/ContactField'
-            streetAddress:
-              $ref: '#/components/schemas/ContactField'
         uuid:
           type: string
   securitySchemes:

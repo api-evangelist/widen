@@ -187,7 +187,7 @@ paths:
                 $ref: '#/components/schemas/ListMetadataTypesResult'
 components:
   schemas:
-    MetadataFieldValue:
+    ListFieldValuesResult:
       type: object
       properties:
         _links:
@@ -195,12 +195,10 @@ components:
           properties:
             self:
               type: string
-            vocabulary:
-              type: string
-        index:
-          type: integer
-        value:
-          type: string
+        vocabulary:
+          type: array
+          items:
+            type: string
     ListViewableMetadataFieldsResult:
       type: object
       properties:
@@ -260,7 +258,7 @@ components:
                 type: string
               uuid:
                 type: string
-    ListFieldValuesResult:
+    MetadataFieldValue:
       type: object
       properties:
         _links:
@@ -268,10 +266,12 @@ components:
           properties:
             self:
               type: string
-        vocabulary:
-          type: array
-          items:
-            type: string
+            vocabulary:
+              type: string
+        index:
+          type: integer
+        value:
+          type: string
   securitySchemes:
     bearerAuth:
       type: http
