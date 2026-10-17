@@ -96,15 +96,6 @@ components:
               $ref: '#/components/schemas/ContactField'
         uuid:
           type: string
-    ContactField:
-      type: object
-      properties:
-        required:
-          type: boolean
-        value:
-          type:
-          - string
-          - 'null'
     GetUserResult:
       type: object
       properties:
@@ -152,6 +143,15 @@ components:
           type: string
         uuid:
           type: string
+    ContactField:
+      type: object
+      properties:
+        required:
+          type: boolean
+        value:
+          type:
+          - string
+          - 'null'
   securitySchemes:
     bearerAuth:
       type: http

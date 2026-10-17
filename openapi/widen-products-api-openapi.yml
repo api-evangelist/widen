@@ -410,6 +410,78 @@ paths:
                 $ref: '#/components/schemas/ListProductTypesResult'
 components:
   schemas:
+    ListProductCategoriesResult:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                product_category_id:
+                  type: string
+    ProductAttribute:
+      type: object
+      properties:
+        attribute_group:
+          type:
+          - object
+          - 'null'
+          properties:
+            attribute_group_id:
+              type: string
+            name:
+              type: string
+        attribute_id:
+          type: string
+        import_only:
+          type:
+          - boolean
+          - 'null'
+        name:
+          type: string
+        type:
+          type: string
+        values:
+          type: array
+          items:
+            type: string
+    ListProductsByChannelResult:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          channel_id:
+            type: string
+          channel_name:
+            type: string
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/GetProductResult'
+    ListProductTypesResult:
+      allOf:
+      - $ref: '#/components/schemas/PaginatedList'
+      - type: object
+        properties:
+          items:
+            type: array
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                product_type_id:
+                  type: string
+    CreateProductResult:
+      type: object
+      properties:
+        product_id:
+          type: string
     PaginatedList:
       type: object
       properties:
@@ -421,11 +493,15 @@ components:
           type: integer
         offset:
           type: integer
-    CreateProductResult:
+    ProductCategory:
       type: object
       properties:
-        product_id:
+        name:
           type: string
+        product_category_id:
+          type: string
+        sub_category:
+          $ref: '#/components/schemas/ProductCategory'
     GetProductResult:
       type: object
       properties:
@@ -481,60 +557,6 @@ components:
               type: string
         sku:
           type: string
-    ListProductCategoriesResult:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              type: object
-              properties:
-                name:
-                  type: string
-                product_category_id:
-                  type: string
-    ProductAttribute:
-      type: object
-      properties:
-        attribute_group:
-          type:
-          - object
-          - 'null'
-          properties:
-            attribute_group_id:
-              type: string
-            name:
-              type: string
-        attribute_id:
-          type: string
-        import_only:
-          type:
-          - boolean
-          - 'null'
-        name:
-          type: string
-        type:
-          type: string
-        values:
-          type: array
-          items:
-            type: string
-    ListProductTypesResult:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          items:
-            type: array
-            items:
-              type: object
-              properties:
-                name:
-                  type: string
-                product_type_id:
-                  type: string
     SearchProductsResult:
       allOf:
       - $ref: '#/components/schemas/PaginatedList'
@@ -556,28 +578,6 @@ components:
             - 'null'
           sort:
             type: object
-    ProductCategory:
-      type: object
-      properties:
-        name:
-          type: string
-        product_category_id:
-          type: string
-        sub_category:
-          $ref: '#/components/schemas/ProductCategory'
-    ListProductsByChannelResult:
-      allOf:
-      - $ref: '#/components/schemas/PaginatedList'
-      - type: object
-        properties:
-          channel_id:
-            type: string
-          channel_name:
-            type: string
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/GetProductResult'
   securitySchemes:
     bearerAuth:
       type: http

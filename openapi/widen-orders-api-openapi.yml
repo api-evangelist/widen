@@ -233,6 +233,11 @@ paths:
                 $ref: '#/components/schemas/ListConversionsForOrderResult'
 components:
   schemas:
+    Contact:
+      type: object
+      properties:
+        uuid:
+          type: string
     GetZipStatusResult:
       type: object
       properties:
@@ -248,6 +253,73 @@ components:
           type: boolean
         total:
           type: integer
+    CleanAssetsResult:
+      type: object
+      properties:
+        removedItems:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              reason:
+                type: string
+    ListConversionsForOrderResult:
+      type: object
+      properties:
+        conversions:
+          type: array
+          items:
+            type: object
+            properties:
+              approvalRequired:
+                type: boolean
+              description:
+                type:
+                - string
+                - 'null'
+              displayOrder:
+                type: integer
+              mediaType:
+                type: string
+              name:
+                type: string
+              uuid:
+                type: string
+    GetOrderDetailsResult:
+      type: object
+      properties:
+        assetsInOrder:
+          type: integer
+        conversionStatus:
+          type:
+          - string
+          - 'null'
+        datePlaced:
+          type: string
+          format: date-time
+        downloadCount:
+          type: integer
+        expirationDate:
+          type: string
+          format: date-time
+        externalPickupLink:
+          type: string
+        orderedItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
+        recipient:
+          $ref: '#/components/schemas/Contact'
+        sender:
+          $ref: '#/components/schemas/Contact'
+        sequenceNumber:
+          type: string
+        status:
+          type: string
+        uuid:
+          type: string
     OrderItem:
       type: object
       properties:
@@ -282,78 +354,6 @@ components:
                 - string
                 - 'null'
               uuid:
-                type: string
-    Contact:
-      type: object
-      properties:
-        uuid:
-          type: string
-    GetOrderDetailsResult:
-      type: object
-      properties:
-        assetsInOrder:
-          type: integer
-        conversionStatus:
-          type:
-          - string
-          - 'null'
-        datePlaced:
-          type: string
-          format: date-time
-        downloadCount:
-          type: integer
-        expirationDate:
-          type: string
-          format: date-time
-        externalPickupLink:
-          type: string
-        orderedItems:
-          type: array
-          items:
-            $ref: '#/components/schemas/OrderItem'
-        recipient:
-          $ref: '#/components/schemas/Contact'
-        sender:
-          $ref: '#/components/schemas/Contact'
-        sequenceNumber:
-          type: string
-        status:
-          type: string
-        uuid:
-          type: string
-    ListConversionsForOrderResult:
-      type: object
-      properties:
-        conversions:
-          type: array
-          items:
-            type: object
-            properties:
-              approvalRequired:
-                type: boolean
-              description:
-                type:
-                - string
-                - 'null'
-              displayOrder:
-                type: integer
-              mediaType:
-                type: string
-              name:
-                type: string
-              uuid:
-                type: string
-    CleanAssetsResult:
-      type: object
-      properties:
-        removedItems:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              reason:
                 type: string
   securitySchemes:
     bearerAuth:

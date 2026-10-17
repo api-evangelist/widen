@@ -542,6 +542,121 @@ paths:
           description: Metadata type updated
 components:
   schemas:
+    SearchAssetsResult:
+      type: object
+      properties:
+        facets:
+          type:
+          - object
+          - 'null'
+          properties:
+            categories:
+              type: array
+              items:
+                $ref: '#/components/schemas/CategoryFacet'
+            file_types:
+              type: array
+              items:
+                $ref: '#/components/schemas/FileTypeFacet'
+            metadata:
+              type: array
+              items:
+                $ref: '#/components/schemas/MetadataFacet'
+        include_archived:
+          type: boolean
+        include_deleted:
+          type: boolean
+        item_type:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetAssetResult'
+        limit:
+          type: integer
+        offset:
+          type: integer
+        query:
+          type:
+          - string
+          - 'null'
+        query_explained:
+          type: string
+        query_syntax_ok:
+          type: boolean
+        scroll_id:
+          type:
+          - string
+          - 'null'
+        scroll_timeout:
+          type:
+          - string
+          - 'null'
+        sort:
+          type: string
+        sort_explained:
+          type: string
+        total_count:
+          type: integer
+    ListVersionsResult:
+      type: object
+      properties:
+        numResults:
+          type: integer
+        uuid:
+          type: string
+        versions:
+          type: array
+          items:
+            type: object
+            properties:
+              dateAdded:
+                type: string
+                format: date-time
+              dateLastEdited:
+                type: string
+                format: date-time
+              externalId:
+                type: string
+              fileFormat:
+                type: string
+              finalized:
+                type: boolean
+              name:
+                type: string
+              previews:
+                type: object
+              size:
+                type: string
+              type:
+                type: string
+              uuid:
+                type: string
+              versionNumber:
+                type: integer
+    StartChunkedUploadResult:
+      type: object
+      properties:
+        session_id:
+          type: string
+    ThumbnailsExpand:
+      type: object
+      properties:
+        125px:
+          $ref: '#/components/schemas/Thumbnail'
+        160px:
+          $ref: '#/components/schemas/Thumbnail'
+        300px:
+          $ref: '#/components/schemas/Thumbnail'
+        600px:
+          $ref: '#/components/schemas/Thumbnail'
+        2048px:
+          $ref: '#/components/schemas/Thumbnail'
+    UploadChunkResult:
+      type: object
+      properties:
+        tag:
+          type: string
     AssetPropertiesExpand:
       type: object
       properties:
@@ -551,6 +666,27 @@ components:
           type: boolean
         popularity:
           type: integer
+    CreateAssetResult:
+      type: object
+      properties:
+        _links:
+          type: object
+          properties:
+            self:
+              type: string
+        id:
+          type:
+          - string
+          - 'null'
+    FileTypeFacet:
+      type: object
+      properties:
+        count:
+          type: integer
+        name:
+          type: string
+        search_query:
+          type: string
     GetAssetResult:
       type: object
       properties:
@@ -616,172 +752,23 @@ components:
           $ref: '#/components/schemas/ThumbnailsExpand'
         version_id:
           type: string
-    MetadataExpand:
+    SecurityExpand:
       type: object
       properties:
-        fields:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-    StartChunkedUploadResult:
-      type: object
-      properties:
-        session_id:
-          type: string
-    ThumbnailsExpand:
-      type: object
-      properties:
-        125px:
-          $ref: '#/components/schemas/Thumbnail'
-        160px:
-          $ref: '#/components/schemas/Thumbnail'
-        300px:
-          $ref: '#/components/schemas/Thumbnail'
-        600px:
-          $ref: '#/components/schemas/Thumbnail'
-        2048px:
-          $ref: '#/components/schemas/Thumbnail'
-    SearchAssetsResult:
-      type: object
-      properties:
-        facets:
-          type:
-          - object
-          - 'null'
-          properties:
-            categories:
-              type: array
-              items:
-                $ref: '#/components/schemas/CategoryFacet'
-            file_types:
-              type: array
-              items:
-                $ref: '#/components/schemas/FileTypeFacet'
-            metadata:
-              type: array
-              items:
-                $ref: '#/components/schemas/MetadataFacet'
-        include_archived:
-          type: boolean
-        include_deleted:
-          type: boolean
-        item_type:
-          type: string
-        items:
+        asset_groups:
           type: array
           items:
-            $ref: '#/components/schemas/GetAssetResult'
-        limit:
-          type: integer
-        offset:
-          type: integer
-        query:
+            type: string
+        expiration_date:
           type:
           - string
           - 'null'
-        query_explained:
-          type: string
-        query_syntax_ok:
-          type: boolean
-        scroll_id:
-          type:
-          - string
-          - 'null'
-        scroll_timeout:
-          type:
-          - string
-          - 'null'
-        sort:
-          type: string
-        sort_explained:
-          type: string
-        total_count:
-          type: integer
-    Thumbnail:
-      type: object
-      properties:
-        url:
-          type: string
-        valid_until:
-          type: string
           format: date-time
-    ListVersionsResult:
-      type: object
-      properties:
-        numResults:
-          type: integer
-        uuid:
-          type: string
-        versions:
-          type: array
-          items:
-            type: object
-            properties:
-              dateAdded:
-                type: string
-                format: date-time
-              dateLastEdited:
-                type: string
-                format: date-time
-              externalId:
-                type: string
-              fileFormat:
-                type: string
-              finalized:
-                type: boolean
-              name:
-                type: string
-              previews:
-                type: object
-              size:
-                type: string
-              type:
-                type: string
-              uuid:
-                type: string
-              versionNumber:
-                type: integer
-    CompleteChunkedUploadResult:
-      type: object
-      properties:
-        file_id:
-          type: string
-    StatusExpand:
-      type: object
-      properties:
-        upload_progress:
-          type: string
-          enum:
-          - pending
-          - verifying
-          - complete
-    ListAssetGroupsResult:
-      type: object
-      properties:
-        item_type:
-          type: string
-        items:
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              uuid:
-                type: string
-        total_count:
-          type: integer
-    FileTypeFacet:
-      type: object
-      properties:
-        count:
-          type: integer
-        name:
-          type: string
-        search_query:
-          type: string
+        release_date:
+          type:
+          - string
+          - 'null'
+          format: date-time
     FilePropertiesExpand:
       type: object
       properties:
@@ -829,18 +816,44 @@ components:
               type:
               - integer
               - 'null'
-    CreateAssetResult:
+    ListUploadProfilesResult:
+      type: array
+      items:
+        type: object
+        properties:
+          asset_groups:
+            type: array
+            items:
+              type: string
+          immediate_release:
+            type: boolean
+          metadata_type:
+            type: string
+          name:
+            type: string
+          release_date:
+            type:
+            - string
+            - 'null'
+            format: date-time
+    CategoryFacet:
       type: object
       properties:
-        _links:
-          type: object
-          properties:
-            self:
-              type: string
+        count:
+          type: integer
         id:
-          type:
-          - string
-          - 'null'
+          type: string
+        name:
+          type: string
+        path:
+          type: string
+        search_query:
+          type: string
+    CompleteChunkedUploadResult:
+      type: object
+      properties:
+        file_id:
+          type: string
     MetadataFacet:
       type: object
       properties:
@@ -863,61 +876,48 @@ components:
                 type: array
                 items:
                   type: string
-    CategoryFacet:
+    MetadataExpand:
       type: object
       properties:
-        count:
-          type: integer
-        id:
-          type: string
-        name:
-          type: string
-        path:
-          type: string
-        search_query:
-          type: string
-    SecurityExpand:
-      type: object
-      properties:
-        asset_groups:
-          type: array
-          items:
-            type: string
-        expiration_date:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        release_date:
-          type:
-          - string
-          - 'null'
-          format: date-time
-    ListUploadProfilesResult:
-      type: array
-      items:
-        type: object
-        properties:
-          asset_groups:
+        fields:
+          type: object
+          additionalProperties:
             type: array
             items:
               type: string
-          immediate_release:
-            type: boolean
-          metadata_type:
-            type: string
-          name:
-            type: string
-          release_date:
-            type:
-            - string
-            - 'null'
-            format: date-time
-    UploadChunkResult:
+    StatusExpand:
       type: object
       properties:
-        tag:
+        upload_progress:
           type: string
+          enum:
+          - pending
+          - verifying
+          - complete
+    ListAssetGroupsResult:
+      type: object
+      properties:
+        item_type:
+          type: string
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              uuid:
+                type: string
+        total_count:
+          type: integer
+    Thumbnail:
+      type: object
+      properties:
+        url:
+          type: string
+        valid_until:
+          type: string
+          format: date-time
   securitySchemes:
     bearerAuth:
       type: http

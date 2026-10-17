@@ -199,34 +199,6 @@ components:
           type: array
           items:
             type: string
-    ListViewableMetadataFieldsResult:
-      type: object
-      properties:
-        fields:
-          type: array
-          items:
-            type: object
-            properties:
-              display_key:
-                type: string
-              display_name:
-                type: string
-              field_type:
-                type: string
-                enum:
-                - checkboxes
-                - date
-                - numeric
-                - selection_list
-                - selection_list_multi
-                - text
-                - text_long
-                - text_multi_line
-                - text_short
-              metadata_types:
-                type: array
-                items:
-                  type: string
     ListMetadataTypesResult:
       type: object
       properties:
@@ -272,6 +244,34 @@ components:
           type: integer
         value:
           type: string
+    ListViewableMetadataFieldsResult:
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            type: object
+            properties:
+              display_key:
+                type: string
+              display_name:
+                type: string
+              field_type:
+                type: string
+                enum:
+                - checkboxes
+                - date
+                - numeric
+                - selection_list
+                - selection_list_multi
+                - text
+                - text_long
+                - text_multi_line
+                - text_short
+              metadata_types:
+                type: array
+                items:
+                  type: string
   securitySchemes:
     bearerAuth:
       type: http

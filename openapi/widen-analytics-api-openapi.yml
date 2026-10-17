@@ -80,51 +80,6 @@ paths:
                 $ref: '#/components/schemas/ListAssetViewsResponse'
 components:
   schemas:
-    ShareAssetEvent:
-      type: object
-      properties:
-        asset_properties:
-          $ref: '#/components/schemas/AssetProperties'
-        referrer:
-          type: string
-        timestamp:
-          type: string
-          format: date-time
-        user_properties:
-          $ref: '#/components/schemas/UserProperties'
-    FileProperties:
-      type: object
-      properties:
-        file_type:
-          type: string
-        format:
-          type: string
-        size_in_bytes:
-          type: integer
-    DateRangeFilter:
-      type: object
-      required:
-      - start
-      - end
-      - type
-      properties:
-        start:
-          type: string
-          format: date-time
-        end:
-          type: string
-          format: date-time
-        type:
-          type: string
-          enum:
-          - date_range
-    IntendedUseProperties:
-      type: object
-      properties:
-        value:
-          type:
-          - string
-          - 'null'
     DownloadAssetEvent:
       type: object
       properties:
@@ -143,6 +98,58 @@ components:
           format: date-time
         user_properties:
           $ref: '#/components/schemas/UserProperties'
+    ListAssetSharesResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ShareAssetEvent'
+        pagination_token:
+          type:
+          - string
+          - 'null'
+        total_count:
+          type: integer
+    ListAssetDownloadsResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DownloadAssetEvent'
+        pagination_token:
+          type:
+          - string
+          - 'null'
+        total_count:
+          type: integer
+    DateRangeFilter:
+      type: object
+      required:
+      - start
+      - end
+      - type
+      properties:
+        start:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+        type:
+          type: string
+          enum:
+          - date_range
+    FileProperties:
+      type: object
+      properties:
+        file_type:
+          type: string
+        format:
+          type: string
+        size_in_bytes:
+          type: integer
     ConversionProperties:
       type: object
       properties:
@@ -154,6 +161,11 @@ components:
           type:
           - string
           - 'null'
+    AssetProperties:
+      type: object
+      properties:
+        id:
+          type: string
     ViewAssetEvent:
       type: object
       properties:
@@ -170,6 +182,31 @@ components:
           format: date-time
         user_properties:
           $ref: '#/components/schemas/UserProperties'
+    ShareAssetEvent:
+      type: object
+      properties:
+        asset_properties:
+          $ref: '#/components/schemas/AssetProperties'
+        referrer:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        user_properties:
+          $ref: '#/components/schemas/UserProperties'
+    AssetFilter:
+      type: object
+      required:
+      - id
+      - type
+      properties:
+        id:
+          type: string
+          description: Asset UUID
+        type:
+          type: string
+          enum:
+          - asset
     ListAssetViewsResponse:
       type: object
       properties:
@@ -183,6 +220,13 @@ components:
           - 'null'
         total_count:
           type: integer
+    IntendedUseProperties:
+      type: object
+      properties:
+        value:
+          type:
+          - string
+          - 'null'
     AnalyticsRequestBody:
       type: object
       required:
@@ -203,37 +247,6 @@ components:
           type:
           - string
           - 'null'
-    AssetProperties:
-      type: object
-      properties:
-        id:
-          type: string
-    ListAssetSharesResponse:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/ShareAssetEvent'
-        pagination_token:
-          type:
-          - string
-          - 'null'
-        total_count:
-          type: integer
-    AssetFilter:
-      type: object
-      required:
-      - id
-      - type
-      properties:
-        id:
-          type: string
-          description: Asset UUID
-        type:
-          type: string
-          enum:
-          - asset
     UserProperties:
       type: object
       properties:
@@ -241,19 +254,6 @@ components:
           type:
           - string
           - 'null'
-    ListAssetDownloadsResponse:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/DownloadAssetEvent'
-        pagination_token:
-          type:
-          - string
-          - 'null'
-        total_count:
-          type: integer
   securitySchemes:
     bearerAuth:
       type: http

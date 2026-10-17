@@ -352,15 +352,6 @@ paths:
                   $ref: '#/components/schemas/SupportingFile'
 components:
   schemas:
-    AddDeliverableResult:
-      type: object
-      properties:
-        deliverable_id:
-          type: string
-        id:
-          type: string
-        project_id:
-          type: string
     WorkflowUser:
       type: object
       properties:
@@ -370,13 +361,20 @@ components:
           type: string
         last_name:
           type: string
-    ListDeliverablesResult:
+    AddDeliverableResult:
       type: object
       properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/GetDeliverableResult'
+        deliverable_id:
+          type: string
+        id:
+          type: string
+        project_id:
+          type: string
+    CreateProjectResult:
+      type: object
+      properties:
+        project_id:
+          type: string
     GetProjectResult:
       type: object
       properties:
@@ -421,31 +419,31 @@ components:
         start_date:
           type: string
           format: date-time
-    CreateProjectResult:
+    SupportingFile:
       type: object
       properties:
-        project_id:
-          type: string
-    UploadProofResult:
-      type: object
-      properties:
-        deliverable_id:
+        _links:
+          type: object
+          properties:
+            download:
+              type: string
+            project:
+              type: string
+            self:
+              type: string
+        format_type:
           type: string
         id:
           type: string
-        project_id:
+        name:
           type: string
-        status:
+        size_in_bytes:
+          type: integer
+        upload_date:
           type: string
-        thumbnails:
-          type: object
-          properties:
-            large:
-              type: string
-            medium:
-              type: string
-            small:
-              type: string
+          format: date-time
+        uploader:
+          $ref: '#/components/schemas/WorkflowUser'
     GetDeliverableResult:
       type: object
       properties:
@@ -497,31 +495,33 @@ components:
               type: string
             small:
               type: string
-    SupportingFile:
+    UploadProofResult:
       type: object
       properties:
-        _links:
-          type: object
-          properties:
-            download:
-              type: string
-            project:
-              type: string
-            self:
-              type: string
-        format_type:
+        deliverable_id:
           type: string
         id:
           type: string
-        name:
+        project_id:
           type: string
-        size_in_bytes:
-          type: integer
-        upload_date:
+        status:
           type: string
-          format: date-time
-        uploader:
-          $ref: '#/components/schemas/WorkflowUser'
+        thumbnails:
+          type: object
+          properties:
+            large:
+              type: string
+            medium:
+              type: string
+            small:
+              type: string
+    ListDeliverablesResult:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/GetDeliverableResult'
   securitySchemes:
     bearerAuth:
       type: http
